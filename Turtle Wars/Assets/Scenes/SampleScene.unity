@@ -593,7 +593,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1012389392}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 27, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1000, y: 20, z: 1000}
   m_Children: []
   m_Father: {fileID: 0}
@@ -959,9 +959,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ffffa0f9de269947a84611eb9307820, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pfFriendlyWarrior: {fileID: 5967004735080742027, guid: 01c395ed792460c43a74633e268e1eb4,
+  pfFriendlyWarrior: {fileID: 7632876236614268468, guid: b361687559ab217458432d2247e275fb,
     type: 3}
-  pfEnemyyWarrior: {fileID: 5967004735080742027, guid: 01c395ed792460c43a74633e268e1eb4,
+  pfEnemyyWarrior: {fileID: 7632876236614268468, guid: b361687559ab217458432d2247e275fb,
     type: 3}
 --- !u!4 &1922200643
 Transform:
@@ -995,7 +995,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &2123305877
 BoxCollider:
   m_ObjectHideFlags: 0
