@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +7,7 @@ public class CameraPan : MonoBehaviour
 
     public float panSpeed;
 
-    private float panDetect = 15f;
+    private float panDetect = 80f;
 
 
     // Start is called before the first frame update
@@ -27,7 +27,7 @@ public class CameraPan : MonoBehaviour
     void MoveCamera()
     {
         float moveX = Camera.main.transform.position.x;
-        float moveZ = Camera.main.transform.position.y;
+        float moveZ = Camera.main.transform.position.z;
 
         float xPos = Input.mousePosition.x;
         float yPos = Input.mousePosition.y;
@@ -50,7 +50,7 @@ public class CameraPan : MonoBehaviour
             moveZ -= panSpeed;
         }
 
-        Vector3 newPos = new Vector3(moveX, 0, moveZ);
+        Vector3 newPos = new Vector3(moveX, 160, moveZ);
         Camera.main.transform.position = newPos;
     }
 }
