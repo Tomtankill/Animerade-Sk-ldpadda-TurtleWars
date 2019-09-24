@@ -6,25 +6,32 @@ public class GameHandler : MonoBehaviour
 {
 
     [SerializeField] private Transform buildingPrefab;
-    [SerializeField] private Transform pfEnemyyWarrior;
+    [SerializeField] private Transform friendlyUnit;
     private GameObject theBuildingThing;
 
     private GameObject childObj;
     private bool building;
+    private bool barackIsBuild;
     private IEnumerator fade;
     private float timmer;
     // Start is called before the first frame update
     void Start()
     {
         building = true;
-        StartCoroutine("Fade");
         buildingPrefab.transform.Find("Child Name");
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartCoroutine("Fade");
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            SpawnUnits();
+        }
     }
 
     IEnumerator Fade()
@@ -55,6 +62,7 @@ public class GameHandler : MonoBehaviour
             theBuildingThing.transform.GetChild(0).gameObject.SetActive(false);
             theBuildingThing.transform.GetChild(1).gameObject.SetActive(false);
             theBuildingThing.transform.GetChild(2).gameObject.SetActive(true);
+            barackIsBuild = true;
             yield return new WaitForSeconds(5f);
             print("I have done the thing");
         }
@@ -63,9 +71,12 @@ public class GameHandler : MonoBehaviour
 
     private void SpawnUnits()
     {
-        for (int i =0; i < 5; i++)
+        if (barackIsBuild == true)
         {
-            
+            print("This works");
+            Instantiate(friendlyUnit, new Vector3(21, 13), Quaternion.identity);
+            // add rotation so it's not laying down
         }
+            
     }
 }
