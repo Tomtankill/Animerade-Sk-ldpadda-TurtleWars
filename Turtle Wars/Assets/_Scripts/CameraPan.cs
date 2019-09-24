@@ -7,7 +7,7 @@ public class CameraPan : MonoBehaviour
 
     public float panSpeed;
 
-    private float panDetect = 80f;
+    private float panDetect = 50f;
 
 
     // Start is called before the first frame update
