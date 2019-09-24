@@ -5,8 +5,9 @@ using UnityEngine;
 public class GameHandler : MonoBehaviour
 {
 
-    [SerializeField] private Transform pfFriendlyWarrior;
+    [SerializeField] private Transform buildingPrefab;
     [SerializeField] private Transform pfEnemyyWarrior;
+    private GameObject theBuildingThing;
 
     private GameObject childObj;
     private bool building;
@@ -17,7 +18,7 @@ public class GameHandler : MonoBehaviour
     {
         building = true;
         StartCoroutine("Fade");
-        pfFriendlyWarrior.transform.Find("Child Name");
+        buildingPrefab.transform.Find("Child Name");
     }
 
     // Update is called once per frame
@@ -28,31 +29,32 @@ public class GameHandler : MonoBehaviour
 
     IEnumerator Fade()
     {
-        Instantiate(pfFriendlyWarrior, new Vector3(20, 10), Quaternion.identity);
-
+        Instantiate(buildingPrefab, new Vector3(20, 13), Quaternion.identity);
+        theBuildingThing = GameObject.Find("Building(Clone)");
         if (building == true)
         {
             print("me live");
-            print(pfFriendlyWarrior.GetChild(0).name);
-            print(pfFriendlyWarrior.GetChild(1).name);
-            print(pfFriendlyWarrior.GetChild(2).name);
-            pfFriendlyWarrior.transform.GetChild(1).gameObject.SetActive(true);
+            print(theBuildingThing.name);
+            theBuildingThing.transform.GetChild(0).gameObject.SetActive(true);
+            theBuildingThing.transform.GetChild(1).gameObject.SetActive(false);
+            theBuildingThing.transform.GetChild(2).gameObject.SetActive(false);
             yield return new WaitForSeconds(5f);
         }
 
         if (building == true)
         {
-            pfFriendlyWarrior.transform.GetChild(0).gameObject.SetActive(false);
-            pfFriendlyWarrior.transform.GetChild(1).gameObject.SetActive(true);
+            theBuildingThing.transform.GetChild(0).gameObject.SetActive(false);
+            theBuildingThing.transform.GetChild(1).gameObject.SetActive(true);
+            theBuildingThing.transform.GetChild(2).gameObject.SetActive(false);
             yield return new WaitForSeconds(5f);
             print("I do my thing");
         }
 
         if (building == true)
         {
-            pfFriendlyWarrior.transform.GetChild(0).gameObject.SetActive(false);
-            pfFriendlyWarrior.transform.GetChild(1).gameObject.SetActive(false);
-            pfFriendlyWarrior.transform.GetChild(2).gameObject.SetActive(true);
+            theBuildingThing.transform.GetChild(0).gameObject.SetActive(false);
+            theBuildingThing.transform.GetChild(1).gameObject.SetActive(false);
+            theBuildingThing.transform.GetChild(2).gameObject.SetActive(true);
             yield return new WaitForSeconds(5f);
             print("I have done the thing");
         }

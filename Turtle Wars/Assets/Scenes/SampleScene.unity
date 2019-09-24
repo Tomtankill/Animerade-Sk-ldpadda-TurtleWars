@@ -959,7 +959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ffffa0f9de269947a84611eb9307820, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pfFriendlyWarrior: {fileID: 7632876236614268468, guid: b361687559ab217458432d2247e275fb,
+  buildingPrefab: {fileID: 7632876236614268468, guid: b361687559ab217458432d2247e275fb,
     type: 3}
   pfEnemyyWarrior: {fileID: 7632876236614268468, guid: b361687559ab217458432d2247e275fb,
     type: 3}

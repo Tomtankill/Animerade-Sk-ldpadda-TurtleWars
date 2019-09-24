@@ -50,7 +50,7 @@ public class CameraPan : MonoBehaviour
             moveZ -= panSpeed;
         }
 
-        Vector3 newPos = new Vector3(moveX, 160, moveZ);
+        Vector3 newPos = new Vector3(moveX, 80, moveZ);
         Camera.main.transform.position = newPos;
     }
 }
