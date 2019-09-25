@@ -9,18 +9,17 @@ public class GameHandler : MonoBehaviour
     [SerializeField] private Transform friendlyUnit;
     private GameObject theBuildingThing;
 
-    private GameObject childObj;
     private bool building;
     private bool barackIsBuild;
-    private IEnumerator fade;
-    private float timmer;
+    private GameObject spawnPoint;
+
+
     // Start is called before the first frame update
     void Start()
     {
         building = true;
-        buildingPrefab.transform.Find("Child Name");
-    }
 
+    }
     // Update is called once per frame
     void Update()
     {
@@ -73,9 +72,9 @@ public class GameHandler : MonoBehaviour
     {
         if (barackIsBuild == true)
         {
+            spawnPoint = GameObject.Find("EGO SpawnPoint");
             print("This works");
-            Instantiate(friendlyUnit, new Vector3(21, 13), Quaternion.identity);
-            // add rotation so it's not laying down
+            Instantiate(friendlyUnit, spawnPoint.transform.position, Quaternion.Euler(0f, 180f, 0f));
         }
             
     }
