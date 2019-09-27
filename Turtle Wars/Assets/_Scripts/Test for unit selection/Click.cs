@@ -7,60 +7,86 @@ public class Click : MonoBehaviour
 
     [SerializeField] private LayerMask clickableLayer;
 
-    private List<GameObject> selectedObjects;
+    private List<Units> selectedObjects;
 
+    public Transform moveThisHere;
     void Start()
     {
-        selectedObjects = new List<GameObject>();
+        selectedObjects = new List<Units>();
     }
     // Update is called once per frame
     void Update()
     {
+        Vector3 mouse = Input.mousePosition;
+        Ray rayHiting = Camera.main.ScreenPointToRay(mouse);
         // raycast on left click
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit rayHit;
+            
 
             // if raycast hits object with layer clickableLayer run function
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayHit,Mathf.Infinity, clickableLayer))
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayHit,Mathf.Infinity))
+                
             {
-                ClickOn clickOnScript = rayHit.collider.GetComponent<ClickOn>();
-
-                if (Input.GetKey("left ctrl"))
+                if (rayHit.collider.GetComponent<Units>())
                 {
-                    // adds object to list
-                    if(clickOnScript.currentlySelected == false)
+                    Units unit = rayHit.collider.GetComponent<Units>();
+
+                    if (Input.GetKey("left ctrl"))
                     {
-                        selectedObjects.Add(rayHit.collider.gameObject);
-                        clickOnScript.currentlySelected = true;
-                        clickOnScript.ClickMe();
+                        // adds object to list
+                        if (unit.currentlySelected == false)
+                        {
+                            selectedObjects.Add(rayHit.collider.GetComponent<Units>());
+                            unit.currentlySelected = true;
+                            unit.ClickMe();
+                        }
+                        // removes object from list
+                        else
+                        {
+                            selectedObjects.Remove(rayHit.collider.GetComponent<Units>());
+                            unit.currentlySelected = false;
+                            unit.ClickMe();
+                        }
                     }
-                    // removes object from list
+
+                    // deselects object 
                     else
                     {
-                        selectedObjects.Remove(rayHit.collider.gameObject);
-                        clickOnScript.currentlySelected = false;
-                        clickOnScript.ClickMe();
+                        if (selectedObjects.Count > 0)
+                        {
+                            foreach (Units obj in selectedObjects)
+                            {
+                                obj.GetComponent<Units>().currentlySelected = false;
+                                obj.GetComponent<Units>().ClickMe();
+                            }
+
+                            selectedObjects.Clear();
+                        }
+
+                        selectedObjects.Add(rayHit.collider.GetComponent<Units>());
+                        unit.currentlySelected = true;
+                        unit.ClickMe();
                     }
                 }
 
-                // deselects object 
-                else
+            }
+        }
+
+        // move to
+        if (Input.GetMouseButtonDown(1))
+        {
+            RaycastHit rayHit;
+            if (selectedObjects.Count == 0)
+            {
+                return;
+            }
+            if ((Physics.Raycast(rayHiting, out rayHit, Mathf.Infinity, clickableLayer)))
+            {
+                foreach (Units units in selectedObjects)
                 {
-                    if(selectedObjects.Count > 0)
-                    {
-                        foreach (GameObject obj in selectedObjects)
-                        {
-                            obj.GetComponent<ClickOn>().currentlySelected = false;
-                            obj.GetComponent<ClickOn>().ClickMe();
-                        }
-
-                        selectedObjects.Clear();
-                    }
-
-                    selectedObjects.Add(rayHit.collider.gameObject);
-                    clickOnScript.currentlySelected = true;
-                    clickOnScript.ClickMe();
+                    units.MoveToTarget(rayHit.point);
                 }
             }
         }
