@@ -13,7 +13,6 @@ public class GameHandler : MonoBehaviour
     private bool barackIsBuild;
     private GameObject spawnPoint;
 
-
     // Start is called before the first frame update
     void Start()
     {

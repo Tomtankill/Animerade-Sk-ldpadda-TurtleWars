@@ -33,42 +33,50 @@ public class Click : MonoBehaviour
                 {
                     Units unit = rayHit.collider.GetComponent<Units>();
 
-                    if (Input.GetKey("left ctrl"))
+                    if (rayHit.collider.CompareTag("Friendly"))
                     {
-                        // adds object to list
-                        if (unit.currentlySelected == false)
+                        if (Input.GetKey("left ctrl"))
                         {
+                            // adds object to list
+                            if (unit.currentlySelected == false)
+                            {
+                                selectedObjects.Add(rayHit.collider.GetComponent<Units>());
+                                unit.currentlySelected = true;
+                                unit.ClickMe();
+                            }
+                            // removes object from list
+                            else
+                            {
+                                selectedObjects.Remove(rayHit.collider.GetComponent<Units>());
+                                unit.currentlySelected = false;
+                                unit.ClickMe();
+                            }
+                        }
+
+                        // deselects object 
+                        else
+                        {
+                            if (selectedObjects.Count > 0)
+                            {
+                                foreach (Units obj in selectedObjects)
+                                {
+                                    obj.GetComponent<Units>().currentlySelected = false;
+                                    obj.GetComponent<Units>().ClickMe();
+                                }
+
+                                selectedObjects.Clear();
+                            }
+
                             selectedObjects.Add(rayHit.collider.GetComponent<Units>());
                             unit.currentlySelected = true;
                             unit.ClickMe();
                         }
-                        // removes object from list
-                        else
-                        {
-                            selectedObjects.Remove(rayHit.collider.GetComponent<Units>());
-                            unit.currentlySelected = false;
-                            unit.ClickMe();
-                        }
                     }
-
-                    // deselects object 
                     else
                     {
-                        if (selectedObjects.Count > 0)
-                        {
-                            foreach (Units obj in selectedObjects)
-                            {
-                                obj.GetComponent<Units>().currentlySelected = false;
-                                obj.GetComponent<Units>().ClickMe();
-                            }
-
-                            selectedObjects.Clear();
-                        }
-
-                        selectedObjects.Add(rayHit.collider.GetComponent<Units>());
-                        unit.currentlySelected = true;
-                        unit.ClickMe();
+                        return;
                     }
+                    
                 }
 
             }
@@ -89,6 +97,10 @@ public class Click : MonoBehaviour
                     units.MoveToTarget(rayHit.point);
                 }
             }
+            //if (rayHit.collider.CompareTag("Enemy"))
+            //{
+                
+            //}
         }
     }
 }
