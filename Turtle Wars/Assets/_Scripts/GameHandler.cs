@@ -24,7 +24,8 @@ public class GameHandler : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine("Fade");
+            //StartCoroutine("Fade");
+            //Fade();
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -32,42 +33,42 @@ public class GameHandler : MonoBehaviour
         }
     }
 
-    IEnumerator Fade()
-    {
-        Instantiate(buildingPrefab, new Vector3(20, 13), Quaternion.identity);
-        theBuildingThing = GameObject.Find("Building(Clone)");
-        if (building == true)
-        {
-            print("me live");
-            print(theBuildingThing.name);
-            theBuildingThing.transform.GetChild(0).gameObject.SetActive(true);
-            theBuildingThing.transform.GetChild(1).gameObject.SetActive(false);
-            theBuildingThing.transform.GetChild(2).gameObject.SetActive(false);
-            yield return new WaitForSeconds(5f);
-        }
+    //public void Fade()
+    //{
+    //    Instantiate(buildingPrefab, new Vector3(20, 13), Quaternion.identity);
+    //    theBuildingThing = GameObject.Find("Building(Clone)");
+    //    if (building == true)
+    //    {
+    //        print("me live");
+    //        print(theBuildingThing.name);
+    //        theBuildingThing.transform.GetChild(0).gameObject.SetActive(true);
+    //        theBuildingThing.transform.GetChild(1).gameObject.SetActive(false);
+    //        theBuildingThing.transform.GetChild(2).gameObject.SetActive(false);
+    //        yield return new WaitForSeconds(5f);
+    //    }
 
-        if (building == true)
-        {
-            theBuildingThing.transform.GetChild(0).gameObject.SetActive(false);
-            theBuildingThing.transform.GetChild(1).gameObject.SetActive(true);
-            theBuildingThing.transform.GetChild(2).gameObject.SetActive(false);
-            yield return new WaitForSeconds(5f);
-            print("I do my thing");
-        }
+    //    if (building == true)
+    //    {
+    //        theBuildingThing.transform.GetChild(0).gameObject.SetActive(false);
+    //        theBuildingThing.transform.GetChild(1).gameObject.SetActive(true);
+    //        theBuildingThing.transform.GetChild(2).gameObject.SetActive(false);
+    //        yield return new WaitForSeconds(5f);
+    //        print("I do my thing");
+    //    }
 
-        if (building == true)
-        {
-            theBuildingThing.transform.GetChild(0).gameObject.SetActive(false);
-            theBuildingThing.transform.GetChild(1).gameObject.SetActive(false);
-            theBuildingThing.transform.GetChild(2).gameObject.SetActive(true);
-            barackIsBuild = true;
-            yield return new WaitForSeconds(5f);
-            print("I have done the thing");
-        }
-    }
+    //    if (building == true)
+    //    {
+    //        theBuildingThing.transform.GetChild(0).gameObject.SetActive(false);
+    //        theBuildingThing.transform.GetChild(1).gameObject.SetActive(false);
+    //        theBuildingThing.transform.GetChild(2).gameObject.SetActive(true);
+    //        barackIsBuild = true;
+    //        yield return new WaitForSeconds(5f);
+    //        print("I have done the thing");
+    //    }
+    //}
 
 
-    private void SpawnUnits()
+    public void SpawnUnits()
     {
         if (barackIsBuild == true)
         {
