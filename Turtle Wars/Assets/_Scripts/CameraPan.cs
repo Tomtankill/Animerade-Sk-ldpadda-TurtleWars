@@ -9,7 +9,7 @@ public class CameraPan : MonoBehaviour
     // Adjustable variable for Y movement
     public float scrollSpeed;
     // Defines the distance from the edge of the screen the cursor has to be
-    private readonly float panDetect = 50f;
+    private float panDetect;
     // Ensures that the 2 cameras don't lock the player into the one spot
     private bool transition = true;
     // Sets initial click point
@@ -21,11 +21,11 @@ public class CameraPan : MonoBehaviour
     private bool moveDisable = false;
     // Sets bool that disables dragCamera whilst moveCamera is active
     private bool dragDisable = false;
-    
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        panDetect = Screen.width * 0.1f;
     }
 
     // Update is called once per frame

@@ -4,53 +4,114 @@ using UnityEngine;
 
 public class buildBuildings : MonoBehaviour
 {
-    [SerializeField] private Transform buildingPrefab;
-    [SerializeField] private Transform friendlyUnit;
-    private GameObject theBuildingThing;
+    // Variables
+    private GameObject building;
 
-    private bool building;
-    private bool barackIsBuild;
-    private GameObject spawnPoint;
+    public GameObject townHallPrefab;
+    public GameObject barracksPrefab;
+    public GameObject armoryPrefab;
+    public GameObject towerPrefab;
+
+    Vector3 worldMousePos;
+
+    private int townhallCount = 0;
+    private int barracksCount = 0;
+    private int armoryCount = 0;
+    private int towerCount = 0;
+    private int count = 0;
+    private new string name;
+
+    bool buildMode;
+    public GameObject ghost;
 
     // Start is called before the first frame update
     void Start()
     {
-        GrowBuilding();
+        ghost = Instantiate(ghost, Vector3.zero * 500, Quaternion.identity);
     }
 
-    // Update is called once per frame
+    public void TownHall()
+    {
+        NameBuilding(townHallPrefab, townhallCount, "Townhall");
+    }
+
+    public void Barracks() 
+    {
+        NameBuilding(barracksPrefab, barracksCount, "Barracks");
+    }
+
+    public void Armory()
+    {
+        NameBuilding(armoryPrefab, armoryCount, "Armory");
+    }
+
+    public void Tower()
+    {
+        NameBuilding(towerPrefab, towerCount, "Tower");
+    }
+
+    public void NameBuilding(GameObject setBuilding, int setCount, string setName)
+    {
+        building = setBuilding;
+        count = setCount;
+        name = setName;
+
+        buildMode = true;
+    }
     void Update()
     {
-        
-    }
-    
-    // fix this Linus!!!!!!
-    public void GrowBuilding() {
-        Instantiate(buildingPrefab, new Vector3(20, 13), Quaternion.identity);
-        theBuildingThing = GameObject.Find("Building(Clone)");
+        if (buildMode)
+        {
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity))
+            {
+                if (hit.transform.CompareTag("Ground"))
+                {
+                    ghost.transform.position = hit.point;
 
-        print(theBuildingThing.name);
-        theBuildingThing.transform.GetChild(0).gameObject.SetActive(true);
-        theBuildingThing.transform.GetChild(1).gameObject.SetActive(false);
-        theBuildingThing.transform.GetChild(2).gameObject.SetActive(false);
-        print("me live");
-        new WaitForSeconds(5f);
-        
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        worldMousePos = hit.point;
+                        GameObject go = Instantiate(building, worldMousePos, Quaternion.identity);
+                        go.name = name + count;
+                        count++;
 
-        theBuildingThing.transform.GetChild(0).gameObject.SetActive(false);
-        theBuildingThing.transform.GetChild(1).gameObject.SetActive(true);
-        theBuildingThing.transform.GetChild(2).gameObject.SetActive(false);
-        print("I do my thing");
-        new WaitForSeconds(5f);
-
-
-        theBuildingThing.transform.GetChild(0).gameObject.SetActive(false);
-        theBuildingThing.transform.GetChild(1).gameObject.SetActive(false);
-        theBuildingThing.transform.GetChild(2).gameObject.SetActive(true);
-        barackIsBuild = true;
-        print("I have done the thing");
-        new WaitForSeconds(5f);
-
-        
+                        buildMode = false;
+                    }
+                }
+                else
+                {
+                    ghost.transform.position = Vector3.one * 500;
+                }
+            }
+        }
     }
 }
+
+
+//BuildBuildings
+
+//building = prefab
+//TownhallCount = 0
+//BarracksCount = 0
+//ArmouryCount = 0
+//TowerCount = 0
+//Name = string
+
+//Town Hall
+//building = Town Hall Prefab
+//name = TownHall
+//call NameBuilding
+
+
+//Method NameBuilding()
+
+//    TownhallCount + 1
+//	make building with name of building name + i
+
+//End Method
+
+
+//Method Build
+
+
+//End Method
