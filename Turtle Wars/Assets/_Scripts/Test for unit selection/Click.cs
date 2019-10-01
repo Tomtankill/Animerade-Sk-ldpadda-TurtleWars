@@ -25,7 +25,6 @@ public class Click : MonoBehaviour
             RaycastHit rayHit;
             
 
-            // if raycast hits object with layer clickableLayer run function
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayHit,Mathf.Infinity))
                 
             {
