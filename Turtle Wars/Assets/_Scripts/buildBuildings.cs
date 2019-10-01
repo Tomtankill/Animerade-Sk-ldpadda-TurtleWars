@@ -27,7 +27,7 @@ public class buildBuildings : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ghost = Instantiate(ghost, Vector3.zero * 500, Quaternion.identity);
+        ghost = Instantiate(ghost, Vector3.zero * 1000, Quaternion.identity);
     }
 
     public void TownHall()
@@ -76,42 +76,15 @@ public class buildBuildings : MonoBehaviour
                         count++;
 
                         buildMode = false;
+
+                        ghost.transform.position = Vector3.zero * 1000;
                     }
                 }
                 else
                 {
-                    ghost.transform.position = Vector3.one * 500;
+                    ghost.transform.position = Vector3.one * 1000;
                 }
             }
         }
     }
 }
-
-
-//BuildBuildings
-
-//building = prefab
-//TownhallCount = 0
-//BarracksCount = 0
-//ArmouryCount = 0
-//TowerCount = 0
-//Name = string
-
-//Town Hall
-//building = Town Hall Prefab
-//name = TownHall
-//call NameBuilding
-
-
-//Method NameBuilding()
-
-//    TownhallCount + 1
-//	make building with name of building name + i
-
-//End Method
-
-
-//Method Build
-
-
-//End Method
