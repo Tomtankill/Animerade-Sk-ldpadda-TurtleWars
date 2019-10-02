@@ -29,6 +29,9 @@ public class Units : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         myRend = GetComponent<MeshRenderer>();
+
+        // may not work
+        Camera.main.gameObject.GetComponent<Click>().selectableObjects.Add(this);
         unitList.Add(this);
         attackTimer = 2.0f;
     }

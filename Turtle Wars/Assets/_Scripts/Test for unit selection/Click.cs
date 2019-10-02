@@ -9,19 +9,32 @@ public class Click : MonoBehaviour
 
     private List<Units> selectedObjects;
 
+    [HideInInspector] public List<Units> selectableObjects;
+
+
+    private Vector3 mousePos1;
+    private Vector3 mousePos2;
     public Transform moveThisHere;
-    void Start()
+    void Awake()
     {
         selectedObjects = new List<Units>();
+        selectableObjects = new List<Units>();
     }
     // Update is called once per frame
     void Update()
     {
         Vector3 mouse = Input.mousePosition;
         Ray rayHiting = Camera.main.ScreenPointToRay(mouse);
-        // raycast on left click
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            ClearSelection();
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
+            mousePos1 = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+
             RaycastHit rayHit;
             
 
@@ -55,16 +68,7 @@ public class Click : MonoBehaviour
                         // deselects object 
                         else
                         {
-                            if (selectedObjects.Count > 0)
-                            {
-                                foreach (Units obj in selectedObjects)
-                                {
-                                    obj.GetComponent<Units>().currentlySelected = false;
-                                    obj.GetComponent<Units>().ClickMe();
-                                }
-
-                                selectedObjects.Clear();
-                            }
+                            ClearSelection();
 
                             selectedObjects.Add(rayHit.collider.GetComponent<Units>());
                             unit.currentlySelected = true;
@@ -81,6 +85,15 @@ public class Click : MonoBehaviour
             }
         }
 
+        if (Input.GetMouseButtonUp(0))
+        {
+            mousePos2 = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+
+            if(mousePos1 != mousePos2)
+            {
+                SelectedObjects();
+            }
+        }
         // move to
         if (Input.GetMouseButtonDown(1))
         {
@@ -101,5 +114,59 @@ public class Click : MonoBehaviour
                 
             //}
         }
+    }
+
+    void SelectedObjects()
+    {
+        List<Units> remObjects = new List<Units>();
+
+        if(Input.GetKey("left ctrl") == false)
+        {
+            ClearSelection();
+        }
+
+        Rect selectedRect = new Rect(mousePos1.x, mousePos1.y, mousePos2.x - mousePos1.x, mousePos2.y - mousePos1.y);
+
+        foreach (Units selectObject in selectableObjects)
+        {
+            if (selectObject != null)
+            {
+                if (selectedRect.Contains(Camera.main.WorldToViewportPoint(selectObject.transform.position), true))
+                {
+                    selectedObjects.Add(selectObject);
+                    selectObject.GetComponent<Units>().currentlySelected = true;
+                    selectObject.GetComponent<Units>().ClickMe();
+                }
+            }
+            else
+            {
+                remObjects.Add(selectObject);
+            }
+        }
+
+        if(remObjects.Count > 0)
+        {
+            foreach(Units rem in remObjects)
+            {
+                selectableObjects.Remove(rem);
+            }
+        }
+    }
+
+    void ClearSelection()
+    {
+        if (selectedObjects.Count > 0)
+        {
+            foreach (Units obj in selectedObjects)
+            {
+                if(obj != null)
+                {
+                    obj.GetComponent<Units>().currentlySelected = false;
+                    obj.GetComponent<Units>().ClickMe();
+                }
+            }
+        }
+
+        selectedObjects.Clear();
     }
 }
