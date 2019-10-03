@@ -65,6 +65,11 @@ public class Click : MonoBehaviour
                             }
                         }
 
+                        if (rayHit.collider.CompareTag("Enemy"))
+                        {
+                            // set state to combat
+                        }
+
                         // deselects object 
                         else
                         {
@@ -81,6 +86,8 @@ public class Click : MonoBehaviour
                     }
                     
                 }
+
+                
 
             }
         }

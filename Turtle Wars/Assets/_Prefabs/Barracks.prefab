@@ -123,7 +123,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4789505622d0d6b48976f1c71360ec40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthUI: {fileID: 0}
+  buildingGrow: 0
+  buildingRender: {fileID: 0}
+  currentHealth: 0
+  maxHealth: 0
+  checkPointOne: 0
+  checkPointTwo: 0
+  checkPointThree: 0
+  red: {fileID: 2100000, guid: 2917bb85f5ad2084596bac12082c8f63, type: 2}
+  yellow: {fileID: 2100000, guid: 174c774f1fdd9b8448c44bed96f15d31, type: 2}
+  green: {fileID: 2100000, guid: d6ff0e9482cc6a142bde6ffc9fbafcea, type: 2}
 --- !u!65 &7263452887273768164
 BoxCollider:
   m_ObjectHideFlags: 0
