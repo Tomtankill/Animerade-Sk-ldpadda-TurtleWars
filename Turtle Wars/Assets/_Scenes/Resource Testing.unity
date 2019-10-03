@@ -716,14 +716,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de1f2fed173afa649b75bccf4edee101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  townHallPrefab: {fileID: 8380631399607511808, guid: 7bdbb57a452f61b42a51be12fe9864b7,
+  commander: {fileID: 771419713}
+  healthUpgradeAmount: 200
+  townHallPrefab: {fileID: 7378642872838502491, guid: 7bdbb57a452f61b42a51be12fe9864b7,
     type: 3}
-  barracksPrefab: {fileID: 7632876236614268471, guid: b361687559ab217458432d2247e275fb,
+  barracksPrefab: {fileID: 7263452887273768162, guid: b361687559ab217458432d2247e275fb,
     type: 3}
-  armoryPrefab: {fileID: 19248845118016319, guid: 9cef3628b0329bb4e90eb27b32643861,
+  armoryPrefab: {fileID: 3183924504293270306, guid: 9cef3628b0329bb4e90eb27b32643861,
     type: 3}
   towerPrefab: {fileID: 522610800293448684, guid: a8a7032d00672af4587f4acb6bf7f761,
     type: 3}
+  masterBuildingList: []
+  townHallList: []
+  barracksList: []
+  armoryList: []
+  towerList: []
   ghost: {fileID: 6915492543473789762, guid: 86dbc12d958c453489deed6ba78a491e, type: 3}
 --- !u!4 &771419715
 Transform:
@@ -1620,11 +1627,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7915001195625636623, guid: b049cf16e386d25468e4f01f3e2c2c89,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b049cf16e386d25468e4f01f3e2c2c89, type: 3}

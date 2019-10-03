@@ -7,18 +7,32 @@ public class buildBuildings : MonoBehaviour
     // Variables
     private GameObject building;
 
+    public GameObject commander;
+
+    [SerializeField] private int healthUpgradeAmount = 200;
+
     public GameObject townHallPrefab;
     public GameObject barracksPrefab;
     public GameObject armoryPrefab;
     public GameObject towerPrefab;
+    
+
+    public List<GameObject> masterBuildingList = new List<GameObject>();
+    public List<GameObject> townHallList = new List<GameObject>();
+    public List<GameObject> barracksList = new List<GameObject>();
+    public List<GameObject> armoryList = new List<GameObject>();
+    public List<GameObject> towerList = new List<GameObject>();
+
+    
 
     Vector3 worldMousePos;
 
     private int townhallCount = 0;
-    private int barracksCount = 0;
+    private int barracksCount = 0;  
     private int armoryCount = 0;
     private int towerCount = 0;
     private int count = 0;
+
     private new string name;
 
     bool buildMode;
@@ -33,23 +47,41 @@ public class buildBuildings : MonoBehaviour
     public void TownHall()
     {
         NameBuilding(townHallPrefab, townhallCount, "Townhall");
+        townhallCount++;
     }
 
     public void Barracks() 
     {
         NameBuilding(barracksPrefab, barracksCount, "Barracks");
+        barracksCount++;
     }
 
     public void Armory()
     {
         NameBuilding(armoryPrefab, armoryCount, "Armory");
+        armoryCount++;
     }
 
     public void Tower()
     {
         NameBuilding(towerPrefab, towerCount, "Tower");
+        towerCount++;
     }
 
+
+    //HEALTHUPGRADE GOES ON A DIFFERENT SCRIPT
+
+    public void HealthUpgrade()
+    {
+        for (int i = 0; i < commander.GetComponent<buildBuildings>().barracksList.Count; i++)
+        {
+            barracksList[i].GetComponent<Hello>().maxHealth += healthUpgradeAmount;
+            barracksList[i].GetComponent<Hello>().currentHealth += healthUpgradeAmount;
+        }
+        
+    }
+
+    
     public void NameBuilding(GameObject setBuilding, int setCount, string setName)
     {
         building = setBuilding;
@@ -72,8 +104,7 @@ public class buildBuildings : MonoBehaviour
                     {
                         worldMousePos = hit.point;
                         GameObject go = Instantiate(building, worldMousePos, Quaternion.identity);
-                        go.name = name + count;
-                        count++;
+                        go.name = name + count.ToString();
 
                         buildMode = false;
 
