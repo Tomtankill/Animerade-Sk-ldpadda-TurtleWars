@@ -9,8 +9,8 @@ public class Units : MonoBehaviour
     private static List<Units> unitList = new List<Units>();
     private NavMeshAgent agent;
     // units stats
-    [SerializeField] public int health;
-    [SerializeField] private int attack;
+    float health = 100;
+    float maxhealth = 100;
 
     [SerializeField] private Material red;
     [SerializeField] private Material green;
@@ -20,9 +20,20 @@ public class Units : MonoBehaviour
     [HideInInspector] public bool currentlySelected = false;
     [SerializeField] private bool isEnemy;
 
-    private float attackTimer;
+    public float atkRange;
+    public float attackDamage;
+    public float attackTimer;
+    bool attacking;
 
+    public GameObject target;
 
+    public State state;
+    public enum State
+    {
+        Idle,
+        Gathering,
+        Attack
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -33,39 +44,58 @@ public class Units : MonoBehaviour
         // may not work
         Camera.main.gameObject.GetComponent<Click>().selectableObjects.Add(this);
         unitList.Add(this);
-        attackTimer = 2.0f;
+        state = State.Idle;
     }
 
-    Transform GetClosestEnemy(Transform[] enemies)
-    {
-        Transform tMin = null;
-        float minDist = Mathf.Infinity;
-        Vector3 currentPos = transform.position;
-        foreach (Transform t in enemies)
-        {
-            float dist = Vector3.Distance(t.position, currentPos);
-            if(dist < minDist)
-            {
-                tMin = t;
-                minDist = dist;
-            }
-        }
-        return tMin;
-    }
 
     private void Update()
     {
-        attackTimer -= Time.deltaTime;
+        switch (state)
+        {
+            case State.Attack:
+                HandleAttack();
+                break;
+        }
 
 
         if (health <= 0)
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
-        
 
     }
-    // setting postion
+    private void HandleAttack()
+    {
+        // if target is null state becomes idle
+        if(target == null)
+        {
+            state = State.Idle;
+        }
+
+        // if target is further away then atkRange. Move there
+        if (Vector3.Distance(transform.position, target.transform.position) > atkRange)
+        {
+            agent.isStopped = false;
+            agent.SetDestination(target.transform.position);
+
+        }
+        // if in range, atttack
+        else
+        {
+            agent.isStopped = true;
+            agent.SetDestination(transform.position);
+            if(!attacking)
+            StartCoroutine(Attack());
+        }
+    }
+
+    // get hit
+    public void TakeDamage (float dmg)
+    {
+        health -= dmg;
+    }
+    
+    // setting movementpostion
     public void MoveToTarget(Vector3 target)
     {
 
@@ -88,43 +118,29 @@ public class Units : MonoBehaviour
         }
 
     }
-
-
-    private static Units GetClosest(bool targetIsEnemy, Vector3 position)
+    
+    // attack coratin
+    IEnumerator Attack()
     {
-        Units closest = null;
-        foreach (Units units in unitList)
+        float timeCache = attackTimer;
+        attacking = true;
+
+        while (attackTimer > 0)
         {
-            if (units.isEnemy == targetIsEnemy)
-            {
-                if (closest == null)
-                {
-                    closest = units;
-                }
-                else
-                {
-                    if (Vector3.Distance(units.GetPosition(), position) < Vector3.Distance(closest.GetPosition(), position))
-                    {
-                        closest = units;
-                    }
-                }
-            }
+            attackTimer -= Time.deltaTime;
+            yield return new WaitForEndOfFrame();
         }
-        return closest;
-    }
 
-    private Vector3 GetPosition()
-    {
-        return transform.position;
-    }
+        if (target == null)
+            StopCoroutine(Attack());
 
-    // if collision of another unit sets a new positon where it is
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (Vector3.Distance(transform.position, target.transform.position) < atkRange)
         {
-            print("Heeey");
-            newTarget = transform.position;
+            print("asdasd");
+            target.GetComponent<Units>().TakeDamage(attackDamage);
         }
+
+        attackTimer = timeCache;
+        attacking = false;
     }
 }

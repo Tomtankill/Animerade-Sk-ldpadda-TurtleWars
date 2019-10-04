@@ -25,18 +25,19 @@ public class Click : MonoBehaviour
     {
         Vector3 mouse = Input.mousePosition;
         Ray rayHiting = Camera.main.ScreenPointToRay(mouse);
+        RaycastHit rayHit;
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            ClearSelection();
-        }
+        //if (Input.GetMouseButtonDown(1))
+        //{
 
+        //    ClearSelection();
+
+        //}
+
+        // if leftclick is click 
         if (Input.GetMouseButtonDown(0))
         {
             mousePos1 = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-
-            RaycastHit rayHit;
-            
 
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayHit,Mathf.Infinity))
                 
@@ -87,11 +88,12 @@ public class Click : MonoBehaviour
                     
                 }
 
-                
+
 
             }
         }
 
+        // box thing
         if (Input.GetMouseButtonUp(0))
         {
             mousePos2 = Camera.main.ScreenToViewportPoint(Input.mousePosition);
@@ -101,56 +103,76 @@ public class Click : MonoBehaviour
                 SelectedObjects();
             }
         }
-        // move to
+        // on rightclick
         if (Input.GetMouseButtonDown(1))
         {
-            RaycastHit rayHit;
+            // if we don't have people selected
             if (selectedObjects.Count == 0)
             {
                 return;
             }
-            if ((Physics.Raycast(rayHiting, out rayHit, Mathf.Infinity, clickableLayer)))
+            // if we do raycast
+            if ((Physics.Raycast(rayHiting, out rayHit, Mathf.Infinity)))
             {
+                // go cycle through all selected units
                 foreach (Units units in selectedObjects)
                 {
-                    units.MoveToTarget(rayHit.point);
+                    // if ray hits go into attack state
+                    if (rayHit.transform.gameObject.CompareTag("Enemy"))
+                    {
+                        units.state = Units.State.Attack;
+                        units.target = rayHit.transform.gameObject;
+                    }
+                    // else move there
+                    else
+                    {
+                        units.MoveToTarget(rayHit.point);
+                    }
+                   
                 }
             }
-            //if (rayHit.collider.CompareTag("Enemy"))
-            //{
-                
-            //}
         }
     }
 
+    // selectedobjects
     void SelectedObjects()
     {
         List<Units> remObjects = new List<Units>();
 
+        // if ctrl is not held down and one clicks, clearselection
         if(Input.GetKey("left ctrl") == false)
         {
             ClearSelection();
         }
 
+        // sets the positions for the box selector
         Rect selectedRect = new Rect(mousePos1.x, mousePos1.y, mousePos2.x - mousePos1.x, mousePos2.y - mousePos1.y);
 
+        // foreach unit in selectedObjects
         foreach (Units selectObject in selectableObjects)
         {
             if (selectObject != null)
             {
+                // makes the box selector
                 if (selectedRect.Contains(Camera.main.WorldToViewportPoint(selectObject.transform.position), true))
                 {
-                    selectedObjects.Add(selectObject);
-                    selectObject.GetComponent<Units>().currentlySelected = true;
-                    selectObject.GetComponent<Units>().ClickMe();
+                    // if gameobject in box selction has tag frindly add them to currentlySelected
+                    if (gameObject.CompareTag("Friendly"))
+                    {
+                        selectedObjects.Add(selectObject);
+                        selectObject.GetComponent<Units>().currentlySelected = true;
+                        selectObject.GetComponent<Units>().ClickMe();
+                    }
                 }
             }
+            // else remove them
             else
             {
                 remObjects.Add(selectObject);
             }
         }
 
+        // if rem is empty remove rem
         if(remObjects.Count > 0)
         {
             foreach(Units rem in remObjects)
@@ -160,6 +182,7 @@ public class Click : MonoBehaviour
         }
     }
 
+    // clears selction
     void ClearSelection()
     {
         if (selectedObjects.Count > 0)
