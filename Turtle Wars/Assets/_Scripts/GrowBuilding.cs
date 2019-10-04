@@ -5,25 +5,29 @@ using UnityEngine.UI;
 
 public class GrowBuilding : MonoBehaviour
 {
+    // Letting the building know who the commander is
+    public GameObject commander;
+    // Telling the gameobject the kind of
+    private string myName;
     // bools
     [SerializeField]private bool buildingFinish;
-    private bool controlls;
+    private bool controls;
 
     // render
     [SerializeField]private Renderer buildingRender;
 
     // health values
     public float currentHealth;
-    [SerializeField]private float maxHealth;
+    public float maxHealth;
     private float reg = 2f;
 
     // checkpoints
-    [SerializeField] private float checkPointOne;
-    [SerializeField] private float checkPointTwo;
-    [SerializeField] private float checkPointThree;
+    private float checkpointOne;
+    private float checkpointTwo;
+    private float checkpointThree;
 
     // materials
-    [SerializeField]private Material red;
+    [SerializeField] private Material red;
     [SerializeField] private Material yellow;
     [SerializeField] private Material green;
 
@@ -32,17 +36,25 @@ public class GrowBuilding : MonoBehaviour
     {
         // bools are false on start
         buildingFinish = false;
-        controlls = false;
+        controls = false;
         buildingRender = GetComponent<Renderer>();
         currentHealth = 1;
+
+        switch (gameObject.name.Contains(myName))
+        {
+            case TownHall:
+
+        }
 
         // setting maxHealth depending on what building it is
         if (gameObject.name.Contains("Townhall"))
         {
+            commander.GetComponent<BuildBuildings>().townHallList.Add(gameObject);
             maxHealth = 150;
         }
         else if (gameObject.name.Contains("Barracks"))
         {
+            commander.GetComponent<BuildBuildings>().barracksList.Add(gameObject);
             maxHealth = 100;
         }
         else if (gameObject.name.Contains("Armory"))
@@ -55,9 +67,9 @@ public class GrowBuilding : MonoBehaviour
         }
 
         // setting checkpoints
-        checkPointOne = maxHealth / 3f;
-        checkPointTwo = maxHealth / 2f;
-        checkPointThree = maxHealth / 1.5f;
+        checkpointOne = maxHealth / 3f;
+        checkpointTwo = maxHealth / 2f;
+        checkpointThree = maxHealth / 1.5f;
     }
 
     // Update is called once per frame
@@ -66,6 +78,7 @@ public class GrowBuilding : MonoBehaviour
         // destroy if helath is 0 or lower
         if (currentHealth <= 0)
         {
+            
             Destroy(gameObject);
         }
         
@@ -76,17 +89,17 @@ public class GrowBuilding : MonoBehaviour
             currentHealth += reg * Time.deltaTime;
 
             // changes color depending on amount of health
-            if (currentHealth <= checkPointOne)
+            if (currentHealth <= checkpointOne)
             {
                 buildingRender.material = red;
             }
 
-            else if (currentHealth <= checkPointTwo)
+            else if (currentHealth <= checkpointTwo)
             {
                 buildingRender.material = yellow;
             }
 
-            else if (currentHealth <= checkPointThree)
+            else if (currentHealth <= checkpointThree)
             {
                 buildingRender.material = green;
             }
@@ -96,8 +109,10 @@ public class GrowBuilding : MonoBehaviour
             else if (currentHealth >= maxHealth)
             {
                 buildingFinish = true;
-                controlls = true;
+                controls = true;
                 currentHealth = maxHealth;
+                Debug.Log("building has finished building? " + buildingFinish);
+
             }
 
         }

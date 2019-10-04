@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class buildBuildings : MonoBehaviour
+public class BuildBuildings : MonoBehaviour
 {
     // Variables
     private GameObject building;
@@ -73,10 +73,11 @@ public class buildBuildings : MonoBehaviour
 
     public void HealthUpgrade()
     {
-        for (int i = 0; i < commander.GetComponent<buildBuildings>().barracksList.Count; i++)
+        for (int i = 0; i < commander.GetComponent<BuildBuildings>().barracksList.Count; i++)
         {
-            barracksList[i].GetComponent<Hello>().maxHealth += healthUpgradeAmount;
-            barracksList[i].GetComponent<Hello>().currentHealth += healthUpgradeAmount;
+            //barracksList[i].GetComponent<Hello>().maxHealth += healthUpgradeAmount;
+            
+            //barracksList[i].GetComponent<Hello>().currentHealth += healthUpgradeAmount;
         }
         
     }
