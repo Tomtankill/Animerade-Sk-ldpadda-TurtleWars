@@ -5,11 +5,6 @@ using UnityEngine;
 public class BuildBuildings : MonoBehaviour
 {
     // Variables
-    private GameObject building;
-
-    public GameObject commander;
-
-    [SerializeField] private int healthUpgradeAmount = 200;
 
     public GameObject townHallPrefab;
     public GameObject barracksPrefab;
@@ -23,8 +18,6 @@ public class BuildBuildings : MonoBehaviour
     public List<GameObject> armoryList = new List<GameObject>();
     public List<GameObject> towerList = new List<GameObject>();
 
-    
-
     Vector3 worldMousePos;
 
     private int townhallCount = 0;
@@ -33,10 +26,16 @@ public class BuildBuildings : MonoBehaviour
     private int towerCount = 0;
     private int count = 0;
 
+    public GameObject selected;
+    private GameObject building;
     private new string name;
-
     bool buildMode;
     public GameObject ghost;
+
+    /// <summary>
+    /// Upgrades for Armory
+    /// </summary>
+    public int healthUpgradeAmount = 200;
 
     // Start is called before the first frame update
     void Start()
@@ -69,20 +68,6 @@ public class BuildBuildings : MonoBehaviour
     }
 
 
-    //HEALTHUPGRADE GOES ON A DIFFERENT SCRIPT
-
-    public void HealthUpgrade()
-    {
-        for (int i = 0; i < commander.GetComponent<BuildBuildings>().barracksList.Count; i++)
-        {
-            //barracksList[i].GetComponent<Hello>().maxHealth += healthUpgradeAmount;
-            
-            //barracksList[i].GetComponent<Hello>().currentHealth += healthUpgradeAmount;
-        }
-        
-    }
-
-    
     public void NameBuilding(GameObject setBuilding, int setCount, string setName)
     {
         building = setBuilding;
@@ -116,6 +101,18 @@ public class BuildBuildings : MonoBehaviour
                 {
                     ghost.transform.position = Vector3.one * 1000;
                 }
+            }
+        }
+    }
+
+    public void Upgrades()
+    {
+        if (selected.GetComponent<SelfBuildingManager>().controls == true)
+        {
+            for (int i = 0; i < barracksList.Count; i++)
+            {
+                barracksList[i].GetComponent<SelfBuildingManager>().maxHealth += healthUpgradeAmount;
+                barracksList[i].GetComponent<SelfBuildingManager>().currentHealth += healthUpgradeAmount;
             }
         }
     }
