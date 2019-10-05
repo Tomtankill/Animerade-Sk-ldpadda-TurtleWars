@@ -11,6 +11,7 @@ public class Units : MonoBehaviour
     // units stats
     float health = 100;
     float maxhealth = 100;
+    SelfBuildingManager selfbuilding;
 
     [SerializeField] private Material red;
     [SerializeField] private Material green;
@@ -92,6 +93,7 @@ public class Units : MonoBehaviour
     // get hit
     public void TakeDamage (float dmg)
     {
+        target.GetComponent<SelfBuildingManager>().currentHealth = health;
         health -= dmg;
     }
     
@@ -118,6 +120,31 @@ public class Units : MonoBehaviour
         }
 
     }
+
+    public void GatheringResource(int r1, int r2)
+    {
+        // if target is null state becomes idle
+        if (target == null)
+        {
+            state = State.Idle;
+        }
+
+        // if target is further away then atkRange. Move there
+        if (Vector3.Distance(transform.position, target.transform.position) > atkRange)
+        {
+            agent.isStopped = false;
+            agent.SetDestination(target.transform.position);
+
+        }
+        // if in range, atttack
+        else
+        {
+            agent.isStopped = true;
+            agent.SetDestination(transform.position);
+            if (!attacking)
+                StartCoroutine(Attack());
+        }
+    }
     
     // attack coratin
     IEnumerator Attack()
@@ -136,8 +163,31 @@ public class Units : MonoBehaviour
 
         if (Vector3.Distance(transform.position, target.transform.position) < atkRange)
         {
-            print("asdasd");
             target.GetComponent<Units>().TakeDamage(attackDamage);
+            
+        }
+
+        attackTimer = timeCache;
+        attacking = false;
+    }
+
+    IEnumerator Gathering()
+    {
+        float timeCache = attackTimer;
+        attacking = true;
+
+        while (attackTimer > 0)
+        {
+            attackTimer -= Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        if (target == null)
+            StopCoroutine(Gathering());
+
+        if (Vector3.Distance(transform.position, target.transform.position) < atkRange)
+        {
+            // make new script that will be on the resource
         }
 
         attackTimer = timeCache;

@@ -128,7 +128,18 @@ public class Click : MonoBehaviour
                     {
                         units.MoveToTarget(rayHit.point);
                     }
-                   
+
+                //    // if ray hits is resource and gameobject contains name worker. sets unit to gathering state
+                //    if (rayHit.transform.gameObject.CompareTag("Resource") && gameObject.name.Contains("Worker"))
+                //    {
+                //        units.state = Units.State.Gathering;
+                //        units.target = rayHit.transform.gameObject;
+                //    }
+                //    // else move there
+                //    else
+                //    {
+                //        units.MoveToTarget(rayHit.point);
+                //    }
                 }
             }
         }
