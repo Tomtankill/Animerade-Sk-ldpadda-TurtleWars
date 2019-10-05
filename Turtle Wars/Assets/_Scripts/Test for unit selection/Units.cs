@@ -11,22 +11,22 @@ public class Units : MonoBehaviour
     // units stats
     float health = 25;
     float maxhealth = 25;
-    float damage;
-    SelfBuildingManager selfbuilding;
 
-    [SerializeField] private Material red;
-    [SerializeField] private Material green;
+    public Material red;
+    public Material green;
     Vector3 newTarget;
     private MeshRenderer myRend;
 
     [HideInInspector] public bool currentlySelected = false;
-    [SerializeField] private bool isEnemy;
 
     public float atkRange;
     public float attackDamage;
     public float attackTimer;
+    public float currentAttackTimer;
     bool attacking;
 
+    public float r1;
+    float r2;
     public GameObject target;
 
     public State state;
@@ -43,6 +43,7 @@ public class Units : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         myRend = GetComponent<MeshRenderer>();
 
+        //attackTimer = currentAttackTimer;
         // may not work
         Camera.main.gameObject.GetComponent<Click>().selectableObjects.Add(this);
         unitList.Add(this);
@@ -73,6 +74,7 @@ public class Units : MonoBehaviour
         if(target == null)
         {
             state = State.Idle;
+            target = null;
         }
 
         // if target is further away then atkRange. Move there
@@ -80,7 +82,6 @@ public class Units : MonoBehaviour
         {
             agent.isStopped = false;
             agent.SetDestination(target.transform.position);
-
         }
         // if in range, atttack
         else
@@ -110,7 +111,6 @@ public class Units : MonoBehaviour
     // setting movementpostion
     public void MoveToTarget(Vector3 target)
     {
-
         newTarget = target;
         agent.SetDestination(newTarget);
     }
@@ -131,7 +131,7 @@ public class Units : MonoBehaviour
 
     }
 
-    public void GatheringResource(int r1, int r2)
+    public void GatheringResource()
     {
         // if target is null state becomes idle
         if (target == null)
@@ -144,7 +144,7 @@ public class Units : MonoBehaviour
         {
             agent.isStopped = false;
             agent.SetDestination(target.transform.position);
-
+            
         }
         // if in range, atttack
         else
@@ -152,8 +152,13 @@ public class Units : MonoBehaviour
             agent.isStopped = true;
             agent.SetDestination(transform.position);
             if (!attacking)
-                StartCoroutine(Attack());
+                StartCoroutine(Gathering());
         }
+    }
+
+    public void GetResource(float r1)
+    {
+        r1 += attackDamage;
     }
     
     // attack coratin
@@ -169,13 +174,12 @@ public class Units : MonoBehaviour
         }
 
         if (target == null)
+            //currentAttackTimer = attackTimer;
             StopCoroutine(Attack());
 
         if (Vector3.Distance(transform.position, target.transform.position) < atkRange)
         {
-            //target.GetComponent<Units>().TakeDamage(attackDamage);
             TakeDamage(attackDamage);
-            
         }
 
         attackTimer = timeCache;
@@ -198,7 +202,7 @@ public class Units : MonoBehaviour
 
         if (Vector3.Distance(transform.position, target.transform.position) < atkRange)
         {
-            // make new script that will be on the resource
+            GetResource(r1);
         }
 
         attackTimer = timeCache;
