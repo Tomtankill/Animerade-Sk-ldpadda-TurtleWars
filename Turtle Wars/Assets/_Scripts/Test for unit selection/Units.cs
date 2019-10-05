@@ -9,8 +9,9 @@ public class Units : MonoBehaviour
     private static List<Units> unitList = new List<Units>();
     private NavMeshAgent agent;
     // units stats
-    float health = 100;
-    float maxhealth = 100;
+    float health = 25;
+    float maxhealth = 25;
+    float damage;
     SelfBuildingManager selfbuilding;
 
     [SerializeField] private Material red;
@@ -51,6 +52,7 @@ public class Units : MonoBehaviour
 
     private void Update()
     {
+        
         switch (state)
         {
             case State.Attack:
@@ -93,8 +95,16 @@ public class Units : MonoBehaviour
     // get hit
     public void TakeDamage (float dmg)
     {
-        target.GetComponent<SelfBuildingManager>().currentHealth = health;
-        health -= dmg;
+        if(target.GetComponent<SelfBuildingManager>() == null)
+        {
+            target.GetComponent<Units>().health -= attackDamage;
+        }
+        else
+        {
+            target.GetComponent<SelfBuildingManager>().currentHealth -= attackDamage;
+        }
+        
+        
     }
     
     // setting movementpostion
@@ -163,7 +173,8 @@ public class Units : MonoBehaviour
 
         if (Vector3.Distance(transform.position, target.transform.position) < atkRange)
         {
-            target.GetComponent<Units>().TakeDamage(attackDamage);
+            //target.GetComponent<Units>().TakeDamage(attackDamage);
+            TakeDamage(attackDamage);
             
         }
 
