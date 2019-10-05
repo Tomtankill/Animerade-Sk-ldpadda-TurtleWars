@@ -7,8 +7,7 @@ public class GrowBuilding : MonoBehaviour
 {
     // Letting the building know who the commander is
     public GameObject commander;
-    // Telling the gameobject the kind of
-    private string myName;
+
     // bools
     [SerializeField]private bool buildingFinish;
     private bool controls;
@@ -40,12 +39,6 @@ public class GrowBuilding : MonoBehaviour
         buildingRender = GetComponent<Renderer>();
         currentHealth = 1;
 
-        switch (gameObject.name.Contains(myName))
-        {
-            case TownHall:
-
-        }
-
         // setting maxHealth depending on what building it is
         if (gameObject.name.Contains("Townhall"))
         {
@@ -59,10 +52,12 @@ public class GrowBuilding : MonoBehaviour
         }
         else if (gameObject.name.Contains("Armory"))
         {
+            commander.GetComponent<BuildBuildings>().armoryList.Add(gameObject);
             maxHealth = 100;
         }
         else if (gameObject.name.Contains("Tower"))
         {
+            commander.GetComponent<BuildBuildings>().towerList.Add(gameObject);
             maxHealth = 75;
         }
 
