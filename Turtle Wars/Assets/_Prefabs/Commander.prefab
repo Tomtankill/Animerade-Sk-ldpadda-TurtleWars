@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4688376453837729977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4688376453837729979}
+  - component: {fileID: 4688376453837729978}
+  m_Layer: 0
+  m_Name: Commander
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4688376453837729979
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4688376453837729977}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4688376453837729978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4688376453837729977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de1f2fed173afa649b75bccf4edee101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  commander: {fileID: 4688376453837729977}
+  healthUpgradeAmount: 200
+  townHallPrefab: {fileID: 7378642872838502491, guid: 7bdbb57a452f61b42a51be12fe9864b7,
+    type: 3}
+  barracksPrefab: {fileID: 7263452887273768162, guid: b361687559ab217458432d2247e275fb,
+    type: 3}
+  armoryPrefab: {fileID: 3183924504293270306, guid: 9cef3628b0329bb4e90eb27b32643861,
+    type: 3}
+  towerPrefab: {fileID: 522610800293448684, guid: a8a7032d00672af4587f4acb6bf7f761,
+    type: 3}
+  masterBuildingList: []
+  townHallList: []
+  barracksList: []
+  armoryList: []
+  towerList: []
+  ghost: {fileID: 6915492543473789762, guid: 86dbc12d958c453489deed6ba78a491e, type: 3}

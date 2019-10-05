@@ -40,43 +40,92 @@ public class SelfBuildingManager : MonoBehaviour
         buildingFinish = false;
         controls = false;
         buildingRender = GetComponent<Renderer>();
-        currentHealth = 1;
+
 
         // setting maxHealth depending on what building it is
         if (gameObject.name.Contains("Townhall"))
         {
             type = 0;
-            commander.GetComponent<BuildBuildings>().townHallList.Add(gameObject);
-            Debug.Log("Added self to townHallList");
-            commander.GetComponent<BuildBuildings>().masterBuildingList.Add(gameObject);
-            Debug.Log("Added self to masterBuildingList");
-            // Health & Stats Set
-            maxHealth = 150;
         }
         else if (gameObject.name.Contains("Barracks"))
         {
-            commander.GetComponent<BuildBuildings>().barracksList.Add(gameObject);
-            Debug.Log("Added self to barracksList");
-            commander.GetComponent<BuildBuildings>().masterBuildingList.Add(gameObject);
-            Debug.Log("Added self to masterBuildingList");
-            maxHealth = 100;
+            type = 1;
         }
         else if (gameObject.name.Contains("Armory"))
         {
-            commander.GetComponent<BuildBuildings>().armoryList.Add(gameObject);
-            Debug.Log("Added self to armoryList");
-            commander.GetComponent<BuildBuildings>().masterBuildingList.Add(gameObject);
-            Debug.Log("Added self to masterBuildingList");
-            maxHealth = 100;
+            type = 2;
         }
         else if (gameObject.name.Contains("Tower"))
         {
-            commander.GetComponent<BuildBuildings>().towerList.Add(gameObject);
-            Debug.Log("Added self to towerList");
-            commander.GetComponent<BuildBuildings>().masterBuildingList.Add(gameObject);
-            Debug.Log("Added self to masterBuildingList");
-            maxHealth = 75;
+            type = 3;
         }
+
+
+        switch (type)
+        {
+            case 0: //Town Hall
+                // Adding new object to list
+                commander.GetComponent<BuildBuildings>().townHallList.Add(gameObject);
+                Debug.Log("Added self to townHallList");
+                commander.GetComponent<BuildBuildings>().masterBuildingList.Add(gameObject);
+                Debug.Log("Added self to masterBuildingList");
+
+                // Setting Stats
+                maxHealth = 150;
+                currentHealth = 1;
+
+
+                break;
+            case 1: // Barracks
+                // Adding new object to list
+                commander.GetComponent<BuildBuildings>().barracksList.Add(gameObject);
+                Debug.Log("Added self to townHallList");
+                commander.GetComponent<BuildBuildings>().masterBuildingList.Add(gameObject);
+                Debug.Log("Added self to masterBuildingList");
+
+                // Setting Stats
+                maxHealth = 100;
+                currentHealth = 1;
+
+
+                break;
+            case 2: //Armory
+                // Adding new object to list
+                commander.GetComponent<BuildBuildings>().armoryList.Add(gameObject);
+                Debug.Log("Added self to townHallList");
+                commander.GetComponent<BuildBuildings>().masterBuildingList.Add(gameObject);
+                Debug.Log("Added self to masterBuildingList");
+
+                // Setting Stats
+                maxHealth = 100;
+                currentHealth = 1;
+
+
+                break;
+            case 3: //Tower
+                // Adding new object to list
+                commander.GetComponent<BuildBuildings>().towerList.Add(gameObject);
+                Debug.Log("Added self to townHallList");
+                commander.GetComponent<BuildBuildings>().masterBuildingList.Add(gameObject);
+                Debug.Log("Added self to masterBuildingList");
+
+                // Setting Stats
+                maxHealth = 75;
+                currentHealth = 1;
+
+
+                break;
+            default: // Default
+                Debug.LogError("You done fucked up kid");
+
+                // Setting Default Stats
+                maxHealth = 10;
+                currentHealth = 1;
+                
+
+                break;
+        }
+
 
         // setting checkpoints
         checkpointOne = maxHealth / 3f;
@@ -131,7 +180,29 @@ public class SelfBuildingManager : MonoBehaviour
 
     public void Die()
     {
-        commander.GetComponent<BuildBuildings>().townHallList.Remove(gameObject);
+        switch (type)
+        {
+            case 0:
+                commander.GetComponent<BuildBuildings>().townHallList.Remove(gameObject);
+                commander.GetComponent<BuildBuildings>().masterBuildingList.Remove(gameObject);
+                break;
+            case 1:
+                commander.GetComponent<BuildBuildings>().barracksList.Remove(gameObject);
+                commander.GetComponent<BuildBuildings>().masterBuildingList.Remove(gameObject);
+                break;
+            case 2:
+                commander.GetComponent<BuildBuildings>().armoryList.Remove(gameObject);
+                commander.GetComponent<BuildBuildings>().masterBuildingList.Remove(gameObject);
+                break;
+            case 3:
+                commander.GetComponent<BuildBuildings>().towerList.Remove(gameObject);
+                commander.GetComponent<BuildBuildings>().masterBuildingList.Remove(gameObject);
+                break;
+            default:
+                Debug.LogError("Couldn't find object type");
+                break;
+        }
+
         Destroy(gameObject);
     }
 }
