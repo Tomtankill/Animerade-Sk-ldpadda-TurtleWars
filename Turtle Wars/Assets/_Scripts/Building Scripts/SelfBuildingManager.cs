@@ -10,8 +10,8 @@ public class SelfBuildingManager : MonoBehaviour
     [SerializeField] private int type;
 
     // bools
-    [SerializeField]private bool buildingFinish;
     public bool controls;
+    [SerializeField]private bool buildingFinish;
 
     // render
     [SerializeField]private Renderer buildingRender;
