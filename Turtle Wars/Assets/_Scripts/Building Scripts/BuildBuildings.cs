@@ -6,6 +6,8 @@ public class BuildBuildings : MonoBehaviour
 {
     // Variables
 
+    public GameObject commander;
+
     public GameObject townHallPrefab;
     public GameObject barracksPrefab;
     public GameObject armoryPrefab;
@@ -45,26 +47,54 @@ public class BuildBuildings : MonoBehaviour
 
     public void TownHall()
     {
-        NameBuilding(townHallPrefab, townhallCount, "Townhall");
-        townhallCount++;
+        if (commander.GetComponent<TurnTimer>().p1Turn == true)
+        {
+            NameBuilding(townHallPrefab, townhallCount, "Townhall");
+            townhallCount++;
+        }
+        else
+        {
+            Debug.Log("It's not your turn yet");
+        }
     }
 
-    public void Barracks() 
+    public void Barracks()
     {
-        NameBuilding(barracksPrefab, barracksCount, "Barracks");
-        barracksCount++;
+        if (commander.GetComponent<TurnTimer>().p1Turn == true)
+        {
+            NameBuilding(barracksPrefab, barracksCount, "Barracks");
+            barracksCount++;
+        }
+        else
+        {
+            Debug.Log("It's not your turn yet");
+        }
     }
 
     public void Armory()
     {
-        NameBuilding(armoryPrefab, armoryCount, "Armory");
-        armoryCount++;
+        if (commander.GetComponent<TurnTimer>().p1Turn == true)
+        {
+            NameBuilding(armoryPrefab, armoryCount, "Armory");
+            armoryCount++;
+        }
+        else
+        {
+            Debug.Log("It's not your turn yet");
+        }
     }
 
     public void Tower()
     {
-        NameBuilding(towerPrefab, towerCount, "Tower");
-        towerCount++;
+        if (commander.GetComponent<TurnTimer>().p1Turn == true)
+        {
+            NameBuilding(towerPrefab, towerCount, "Tower");
+            towerCount++;
+        }
+        else
+        {
+            Debug.Log("It's not your turn yet");
+        }
     }
 
 
@@ -105,15 +135,15 @@ public class BuildBuildings : MonoBehaviour
         }
     }
 
-    public void Upgrades()
-    {
-        if (selected.GetComponent<SelfBuildingManager>().controls == true)
-        {
-            for (int i = 0; i < barracksList.Count; i++)
-            {
-                barracksList[i].GetComponent<SelfBuildingManager>().maxHealth += healthUpgradeAmount;
-                barracksList[i].GetComponent<SelfBuildingManager>().currentHealth += healthUpgradeAmount;
-            }
-        }
-    }
+    //public void Upgrades()
+    //{
+    //    if (selected.GetComponent<SelfBuildingManager>().controls == true)
+    //    {
+    //        for (int i = 0; i < barracksList.Count; i++)
+    //        {
+    //            barracksList[i].GetComponent<SelfBuildingManager>().maxHealth += healthUpgradeAmount;
+    //            barracksList[i].GetComponent<SelfBuildingManager>().currentHealth += healthUpgradeAmount;
+    //        }
+    //    }
+    //}
 }
