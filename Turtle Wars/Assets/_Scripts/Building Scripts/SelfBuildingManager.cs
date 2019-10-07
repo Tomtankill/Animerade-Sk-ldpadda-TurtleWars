@@ -88,6 +88,11 @@ public class SelfBuildingManager : MonoBehaviour
 
                 // Setting Stats
                 maxHealth = 150;
+                if (commander.GetComponent<BuildBuildings>().healthupgrade == true)
+                {
+                    maxHealth += commander.GetComponent<BuildBuildings>().healthUpgradeAmount;
+                }
+
                 currentHealth = 1;
                 reg = 2;
                 dmg = 3;
@@ -103,6 +108,10 @@ public class SelfBuildingManager : MonoBehaviour
 
                 // Setting Stats
                 maxHealth = 100;
+                if (commander.GetComponent<BuildBuildings>().healthupgrade == true)
+                {
+                    maxHealth += commander.GetComponent<BuildBuildings>().healthUpgradeAmount;
+                }
                 currentHealth = 1;
                 reg = 2;
 
@@ -116,6 +125,10 @@ public class SelfBuildingManager : MonoBehaviour
 
                 // Setting Stats
                 maxHealth = 100;
+                if (commander.GetComponent<BuildBuildings>().healthupgrade == true)
+                {
+                    maxHealth += commander.GetComponent<BuildBuildings>().healthUpgradeAmount;
+                }
                 currentHealth = 1;
                 reg = 2;
 
@@ -129,6 +142,10 @@ public class SelfBuildingManager : MonoBehaviour
 
                 // Setting Stats
                 maxHealth = 75;
+                if (commander.GetComponent<BuildBuildings>().healthupgrade == true)
+                {
+                    maxHealth += commander.GetComponent<BuildBuildings>().healthUpgradeAmount;
+                }
                 currentHealth = 1;
                 reg = 2;
                 dmg = 3;
@@ -140,6 +157,10 @@ public class SelfBuildingManager : MonoBehaviour
 
                 // Setting Default Stats
                 maxHealth = 10;
+                if (commander.GetComponent<BuildBuildings>().healthupgrade == true)
+                {
+                    maxHealth += commander.GetComponent<BuildBuildings>().healthUpgradeAmount;
+                }
                 currentHealth = 1;
                 reg = 1;
                 dmg = 0;
@@ -222,8 +243,6 @@ public class SelfBuildingManager : MonoBehaviour
         }
     }
 
-
-
     public void Die()
     {
         switch (type)
@@ -231,6 +250,7 @@ public class SelfBuildingManager : MonoBehaviour
             case 0:
                 commander.GetComponent<BuildBuildings>().townHallList.Remove(gameObject);
                 commander.GetComponent<BuildBuildings>().masterBuildingList.Remove(gameObject);
+
                 break;
             case 1:
                 commander.GetComponent<BuildBuildings>().barracksList.Remove(gameObject);
@@ -250,5 +270,10 @@ public class SelfBuildingManager : MonoBehaviour
         }
 
         Destroy(gameObject);
+
+        if (commander.GetComponent<BuildBuildings>().masterBuildingList.Count == 0)
+        {
+            commander.GetComponent<BuildBuildings>().PlayerWins();
+        }
     }
 }

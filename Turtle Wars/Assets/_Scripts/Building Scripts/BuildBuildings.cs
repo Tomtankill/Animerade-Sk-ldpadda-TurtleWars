@@ -37,6 +37,7 @@ public class BuildBuildings : MonoBehaviour
     /// <summary>
     /// Upgrades for Armory
     /// </summary>
+    public bool healthupgrade = false;
     public int healthUpgradeAmount = 200;
     // resources
     public float r1 = 0;
@@ -45,7 +46,7 @@ public class BuildBuildings : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ghost = Instantiate(ghost, Vector3.zero * 1000, Quaternion.identity);
+        ghost = Instantiate(ghost, Vector3.down * 300, Quaternion.identity);
     }
 
     public void TownHall()
@@ -127,26 +128,32 @@ public class BuildBuildings : MonoBehaviour
 
                         buildMode = false;
 
-                        ghost.transform.position = Vector3.zero * 1000;
+                        ghost.transform.position = Vector3.down * 300;
                     }
                 }
                 else
                 {
-                    ghost.transform.position = Vector3.one * 1000;
+                    ghost.transform.position = Vector3.down * 300;
                 }
             }
         }
     }
 
-    //public void Upgrades()
-    //{
-    //    if (selected.GetComponent<SelfBuildingManager>().controls == true)
-    //    {
-    //        for (int i = 0; i < barracksList.Count; i++)
-    //        {
-    //            barracksList[i].GetComponent<SelfBuildingManager>().maxHealth += healthUpgradeAmount;
-    //            barracksList[i].GetComponent<SelfBuildingManager>().currentHealth += healthUpgradeAmount;
-    //        }
-    //    }
-    //}
+    public void Upgrades()
+    {
+        if (selected.GetComponent<SelfBuildingManager>().barracksControls == true)
+        {
+            healthupgrade = true;
+            for (int i = 0; i < barracksList.Count; i++)
+            {
+                barracksList[i].GetComponent<SelfBuildingManager>().maxHealth += healthUpgradeAmount;
+                barracksList[i].GetComponent<SelfBuildingManager>().currentHealth += healthUpgradeAmount;
+            }
+        }
+    }
+
+    public void PlayerWins()
+    {
+        Debug.Log("The Player that just lost the building loses");
+    }
 }

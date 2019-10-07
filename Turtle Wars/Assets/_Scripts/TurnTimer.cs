@@ -49,6 +49,5 @@ public class TurnTimer : MonoBehaviour
             p1Turn = true;
             Debug.Log("It is P1's turn: " + p1Turn);
         }
-
     }
 }

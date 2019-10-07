@@ -25,7 +25,7 @@ public class CameraPan : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        panDetect = Screen.width * 0.1f;
+        panDetect = Screen.width * 0.02f;
     }
 
     // Update is called once per frame
@@ -97,20 +97,20 @@ public class CameraPan : MonoBehaviour
 
     void DragCamera() {
         // disables other movement
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButtonDown(2)) {
             moveDisable = true;
             Debug.Log("Player started dragging");
         }
-        if (Input.GetMouseButtonUp(0)) {
+        if (Input.GetMouseButtonUp(2)) {
             moveDisable = false;
             Debug.Log("Player stopped dragging");
         }
         // beginning of actual processing
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButtonDown(2)) {
             dragOrigin = Input.mousePosition;
             return;
         }
-        if (!Input.GetMouseButton(0)) return;
+        if (!Input.GetMouseButton(2)) return;
 
 
         Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
