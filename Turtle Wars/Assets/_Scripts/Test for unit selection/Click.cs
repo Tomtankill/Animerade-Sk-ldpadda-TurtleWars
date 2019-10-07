@@ -117,14 +117,15 @@ public class Click : MonoBehaviour
                 // go cycle through all selected units
                 foreach (Units units in selectedObjects)
                 {
+                    
                     // if ray hits go into attack state
                     if (rayHit.transform.gameObject.CompareTag("Enemy"))
                     {
                         units.state = Units.State.Attack;
                         units.target = rayHit.transform.gameObject;
                     }
-                    // else if ray hits is resource and gameobject contains name worker. sets unit to gathering state
-                    else if (rayHit.transform.gameObject.CompareTag("Resource"))
+                    // else if ray hits is resource and gameobject. sets unit to gathering state
+                    else if (rayHit.transform.gameObject.CompareTag("Resource") && units.name.Contains("Worker"))
                     {
                         units.state = Units.State.Gathering;
                         units.target = rayHit.transform.gameObject;

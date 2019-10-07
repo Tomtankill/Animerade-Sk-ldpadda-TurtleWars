@@ -38,6 +38,9 @@ public class BuildBuildings : MonoBehaviour
     /// Upgrades for Armory
     /// </summary>
     public int healthUpgradeAmount = 200;
+    // resources
+    public float r1 = 0;
+    public float r2 = 0;
 
     // Start is called before the first frame update
     void Start()

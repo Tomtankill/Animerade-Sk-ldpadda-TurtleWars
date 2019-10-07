@@ -22,13 +22,11 @@ public class Units : MonoBehaviour
     public float atkRange;
     public float attackDamage;
     public float attackTimer;
-    public float currentAttackTimer;
-    bool attacking;
+    public bool attacking;
 
-    public float r1;
-    float r2;
+
     public GameObject target;
-
+    BuildBuildings commander;
     public State state;
     public enum State
     {
@@ -42,6 +40,8 @@ public class Units : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         myRend = GetComponent<MeshRenderer>();
+        GameObject thePlayer = GameObject.Find("Commander");
+        commander = thePlayer.GetComponent<BuildBuildings>();
 
         //attackTimer = currentAttackTimer;
         // may not work
@@ -58,6 +58,9 @@ public class Units : MonoBehaviour
         {
             case State.Attack:
                 HandleAttack();
+                break;
+            case State.Gathering:
+                GatheringResource();
                 break;
         }
 
@@ -158,7 +161,7 @@ public class Units : MonoBehaviour
 
     public void GetResource(float r1)
     {
-        r1 += attackDamage;
+        
     }
     
     // attack coratin
@@ -188,6 +191,7 @@ public class Units : MonoBehaviour
 
     IEnumerator Gathering()
     {
+
         float timeCache = attackTimer;
         attacking = true;
 
@@ -202,7 +206,15 @@ public class Units : MonoBehaviour
 
         if (Vector3.Distance(transform.position, target.transform.position) < atkRange)
         {
-            GetResource(r1);
+            if(target.gameObject.name.Contains("Resource 1"))
+            {
+                commander.r1 += 1;
+            }
+            else
+            {
+                commander.r2++;
+            }
+            
         }
 
         attackTimer = timeCache;
