@@ -22,6 +22,7 @@ public class Units : MonoBehaviour
     public float atkRange;
     public float attackDamage;
     public float attackTimer;
+    private float defultAttackTimmer;
     public bool attacking;
 
 
@@ -38,6 +39,7 @@ public class Units : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        defultAttackTimmer = attackTimer;
         agent = GetComponent<NavMeshAgent>();
         myRend = GetComponent<MeshRenderer>();
         GameObject thePlayer = GameObject.Find("Commander");
@@ -53,9 +55,11 @@ public class Units : MonoBehaviour
 
     private void Update()
     {
-        
         switch (state)
         {
+            case State.Idle:
+                Idle();
+                break;
             case State.Attack:
                 HandleAttack();
                 break;
@@ -96,19 +100,28 @@ public class Units : MonoBehaviour
         }
     }
 
+    void Idle()
+    {
+        StopAllCoroutines();
+        target = null;
+        attacking = false;
+        attackTimer = defultAttackTimmer;
+        agent.isStopped = false;
+    }
+    
     // get hit
     public void TakeDamage (float dmg)
     {
+        // units get hit
         if(target.GetComponent<SelfBuildingManager>() == null)
         {
             target.GetComponent<Units>().health -= attackDamage;
         }
+        // building get hit
         else
         {
             target.GetComponent<SelfBuildingManager>().currentHealth -= attackDamage;
         }
-        
-        
     }
     
     // setting movementpostion
@@ -119,7 +132,7 @@ public class Units : MonoBehaviour
     }
 
     // change color if unit is selected
-    public void ClickMe()
+    public void IsSelected()
     {
         if (currentlySelected == false)
         {
@@ -140,6 +153,7 @@ public class Units : MonoBehaviour
         if (target == null)
         {
             state = State.Idle;
+            attacking = false;
         }
 
         // if target is further away then atkRange. Move there
@@ -159,11 +173,6 @@ public class Units : MonoBehaviour
         }
     }
 
-    public void GetResource(float r1)
-    {
-        
-    }
-    
     // attack coratin
     IEnumerator Attack()
     {
@@ -177,7 +186,6 @@ public class Units : MonoBehaviour
         }
 
         if (target == null)
-            //currentAttackTimer = attackTimer;
             StopCoroutine(Attack());
 
         if (Vector3.Distance(transform.position, target.transform.position) < atkRange)
@@ -187,6 +195,7 @@ public class Units : MonoBehaviour
 
         attackTimer = timeCache;
         attacking = false;
+        StopCoroutine(Attack());
     }
 
     IEnumerator Gathering()
