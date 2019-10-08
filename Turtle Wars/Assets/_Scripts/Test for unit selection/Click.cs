@@ -5,7 +5,6 @@ using UnityEngine;
 public class Click : MonoBehaviour
 {
 
-    [SerializeField] private LayerMask clickableLayer;
 
     private List<Units> selectedObjects;
 
@@ -27,14 +26,8 @@ public class Click : MonoBehaviour
         Ray rayHiting = Camera.main.ScreenPointToRay(mouse);
         RaycastHit rayHit;
 
-        //if (Input.GetMouseButtonDown(1))
-        //{
 
-        //    ClearSelection();
-
-        //}
-
-        // if leftclick is click 
+        //if leftclick is click
         if (Input.GetMouseButtonDown(0))
         {
             mousePos1 = Camera.main.ScreenToViewportPoint(Input.mousePosition);
@@ -44,6 +37,7 @@ public class Click : MonoBehaviour
             {
                 if (rayHit.collider.GetComponent<Units>())
                 {
+                    // getting the Unit script and rename it to unit to be refrence
                     Units unit = rayHit.collider.GetComponent<Units>();
 
                     if (rayHit.collider.CompareTag("Friendly"))
@@ -55,41 +49,30 @@ public class Click : MonoBehaviour
                             {
                                 selectedObjects.Add(rayHit.collider.GetComponent<Units>());
                                 unit.currentlySelected = true;
-                                unit.ClickMe();
+                                unit.IsSelected();
                             }
                             // removes object from list
                             else
                             {
                                 selectedObjects.Remove(rayHit.collider.GetComponent<Units>());
                                 unit.currentlySelected = false;
-                                unit.ClickMe();
+                                unit.IsSelected();
                             }
                         }
 
-                        if (rayHit.collider.CompareTag("Enemy"))
-                        {
-                            // set state to combat
-                        }
-
-                        // deselects object 
                         else
                         {
                             ClearSelection();
-
                             selectedObjects.Add(rayHit.collider.GetComponent<Units>());
                             unit.currentlySelected = true;
-                            unit.ClickMe();
+                            unit.IsSelected();
                         }
                     }
                     else
                     {
                         return;
                     }
-                    
                 }
-
-
-
             }
         }
 
@@ -117,7 +100,6 @@ public class Click : MonoBehaviour
                 // go cycle through all selected units
                 foreach (Units units in selectedObjects)
                 {
-                    
                     // if ray hits go into attack state
                     if (rayHit.transform.gameObject.CompareTag("Enemy"))
                     {
@@ -131,8 +113,10 @@ public class Click : MonoBehaviour
                         units.target = rayHit.transform.gameObject;
                     }
                     // else move there
-                    else
+                    else if(rayHit.transform.gameObject.CompareTag("Ground"))
                     {
+                        print("This is true");
+                        units.state = Units.State.Idle;
                         units.MoveToTarget(rayHit.point);
                     }
                 }
@@ -159,16 +143,19 @@ public class Click : MonoBehaviour
         {
             if (selectObject != null)
             {
-                // makes the box selector
-                if (selectedRect.Contains(Camera.main.WorldToViewportPoint(selectObject.transform.position), true))
+                if (!selectObject.CompareTag("Enemy"))
                 {
-                    // if gameobject in box selction has tag frindly add them to currentlySelected
-                    if (gameObject.CompareTag("Friendly"))
+                    // makes the box selector
+                    if (selectedRect.Contains(Camera.main.WorldToViewportPoint(selectObject.transform.position), true))
                     {
                         selectedObjects.Add(selectObject);
                         selectObject.GetComponent<Units>().currentlySelected = true;
-                        selectObject.GetComponent<Units>().ClickMe();
+                        selectObject.GetComponent<Units>().IsSelected();
                     }
+                }
+                else
+                {
+                    remObjects.Add(selectObject);
                 }
             }
             // else remove them
@@ -198,7 +185,7 @@ public class Click : MonoBehaviour
                 if(obj != null)
                 {
                     obj.GetComponent<Units>().currentlySelected = false;
-                    obj.GetComponent<Units>().ClickMe();
+                    obj.GetComponent<Units>().IsSelected();
                 }
             }
         }
