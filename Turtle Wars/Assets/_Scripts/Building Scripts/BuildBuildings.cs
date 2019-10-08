@@ -141,8 +141,9 @@ public class BuildBuildings : MonoBehaviour
 
     public void Upgrades()
     {
-        if (selected.GetComponent<SelfBuildingManager>().barracksControls == true)
+        if (selected.GetComponent<SelfBuildingManager>().armoryControls == true)
         {
+
             healthupgrade = true;
             for (int i = 0; i < barracksList.Count; i++)
             {

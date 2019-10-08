@@ -14,6 +14,7 @@ public class Click : MonoBehaviour
     private Vector3 mousePos1;
     private Vector3 mousePos2;
     public Transform moveThisHere;
+    public GameObject unitControlBuilder;
     void Awake()
     {
         selectedObjects = new List<Units>();
@@ -42,11 +43,13 @@ public class Click : MonoBehaviour
 
                     if (rayHit.collider.CompareTag("Friendly"))
                     {
+                        unitControlBuilder.SetActive(true);
                         if (Input.GetKey("left ctrl"))
                         {
                             // adds object to list
                             if (unit.currentlySelected == false)
                             {
+                                
                                 selectedObjects.Add(rayHit.collider.GetComponent<Units>());
                                 unit.currentlySelected = true;
                                 unit.IsSelected();
@@ -97,6 +100,7 @@ public class Click : MonoBehaviour
             // if we do raycast
             if ((Physics.Raycast(rayHiting, out rayHit, Mathf.Infinity)))
             {
+
                 // go cycle through all selected units
                 foreach (Units units in selectedObjects)
                 {
@@ -149,6 +153,7 @@ public class Click : MonoBehaviour
                     if (selectedRect.Contains(Camera.main.WorldToViewportPoint(selectObject.transform.position), true))
                     {
                         selectedObjects.Add(selectObject);
+                        unitControlBuilder.SetActive(true);
                         selectObject.GetComponent<Units>().currentlySelected = true;
                         selectObject.GetComponent<Units>().IsSelected();
                     }
@@ -185,6 +190,7 @@ public class Click : MonoBehaviour
                 if(obj != null)
                 {
                     obj.GetComponent<Units>().currentlySelected = false;
+                    unitControlBuilder.SetActive(false);
                     obj.GetComponent<Units>().IsSelected();
                 }
             }
