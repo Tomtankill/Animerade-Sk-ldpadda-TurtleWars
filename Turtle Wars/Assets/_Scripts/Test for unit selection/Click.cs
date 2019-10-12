@@ -5,7 +5,6 @@ using UnityEngine;
 public class Click : MonoBehaviour
 {
 
-
     private List<Units> selectedObjects;
 
     [HideInInspector] public List<Units> selectableObjects;
@@ -75,6 +74,10 @@ public class Click : MonoBehaviour
                     {
                         return;
                     }
+                }
+                else if (rayHit.collider.GetComponent<SelfBuildingManager>())
+                {
+
                 }
             }
         }
@@ -195,7 +198,7 @@ public class Click : MonoBehaviour
                 }
             }
         }
-
+        
         selectedObjects.Clear();
     }
 }
