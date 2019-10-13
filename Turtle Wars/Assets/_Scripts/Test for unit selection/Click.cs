@@ -77,7 +77,7 @@ public class Click : MonoBehaviour
                 }
                 else if (rayHit.collider.GetComponent<SelfBuildingManager>())
                 {
-
+                    
                 }
             }
         }
