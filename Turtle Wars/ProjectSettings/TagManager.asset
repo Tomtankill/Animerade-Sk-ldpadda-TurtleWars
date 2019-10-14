@@ -8,6 +8,8 @@ TagManager:
   - Friendly
   - Ground
   - Resource
+  - Player1s
+  - Player2s
   layers:
   - Default
   - TransparentFX

@@ -39,7 +39,7 @@ public class Units : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         // defultAttackTimmer is the same as attackTimer
         defultAttackTimmer = attackTimer;
@@ -53,7 +53,10 @@ public class Units : MonoBehaviour
         // adds this gameobject to a list from click
         Camera.main.gameObject.GetComponent<Click>().selectableObjects.Add(this);
 
-        // start state is idle
+        //attackTimer = currentAttackTimer;
+        // may not work
+        Camera.main.gameObject.GetComponent<Click>().selectableUnits.Add(this);
+        unitList.Add(this);
         state = State.Idle;
     }
 
