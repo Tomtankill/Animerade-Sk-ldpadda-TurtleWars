@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 522610800293448682}
   - component: {fileID: 7257162352239459304}
   - component: {fileID: 522610800293448685}
+  - component: {fileID: 3372746129363083950}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Enemy
@@ -94,13 +95,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   commander: {fileID: 0}
   type: 0
+  controls: 0
   buildingFinish: 0
   buildingRender: {fileID: 0}
+  currentlySelected: 0
   currentHealth: 0
   maxHealth: 0
   dmg: 0
   range: 0
   cost: 0
+  townHallControls: 0
+  barracksControls: 0
+  armoryControls: 0
+  towerControls: 0
   red: {fileID: 2100000, guid: 2917bb85f5ad2084596bac12082c8f63, type: 2}
   yellow: {fileID: 2100000, guid: 174c774f1fdd9b8448c44bed96f15d31, type: 2}
   green: {fileID: 2100000, guid: d6ff0e9482cc6a142bde6ffc9fbafcea, type: 2}
@@ -118,3 +125,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!208 &3372746129363083950
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522610800293448684}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 1, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

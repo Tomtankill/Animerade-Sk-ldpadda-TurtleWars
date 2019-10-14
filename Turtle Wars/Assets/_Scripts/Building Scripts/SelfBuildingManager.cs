@@ -16,6 +16,9 @@ public class SelfBuildingManager : MonoBehaviour
     // render
     [SerializeField]private Renderer buildingRender;
 
+    // Is the building selected?
+    [HideInInspector] public bool currentlySelected = false;
+
 
     // This is where we will set the stats for all of our buildings.
     // The Stats will be changed in the switch statement
@@ -56,7 +59,7 @@ public class SelfBuildingManager : MonoBehaviour
         buildingFinish = false;
         controls = false;
         buildingRender = GetComponent<Renderer>();
-
+        Camera.main.gameObject.GetComponent<Click>().selectableBuildings.Add(this);
 
         // setting maxHealth depending on what building it is
         if (gameObject.name.Contains("Townhall"))
@@ -275,5 +278,20 @@ public class SelfBuildingManager : MonoBehaviour
         {
             commander.GetComponent<BuildBuildings>().PlayerWins();
         }
+    }
+
+    public void IsSelected()
+    {
+        if (currentlySelected == false)
+        {
+            // not selected
+            buildingRender.material = red;
+        }
+        else
+        {
+            // selected
+            buildingRender.material = green;
+        }
+
     }
 }
