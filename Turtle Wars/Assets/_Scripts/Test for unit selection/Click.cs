@@ -5,22 +5,25 @@ using UnityEngine;
 public class Click : MonoBehaviour
 {
 
-
+    // selected  units
     private List<Units> selectedObjects;
-
+    // selected buildings
+    private List<SelfBuildingManager> selectedBuilding;
     [HideInInspector] public List<Units> selectableObjects;
 
-
+    // mouse position
     private Vector3 mousePos1;
     private Vector3 mousePos2;
     public Transform moveThisHere;
     public GameObject unitControlBuilder;
+
     void Awake()
     {
         selectedObjects = new List<Units>();
         selectableObjects = new List<Units>();
     }
     // Update is called once per frame
+
     void Update()
     {
         Vector3 mouse = Input.mousePosition;
@@ -49,7 +52,6 @@ public class Click : MonoBehaviour
                             // adds object to list
                             if (unit.currentlySelected == false)
                             {
-                                
                                 selectedObjects.Add(rayHit.collider.GetComponent<Units>());
                                 unit.currentlySelected = true;
                                 unit.IsSelected();
@@ -71,10 +73,27 @@ public class Click : MonoBehaviour
                             unit.IsSelected();
                         }
                     }
-                    else
+                }
+                
+                // building statment 
+                if (rayHit.collider.GetComponent<SelfBuildingManager>())
+                {
+                    SelfBuildingManager building = rayHit.collider.GetComponent<SelfBuildingManager>();
+                    
+                    if (rayHit.collider.CompareTag("Friendly"))
                     {
-                        return;
+                        // get the UI thing for building = true
+                        ClearSelection();
+                        //if(Current selected in building script)
                     }
+                    //for (int i = 0; i < selectedObjects.Count; i++)
+                    //{
+                    //    if (selectedObjects[i].GetComponent<Units>() != null)
+                    //    {
+                    //        selectedObjects.Remove(selectedObjects[i]);
+                    //        print("this work big dumb" + selectedObjects);
+                    //    }
+                    //}
                 }
             }
         }
@@ -100,7 +119,6 @@ public class Click : MonoBehaviour
             // if we do raycast
             if ((Physics.Raycast(rayHiting, out rayHit, Mathf.Infinity)))
             {
-
                 // go cycle through all selected units
                 foreach (Units units in selectedObjects)
                 {
@@ -198,4 +216,5 @@ public class Click : MonoBehaviour
 
         selectedObjects.Clear();
     }
+
 }

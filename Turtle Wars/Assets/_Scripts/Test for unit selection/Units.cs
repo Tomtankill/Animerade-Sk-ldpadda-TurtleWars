@@ -6,28 +6,30 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Units : MonoBehaviour
 {
-    private static List<Units> unitList = new List<Units>();
-    private NavMeshAgent agent;
-    // units stats
-    float health = 25;
-    float maxhealth = 25;
-
+    // meshrender and material used
+    private MeshRenderer myRend;
     public Material red;
     public Material green;
-    Vector3 newTarget;
-    private MeshRenderer myRend;
 
+    // sets the x,y,z postion
+    public Vector3 newTarget;
+    public GameObject target;
+    private NavMeshAgent agent;
+    
+    // checks if the unit is selected
     [HideInInspector] public bool currentlySelected = false;
 
+    // unit stats
+    public float health;
+    public float maxhealth;
     public float atkRange;
     public float attackDamage;
     public float attackTimer;
     private float defultAttackTimmer;
     public bool attacking;
 
-
-    public GameObject target;
     BuildBuildings commander;
+
     public State state;
     public enum State
     {
@@ -39,22 +41,26 @@ public class Units : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // defultAttackTimmer is the same as attackTimer
         defultAttackTimmer = attackTimer;
+
+        // getcomponent of objects that will be used
         agent = GetComponent<NavMeshAgent>();
         myRend = GetComponent<MeshRenderer>();
         GameObject thePlayer = GameObject.Find("Commander");
         commander = thePlayer.GetComponent<BuildBuildings>();
-
-        //attackTimer = currentAttackTimer;
-        // may not work
+        
+        // adds this gameobject to a list from click
         Camera.main.gameObject.GetComponent<Click>().selectableObjects.Add(this);
-        unitList.Add(this);
+
+        // start state is idle
         state = State.Idle;
     }
 
 
     private void Update()
     {
+        // switches state
         switch (state)
         {
             case State.Idle:
@@ -68,15 +74,19 @@ public class Units : MonoBehaviour
                 break;
         }
 
-
+        // destroy gameobject if health reach 0
         if (health <= 0)
         {
             Destroy(gameObject);
         }
 
     }
+
+
+    // doing all the attack things
     private void HandleAttack()
     {
+
         // if target is null state becomes idle
         if(target == null)
         {
@@ -84,7 +94,7 @@ public class Units : MonoBehaviour
             target = null;
         }
 
-        // if target is further away then atkRange. Move there
+        // if target is further away then atkRange. Move into attack range
         if (Vector3.Distance(transform.position, target.transform.position) > atkRange)
         {
             agent.isStopped = false;
@@ -100,76 +110,19 @@ public class Units : MonoBehaviour
         }
     }
 
-    void Idle()
-    {
-        StopAllCoroutines();
-        target = null;
-        attacking = false;
-        attackTimer = defultAttackTimmer;
-        agent.isStopped = false;
-    }
-    
-    // get hit
-    public void TakeDamage (float dmg)
+    // take dmg
+    public void TakeDamage(float dmg)
     {
         // units get hit
-        if(target.GetComponent<SelfBuildingManager>() == null)
+        if (target.GetComponent<SelfBuildingManager>() == null)
         {
             target.GetComponent<Units>().health -= attackDamage;
         }
+        
         // building get hit
         else
         {
             target.GetComponent<SelfBuildingManager>().currentHealth -= attackDamage;
-        }
-    }
-    
-    // setting movementpostion
-    public void MoveToTarget(Vector3 target)
-    {
-        newTarget = target;
-        agent.SetDestination(newTarget);
-    }
-
-    // change color if unit is selected
-    public void IsSelected()
-    {
-        if (currentlySelected == false)
-        {
-            // not selected
-            myRend.material = red;
-        }
-        else
-        {
-            // selected
-            myRend.material = green;
-        }
-
-    }
-
-    public void GatheringResource()
-    {
-        // if target is null state becomes idle
-        if (target == null)
-        {
-            state = State.Idle;
-            attacking = false;
-        }
-
-        // if target is further away then atkRange. Move there
-        if (Vector3.Distance(transform.position, target.transform.position) > atkRange)
-        {
-            agent.isStopped = false;
-            agent.SetDestination(target.transform.position);
-            
-        }
-        // if in range, atttack
-        else
-        {
-            agent.isStopped = true;
-            agent.SetDestination(transform.position);
-            if (!attacking)
-                StartCoroutine(Gathering());
         }
     }
 
@@ -196,6 +149,68 @@ public class Units : MonoBehaviour
         attackTimer = timeCache;
         attacking = false;
         StopCoroutine(Attack());
+    }
+
+    // sets everything to defult state, makes 
+    void Idle()
+    {
+        StopAllCoroutines();
+        target = null;
+        attacking = false;
+        attackTimer = defultAttackTimmer;
+        agent.isStopped = false;
+    }
+    
+    // setting movementpostion
+    public void MoveToTarget(Vector3 target)
+    {
+        // sets the gameobject target and gets the postion with the vector 3
+        newTarget = target;
+        agent.SetDestination(newTarget);
+    }
+
+    // change color if unit is selected
+    public void IsSelected()
+    {
+        if (currentlySelected == false)
+        {
+            // not selected
+            myRend.material = red;
+        }
+        else
+        {
+            // selected
+            myRend.material = green;
+        }
+
+    }
+
+    // gathering things
+    public void GatheringResource()
+    {
+        // if target is null state becomes idle
+        if (target == null)
+        {
+            state = State.Idle;
+            attacking = false;
+        }
+
+        // if target is further away then atkRange. Move there
+        if (Vector3.Distance(transform.position, target.transform.position) > atkRange)
+        {
+            agent.isStopped = false;
+            agent.SetDestination(target.transform.position);
+            
+        }
+
+        // if in range, atttack
+        else
+        {
+            agent.isStopped = true;
+            agent.SetDestination(transform.position);
+            if (!attacking)
+                StartCoroutine(Gathering());
+        }
     }
 
     IEnumerator Gathering()
