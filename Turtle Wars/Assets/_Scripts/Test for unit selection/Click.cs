@@ -4,20 +4,35 @@ using UnityEngine;
 
 public class Click : MonoBehaviour
 {
+    // Defines a new list. That list will contain all gameObjects that have a Units script.
+    private List<Units> selectedUnits;
+    // Defines a new list. That list will contain all gameObjects that have a SelfBuildingManager script.
+    private List<SelfBuildingManager> selectedBuildings;
 
-    private List<Units> selectedObjects;
+    // Essentially a master list for all selectable Units.
+    [HideInInspector] public List<Units> selectableUnits;
+    // Essentially a master list for all selectable Buildings.
+    [HideInInspector] public List<SelfBuildingManager> selectableBuildings;
 
-    [HideInInspector] public List<Units> selectableObjects;
+    // Sets the tag that the script is looking for. This needs to be set to the local player on the network.
+    // set to Friendly tag for now
+    public string controllingPlayer;
 
-
+    // defining positions for mouseclick for boxselection
     private Vector3 mousePos1;
     private Vector3 mousePos2;
     public Transform moveThisHere;
+
+    // UI controller menus
     public GameObject unitControlBuilder;
+    public GameObject buildingControlBuilder;
+
     void Awake()
     {
-        selectedObjects = new List<Units>();
-        selectableObjects = new List<Units>();
+        selectedUnits = new List<Units>();
+        selectableUnits = new List<Units>();
+        selectedBuildings = new List<SelfBuildingManager>();
+
     }
     // Update is called once per frame
     void Update()
@@ -40,7 +55,7 @@ public class Click : MonoBehaviour
                     // getting the Unit script and rename it to unit to be refrence
                     Units unit = rayHit.collider.GetComponent<Units>();
 
-                    if (rayHit.collider.CompareTag("Friendly"))
+                    if (rayHit.collider.CompareTag(controllingPlayer))
                     {
                         unitControlBuilder.SetActive(true);
                         if (Input.GetKey("left ctrl"))
@@ -49,14 +64,14 @@ public class Click : MonoBehaviour
                             if (unit.currentlySelected == false)
                             {
                                 
-                                selectedObjects.Add(rayHit.collider.GetComponent<Units>());
+                                selectedUnits.Add(rayHit.collider.GetComponent<Units>());
                                 unit.currentlySelected = true;
                                 unit.IsSelected();
                             }
                             // removes object from list
                             else
                             {
-                                selectedObjects.Remove(rayHit.collider.GetComponent<Units>());
+                                selectedUnits.Remove(rayHit.collider.GetComponent<Units>());
                                 unit.currentlySelected = false;
                                 unit.IsSelected();
                             }
@@ -65,7 +80,7 @@ public class Click : MonoBehaviour
                         else
                         {
                             ClearSelection();
-                            selectedObjects.Add(rayHit.collider.GetComponent<Units>());
+                            selectedUnits.Add(rayHit.collider.GetComponent<Units>());
                             unit.currentlySelected = true;
                             unit.IsSelected();
                         }
@@ -77,7 +92,44 @@ public class Click : MonoBehaviour
                 }
                 else if (rayHit.collider.GetComponent<SelfBuildingManager>())
                 {
-                    
+                    SelfBuildingManager building = rayHit.collider.GetComponent<SelfBuildingManager>();
+
+                    if (rayHit.collider.CompareTag(controllingPlayer))
+                    {
+                        buildingControlBuilder.SetActive(true);
+
+                        if (Input.GetKey("left ctrl"))
+                        {
+                            // this adds more buildings to the list
+                            if (building.currentlySelected == false)
+                            {
+                                //adds the script to the building to the list
+                                selectedBuildings.Add(rayHit.collider.GetComponent<SelfBuildingManager>());
+                                // Sets the building to selected
+                                building.currentlySelected = true;
+                                // Runs the IsSelected method on the building that gets selected
+                                building.IsSelected();
+                            }
+                            // removes object from list
+                            else
+                            {
+                                selectedBuildings.Remove(rayHit.collider.GetComponent<SelfBuildingManager>());
+                                building.currentlySelected = false;
+                                building.IsSelected();
+                            }
+                        }
+                        else
+                        {
+                            ClearSelection();
+                            selectedBuildings.Add(rayHit.collider.GetComponent<SelfBuildingManager>());
+                            building.currentlySelected = true;
+                            building.IsSelected();
+                        }
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
             }
         }
@@ -96,7 +148,7 @@ public class Click : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             // if we don't have people selected
-            if (selectedObjects.Count == 0)
+            if (selectedUnits.Count == 0)
             {
                 return;
             }
@@ -105,7 +157,7 @@ public class Click : MonoBehaviour
             {
 
                 // go cycle through all selected units
-                foreach (Units units in selectedObjects)
+                foreach (Units units in selectedUnits)
                 {
                     // if ray hits go into attack state
                     if (rayHit.transform.gameObject.CompareTag("Enemy"))
@@ -134,7 +186,8 @@ public class Click : MonoBehaviour
     // selectedobjects
     void SelectedObjects()
     {
-        List<Units> remObjects = new List<Units>();
+        List<Units> remUnits = new List<Units>();
+        List<SelfBuildingManager> remBuild = new List<SelfBuildingManager>();
 
         // if ctrl is not held down and one clicks, clearselection
         if(Input.GetKey("left ctrl") == false)
@@ -145,8 +198,8 @@ public class Click : MonoBehaviour
         // sets the positions for the box selector
         Rect selectedRect = new Rect(mousePos1.x, mousePos1.y, mousePos2.x - mousePos1.x, mousePos2.y - mousePos1.y);
 
-        // foreach unit in selectedObjects
-        foreach (Units selectObject in selectableObjects)
+        // foreach unit in selectedUnits
+        foreach (Units selectObject in selectableUnits)
         {
             if (selectObject != null)
             {
@@ -155,7 +208,7 @@ public class Click : MonoBehaviour
                     // makes the box selector
                     if (selectedRect.Contains(Camera.main.WorldToViewportPoint(selectObject.transform.position), true))
                     {
-                        selectedObjects.Add(selectObject);
+                        selectedUnits.Add(selectObject);
                         unitControlBuilder.SetActive(true);
                         selectObject.GetComponent<Units>().currentlySelected = true;
                         selectObject.GetComponent<Units>().IsSelected();
@@ -163,22 +216,34 @@ public class Click : MonoBehaviour
                 }
                 else
                 {
-                    remObjects.Add(selectObject);
+                    remUnits.Add(selectObject);
                 }
             }
             // else remove them
             else
             {
-                remObjects.Add(selectObject);
+                remUnits.Add(selectObject);
+            }
+        }
+
+        foreach (SelfBuildingManager selectObject in selectableBuildings)
+        {
+            if (selectObject != null)
+            {
+                if (!selectObject.CompareTag("Enemy"))
+                {
+                    //if (selectedRect.Contains, true))
+
+                }
             }
         }
 
         // if rem is empty remove rem
-        if(remObjects.Count > 0)
+        if(remUnits.Count > 0)
         {
-            foreach(Units rem in remObjects)
+            foreach(Units rem in remUnits)
             {
-                selectableObjects.Remove(rem);
+                selectableUnits.Remove(rem);
             }
         }
     }
@@ -186,9 +251,10 @@ public class Click : MonoBehaviour
     // clears selction
     void ClearSelection()
     {
-        if (selectedObjects.Count > 0)
+        // clears unit list
+        if (selectedUnits.Count > 0)
         {
-            foreach (Units obj in selectedObjects)
+            foreach (Units obj in selectedUnits)
             {
                 if(obj != null)
                 {
@@ -198,7 +264,21 @@ public class Click : MonoBehaviour
                 }
             }
         }
+
+        if (selectedBuildings.Count > 0)
+        {
+            foreach (SelfBuildingManager obj in selectedBuildings)
+            {
+                if(obj != null)
+                {
+                    obj.GetComponent<SelfBuildingManager>().currentlySelected = false;
+                    buildingControlBuilder.SetActive(false);
+                    obj.GetComponent<SelfBuildingManager>().IsSelected();
+                }
+            }
+        }
         
-        selectedObjects.Clear();
+        selectedUnits.Clear();
+        selectedBuildings.Clear();
     }
 }

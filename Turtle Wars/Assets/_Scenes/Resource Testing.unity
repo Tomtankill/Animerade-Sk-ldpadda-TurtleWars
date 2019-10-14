@@ -2419,9 +2419,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14d27912cc8c05478de03629d4e29fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectableObjects: []
+  selectableUnits: []
+  selectableBuildings: []
+  controllingPlayer: Friendly
   moveThisHere: {fileID: 0}
   unitControlBuilder: {fileID: 1462961286}
+  buildingControlBuilder: {fileID: 0}
 --- !u!114 &1875030086
 MonoBehaviour:
   m_ObjectHideFlags: 0

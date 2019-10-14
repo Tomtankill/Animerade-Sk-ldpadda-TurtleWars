@@ -47,7 +47,7 @@ public class Units : MonoBehaviour
 
         //attackTimer = currentAttackTimer;
         // may not work
-        Camera.main.gameObject.GetComponent<Click>().selectableObjects.Add(this);
+        Camera.main.gameObject.GetComponent<Click>().selectableUnits.Add(this);
         unitList.Add(this);
         state = State.Idle;
     }
