@@ -51,12 +51,11 @@ public class Units : MonoBehaviour
         commander = thePlayer.GetComponent<BuildBuildings>();
         
         // adds this gameobject to a list from click
-        Camera.main.gameObject.GetComponent<Click>().selectableObjects.Add(this);
+        Camera.main.gameObject.GetComponent<Click>().selectableUnits.Add(this);
 
         //attackTimer = currentAttackTimer;
         // may not work
         Camera.main.gameObject.GetComponent<Click>().selectableUnits.Add(this);
-        unitList.Add(this);
         state = State.Idle;
     }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
 public class SelfBuildingManager : MonoBehaviour
 {
@@ -49,6 +50,8 @@ public class SelfBuildingManager : MonoBehaviour
     public Material red;
     public Material yellow;
     public Material green;
+    public Material purple;
+    public Material blue;
 
     // Start is called before the first frame update
     void Start()
@@ -285,12 +288,12 @@ public class SelfBuildingManager : MonoBehaviour
         if (currentlySelected == false)
         {
             // not selected
-            buildingRender.material = red;
+            buildingRender.material = purple;
         }
         else
         {
             // selected
-            buildingRender.material = green;
+            buildingRender.material = blue;
         }
 
     }

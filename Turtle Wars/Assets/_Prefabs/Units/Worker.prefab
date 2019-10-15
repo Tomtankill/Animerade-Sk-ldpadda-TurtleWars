@@ -110,14 +110,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   red: {fileID: 2100000, guid: 2917bb85f5ad2084596bac12082c8f63, type: 2}
   green: {fileID: 2100000, guid: d6ff0e9482cc6a142bde6ffc9fbafcea, type: 2}
-  currentlySelected: 0
-  atkRange: 3
-  attackDamage: 25
-  attackTimer: 5
-  attacking: 0
-  r1: 0
-  r2: 0
+  newTarget: {x: 0, y: 0, z: 0}
   target: {fileID: 0}
+  currentlySelected: 0
+  health: 10
+  maxhealth: 10
+  atkRange: 3
+  attackDamage: 5
+  attackTimer: 4
+  attacking: 0
   state: 0
 --- !u!54 &1972373396737214361
 Rigidbody:

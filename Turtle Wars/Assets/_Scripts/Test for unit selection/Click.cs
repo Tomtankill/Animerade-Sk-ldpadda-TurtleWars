@@ -29,8 +29,11 @@ public class Click : MonoBehaviour
 
     void Awake()
     {
+        //
         selectedUnits = new List<Units>();
         selectableUnits = new List<Units>();
+        //
+        selectableBuildings = new List<SelfBuildingManager>();
         selectedBuildings = new List<SelfBuildingManager>();
 
     }
@@ -222,7 +225,7 @@ public class Click : MonoBehaviour
             {
                 if (!selectObject.CompareTag("Enemy"))
                 {
-                    // makes the box selector
+                    // checks if the object is within the box
                     if (selectedRect.Contains(Camera.main.WorldToViewportPoint(selectObject.transform.position), true))
                     {
                         selectedUnits.Add(selectObject);
@@ -249,8 +252,13 @@ public class Click : MonoBehaviour
             {
                 if (!selectObject.CompareTag("Enemy"))
                 {
-                    //if (selectedRect.Contains, true))
-
+                    if (selectedRect.Contains(Camera.main.WorldToViewportPoint(selectObject.transform.position), true))
+                    {
+                        selectedBuildings.Add(selectObject);
+                        buildingControlBuilder.SetActive(true);
+                        selectObject.GetComponent<SelfBuildingManager>().currentlySelected = true;
+                        selectObject.GetComponent<SelfBuildingManager>().IsSelected();
+                    }
                 }
             }
         }

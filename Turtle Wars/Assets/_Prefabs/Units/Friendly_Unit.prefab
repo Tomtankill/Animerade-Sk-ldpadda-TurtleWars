@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3395489194981987398}
   - component: {fileID: 7824146188290455761}
   m_Layer: 0
-  m_Name: Unit
+  m_Name: Friendly_Unit
   m_TagString: Friendly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,12 +108,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e018ff4b9d2166e49a75a6bd757cef8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
-  attack: 10
   red: {fileID: 2100000, guid: 2917bb85f5ad2084596bac12082c8f63, type: 2}
   green: {fileID: 2100000, guid: d6ff0e9482cc6a142bde6ffc9fbafcea, type: 2}
+  newTarget: {x: 0, y: 0, z: 0}
+  target: {fileID: 0}
   currentlySelected: 0
-  isEnemy: 0
+  health: 20
+  maxhealth: 20
+  atkRange: 10
+  attackDamage: 25
+  attackTimer: 2
+  attacking: 0
+  state: 0
 --- !u!54 &3395489194981987398
 Rigidbody:
   m_ObjectHideFlags: 0
