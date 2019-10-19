@@ -40,6 +40,7 @@ public class TurnTimer : MonoBehaviour
             p1Turn = false;
             timerCurrent = timerMax;
             p2Turn = true;
+            imagetimer.GetComponent<Image>().color = new Color(1, 0, 0, 1);
             Debug.Log("It is P2's turn" + p2Turn);
         }
         if (timerCurrent <= 0 & p2Turn == true)
@@ -47,6 +48,7 @@ public class TurnTimer : MonoBehaviour
             p2Turn = false;
             timerCurrent = timerMax;
             p1Turn = true;
+            imagetimer.GetComponent<Image>().color = new Color(0, 1, 0, 1);
             Debug.Log("It is P1's turn: " + p1Turn);
         }
     }

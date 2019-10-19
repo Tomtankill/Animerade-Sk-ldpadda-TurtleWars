@@ -5,9 +5,9 @@ using UnityEngine;
 public class Click : MonoBehaviour
 {
     // Defines a new list. That list will contain all gameObjects that have a Units script.
-    private List<Units> selectedUnits;
+    [SerializeField] private List<Units> selectedUnits;
     // Defines a new list. That list will contain all gameObjects that have a SelfBuildingManager script.
-    private List<SelfBuildingManager> selectedBuildings;
+    [SerializeField] private List<SelfBuildingManager> selectedBuildings;
 
     // Essentially a master list for all selectable Units.
     [HideInInspector] public List<Units> selectableUnits;
@@ -210,7 +210,7 @@ public class Click : MonoBehaviour
         List<SelfBuildingManager> remBuild = new List<SelfBuildingManager>();
 
         // if ctrl is not held down and one clicks, clearselection
-        if(Input.GetKey("left ctrl") == false)
+        if (Input.GetKey("left ctrl") == false)
         {
             ClearSelection();
         }
@@ -229,6 +229,7 @@ public class Click : MonoBehaviour
                     if (selectedRect.Contains(Camera.main.WorldToViewportPoint(selectObject.transform.position), true))
                     {
                         selectedUnits.Add(selectObject);
+                        Debug.Log("Adds on line: 234");
                         unitControlBuilder.SetActive(true);
                         selectObject.GetComponent<Units>().currentlySelected = true;
                         selectObject.GetComponent<Units>().IsSelected();
@@ -260,17 +261,42 @@ public class Click : MonoBehaviour
                         selectObject.GetComponent<SelfBuildingManager>().IsSelected();
                     }
                 }
+                else
+                {
+                    remBuild.Add(selectObject);
+                }
+            }
+            else
+            {
+                remBuild.Add(selectObject);
             }
         }
 
         // if rem is empty remove rem
-        if(remUnits.Count > 0)
+        if (remUnits.Count > 0)
         {
             foreach(Units rem in remUnits)
             {
                 selectableUnits.Remove(rem);
             }
         }
+        if (remBuild.Count > 0)
+        {
+            foreach (SelfBuildingManager rem in remBuild)
+            {
+                selectableBuildings.Remove(rem);
+            }
+        }
+
+        if (selectedBuildings.Count > 0)
+        {
+            if (selectedBuildings[0])
+            {
+                
+            }
+        }
+
+
     }
 
     // clears selction
