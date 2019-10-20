@@ -99,11 +99,11 @@ public class CameraPan : MonoBehaviour
         // disables other movement
         if (Input.GetMouseButtonDown(2)) {
             moveDisable = true;
-            Debug.Log("Player started dragging");
+            //Debug.Log("Player started dragging");
         }
         if (Input.GetMouseButtonUp(2)) {
             moveDisable = false;
-            Debug.Log("Player stopped dragging");
+            //Debug.Log("Player stopped dragging");
         }
         // beginning of actual processing
         if (Input.GetMouseButtonDown(2)) {

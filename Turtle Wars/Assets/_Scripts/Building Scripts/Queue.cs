@@ -5,8 +5,8 @@ using UnityEngine;
 public class Queue : MonoBehaviour
 {
 
-    public List<string> taskQueue = new List<string>();
-    public string testForChange;
+    [SerializeField] private List<string> taskQueue = new List<string>();
+    private string testForChange;
 
     void Start()
     {
@@ -15,37 +15,39 @@ public class Queue : MonoBehaviour
     void Update()
     {
         if (taskQueue.Count > 0) {
-            Debug.Log("There is a task to complete");
             // if the first thing in the list changes, start work on that first task
             if (testForChange != taskQueue[0])
             {
-                Debug.Log("there has been a change to the first item on the list");
+                testForChange = taskQueue[0];
+                //Debug.Log("there has been a change to the first item on the list");
                 switch (taskQueue[0]) // finds out what its working on
                 {
                     case "job":
-                        Debug.Log("job has been identified as the task");
-                        Task();
+                        StartCoroutine("Task");
 
                         break;
 
                     case "job1":
-                        TaskOne();
+                        StartCoroutine("TaskOne");
 
                         break;
 
                     case "job2":
-                        TaskTwo();
+                        StartCoroutine("TaskTwo");
 
                         break;
 
                     case "job3":
-
+                        StartCoroutine("TaskThree");
 
                         break;
 
                     case "job4":
+                        StartCoroutine("TaskFour");
 
-
+                        break;
+                    case "reset":
+                        taskQueue.RemoveAt(0);
                         break;
 
                     default:
@@ -54,33 +56,101 @@ public class Queue : MonoBehaviour
                         break;
                 }
             }
-            testForChange = taskQueue[0];
+        }
+        if (taskQueue.Count == 0)
+        {
+            testForChange = "clear";
         }
     }
 
     public void TaskButton()
     {
-        taskQueue.Add("job");
+        if (taskQueue.Count != 0)
+        {
+            if (taskQueue[taskQueue.Count - 1] == "job")
+            {
+                taskQueue.Add("reset");
+                taskQueue.Add("job");
+            } else
+            {
+                taskQueue.Add("job");
+            }
+        } else
+        {
+            taskQueue.Add("job");
+        }
     }
 
     public void TaskOneButton()
     {
-        taskQueue.Add("job1");
+        if (taskQueue.Count != 0)
+        {
+            if (taskQueue[taskQueue.Count - 1] == "job1")
+            {
+                taskQueue.Add("reset");
+                taskQueue.Add("job1");
+            } else
+            {
+                taskQueue.Add("job1");
+            }
+        } else
+        {
+            taskQueue.Add("job1");
+        }
     }
 
     public void TaskTwoButton()
     {
-        taskQueue.Add("job2");
+        if (taskQueue.Count != 0)
+        {
+            if (taskQueue[taskQueue.Count - 1] == "job2")
+            {
+                taskQueue.Add("reset");
+                taskQueue.Add("job2");
+            } else
+            {
+                taskQueue.Add("job2");
+            }
+        } else
+        {
+            taskQueue.Add("job2");
+        }
     }
 
     public void TaskThreeButton()
     {
-
+        if (taskQueue.Count != 0)
+        {
+            if (taskQueue[taskQueue.Count - 1] == "job3")
+            {
+                taskQueue.Add("reset");
+                taskQueue.Add("job3");
+            } else
+            {
+                taskQueue.Add("job3");
+            }
+        } else
+        {
+            taskQueue.Add("job3");
+        }
     }
 
     public void TaskFourButton()
     {
-
+        if (taskQueue.Count != 0)
+        {
+            if (taskQueue[taskQueue.Count - 1] == "job4")
+            {
+                taskQueue.Add("reset");
+                taskQueue.Add("job4");
+            } else
+            {
+                taskQueue.Add("job4");
+            }
+        } else
+        {
+            taskQueue.Add("job4");
+        }
     }
 
     IEnumerator Task()
@@ -89,14 +159,28 @@ public class Queue : MonoBehaviour
         Debug.Log("job happens");
         taskQueue.RemoveAt(0); // removes the task after the task is finished
     }
-    public void TaskOne()
+    IEnumerator TaskOne()
     {
+        yield return new WaitForSeconds(5.0f);
         Debug.Log("job1 happens");
         taskQueue.RemoveAt(0); // removes the task after the task is finished
     }
-    public void TaskTwo()
+    IEnumerator TaskTwo()
     {
+        yield return new WaitForSeconds(5.0f);
         Debug.Log("job2 happens");
+        taskQueue.RemoveAt(0); // removes the task after the task is finished
+    }
+    IEnumerator TaskThree()
+    {
+        yield return new WaitForSeconds(5.0f);
+        Debug.Log("job3 happens");
+        taskQueue.RemoveAt(0); // removes the task after the task is finished
+    }
+    IEnumerator TaskFour()
+    {
+        yield return new WaitForSeconds(5.0f);
+        Debug.Log("job4 happens");
         taskQueue.RemoveAt(0); // removes the task after the task is finished
     }
 }
