@@ -90,14 +90,10 @@ public class BuildBuildings : MonoBehaviour
 
     public void Tower()
     {
-        if (commander.GetComponent<TurnTimer>().p1Turn == true)
+        if (GetComponent<TurnTimer>().IsMyTurn() == true)
         {
             NameBuilding(towerPrefab, towerCount, "Tower");
             towerCount++;
-        }
-        else
-        {
-            Debug.Log("It's not your turn yet");
         }
     }
 

@@ -1877,6 +1877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   taskQueue: []
+  commander: {fileID: 0}
 --- !u!224 &824269837 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7829728079531942103, guid: 43bef00e57885a746b3124dab6cdc0bb,
@@ -1985,6 +1986,8 @@ MonoBehaviour:
   timerCurrent: 31
   p1Turn: 1
   p2Turn: 0
+  notyourturn: {fileID: 1614603402625498650, guid: 084a836cfae9d4e4abd60fdc8d762c7b,
+    type: 3}
   imagetimer: {fileID: 1004023684}
   timerText: {fileID: 1751649824}
   filling: 0
@@ -2001,6 +2004,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   taskQueue: []
+  commander: {fileID: 1126573208}
 --- !u!1001 &1333321054
 PrefabInstance:
   m_ObjectHideFlags: 0

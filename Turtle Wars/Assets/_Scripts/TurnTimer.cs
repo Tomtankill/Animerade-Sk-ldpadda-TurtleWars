@@ -11,6 +11,7 @@ public class TurnTimer : MonoBehaviour
      private int iTimerCurrent;
     public bool p1Turn = true;
     public bool p2Turn = false;
+    public TextMeshProUGUI notyourturn;
 
     public Image imagetimer;
     public TextMeshProUGUI timerText;
@@ -50,6 +51,24 @@ public class TurnTimer : MonoBehaviour
             p1Turn = true;
             imagetimer.GetComponent<Image>().color = new Color(0, 1, 0, 1);
             Debug.Log("It is P1's turn: " + p1Turn);
+        }
+    }
+
+    public bool IsMyTurn()
+    {
+        if (p1Turn == true)
+        {
+            return true;
+        }
+        else
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray))
+            {
+                Destroy(Instantiate(notyourturn, transform.position, transform.rotation), 1);
+
+            }
+            return false;
         }
     }
 }

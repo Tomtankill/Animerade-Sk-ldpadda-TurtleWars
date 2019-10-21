@@ -7,6 +7,8 @@ public class Queue : MonoBehaviour
 
     [SerializeField] private List<string> taskQueue = new List<string>();
     private string testForChange;
+    public GameObject commander;
+
 
     void Start()
     {
@@ -20,40 +22,15 @@ public class Queue : MonoBehaviour
             {
                 testForChange = taskQueue[0];
                 //Debug.Log("there has been a change to the first item on the list");
-                switch (taskQueue[0]) // finds out what its working on
+                
+                // finds out what its working on
+                if (taskQueue[0] == "reset")
                 {
-                    case "job":
-                        StartCoroutine("Task");
-
-                        break;
-
-                    case "job1":
-                        StartCoroutine("TaskOne");
-
-                        break;
-
-                    case "job2":
-                        StartCoroutine("TaskTwo");
-
-                        break;
-
-                    case "job3":
-                        StartCoroutine("TaskThree");
-
-                        break;
-
-                    case "job4":
-                        StartCoroutine("TaskFour");
-
-                        break;
-                    case "reset":
-                        taskQueue.RemoveAt(0);
-                        break;
-
-                    default:
-                        Debug.LogError("taskQueue failed to find a valid task");
-                        taskQueue.RemoveAt(0);
-                        break;
+                    taskQueue.RemoveAt(0);
+                }
+                else
+                {
+                    StartCoroutine(taskQueue[0]);
                 }
             }
         }
@@ -65,122 +42,164 @@ public class Queue : MonoBehaviour
 
     public void TaskButton()
     {
-        if (taskQueue.Count != 0)
+        if (commander.GetComponent<TurnTimer>().p1Turn == true)
         {
-            if (taskQueue[taskQueue.Count - 1] == "job")
+            if (taskQueue.Count != 0)
             {
-                taskQueue.Add("reset");
-                taskQueue.Add("job");
-            } else
+                if (taskQueue[taskQueue.Count - 1] == "job")
+                {
+                    taskQueue.Add("reset");
+                    taskQueue.Add("job");
+                }
+                else
+                {
+                    taskQueue.Add("job");
+                }
+            }
+            else
             {
                 taskQueue.Add("job");
             }
-        } else
-        {
-            taskQueue.Add("job");
         }
     }
 
     public void TaskOneButton()
     {
-        if (taskQueue.Count != 0)
+        if (commander.GetComponent<TurnTimer>().p1Turn == true)
         {
-            if (taskQueue[taskQueue.Count - 1] == "job1")
+            if (taskQueue.Count != 0)
             {
-                taskQueue.Add("reset");
-                taskQueue.Add("job1");
-            } else
+                if (taskQueue[taskQueue.Count - 1] == "job1")
+                {
+                    taskQueue.Add("reset");
+                    taskQueue.Add("job1");
+                }
+                else
+                {
+                    taskQueue.Add("job1");
+                }
+            }
+            else
             {
                 taskQueue.Add("job1");
             }
-        } else
-        {
-            taskQueue.Add("job1");
         }
     }
 
     public void TaskTwoButton()
     {
-        if (taskQueue.Count != 0)
+        if (commander.GetComponent<TurnTimer>().p1Turn == true)
         {
-            if (taskQueue[taskQueue.Count - 1] == "job2")
+            if (taskQueue.Count != 0)
             {
-                taskQueue.Add("reset");
-                taskQueue.Add("job2");
-            } else
+                if (taskQueue[taskQueue.Count - 1] == "job2")
+                {
+                    taskQueue.Add("reset");
+                    taskQueue.Add("job2");
+                }
+                else
+                {
+                    taskQueue.Add("job2");
+                }
+            }
+            else
             {
                 taskQueue.Add("job2");
             }
-        } else
-        {
-            taskQueue.Add("job2");
         }
     }
 
     public void TaskThreeButton()
     {
-        if (taskQueue.Count != 0)
+        if (commander.GetComponent<TurnTimer>().p1Turn == true)
         {
-            if (taskQueue[taskQueue.Count - 1] == "job3")
+            if (taskQueue.Count != 0)
             {
-                taskQueue.Add("reset");
-                taskQueue.Add("job3");
-            } else
+                if (taskQueue[taskQueue.Count - 1] == "job3")
+                {
+                    taskQueue.Add("reset");
+                    taskQueue.Add("job3");
+                }
+                else
+                {
+                    taskQueue.Add("job3");
+                }
+            }
+            else
             {
                 taskQueue.Add("job3");
             }
-        } else
-        {
-            taskQueue.Add("job3");
         }
     }
 
     public void TaskFourButton()
     {
-        if (taskQueue.Count != 0)
+        if (commander.GetComponent<TurnTimer>().p1Turn == true)
         {
-            if (taskQueue[taskQueue.Count - 1] == "job4")
+            if (taskQueue.Count != 0)
             {
-                taskQueue.Add("reset");
-                taskQueue.Add("job4");
-            } else
+                if (taskQueue[taskQueue.Count - 1] == "job4")
+                {
+                    taskQueue.Add("reset");
+                    taskQueue.Add("job4");
+                }
+                else
+                {
+                    taskQueue.Add("job4");
+                }
+            }
+            else
             {
                 taskQueue.Add("job4");
             }
-        } else
+        }
+        else
         {
-            taskQueue.Add("job4");
+            
         }
     }
 
-    IEnumerator Task()
+    IEnumerator RunJob(string action, float time)
     {
-        yield return new WaitForSeconds(5.0f);
+        //yield return new WaitForSeconds(time);
+        //Actions.Invoke(action, 0);
+
         Debug.Log("job happens");
         taskQueue.RemoveAt(0); // removes the task after the task is finished
     }
-    IEnumerator TaskOne()
+    IEnumerator Job1()
     {
         yield return new WaitForSeconds(5.0f);
         Debug.Log("job1 happens");
         taskQueue.RemoveAt(0); // removes the task after the task is finished
     }
-    IEnumerator TaskTwo()
+    IEnumerator Job2()
     {
         yield return new WaitForSeconds(5.0f);
         Debug.Log("job2 happens");
         taskQueue.RemoveAt(0); // removes the task after the task is finished
     }
-    IEnumerator TaskThree()
+    IEnumerator Job3()
     {
         yield return new WaitForSeconds(5.0f);
         Debug.Log("job3 happens");
         taskQueue.RemoveAt(0); // removes the task after the task is finished
     }
-    IEnumerator TaskFour()
+    IEnumerator Job4()
     {
         yield return new WaitForSeconds(5.0f);
         Debug.Log("job4 happens");
         taskQueue.RemoveAt(0); // removes the task after the task is finished
+    }
+}
+
+public class BUildingStuff
+{
+    public int Health;
+
+    public BUildingStuff(int health, float buildtime, int attackdamage, string name)
+    {
+        Health = health;
+
     }
 }
