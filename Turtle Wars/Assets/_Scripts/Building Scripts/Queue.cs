@@ -1,14 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Queue : MonoBehaviour
 {
+    // things for the tasks
+    public Image imagetimer;
+    private float timerMax = 31.0f;
+    [SerializeField] private float timerCurrent = 31.0f;
+    private bool taskActive = false;
 
+
+    // things for the Queue
     [SerializeField] private List<string> taskQueue = new List<string>();
     private string testForChange;
     public GameObject commander;
-
 
     void Start()
     {
@@ -16,6 +24,7 @@ public class Queue : MonoBehaviour
     }
     void Update()
     {
+        //Queue Bit
         if (taskQueue.Count > 0) {
             // if the first thing in the list changes, start work on that first task
             if (testForChange != taskQueue[0])
@@ -38,133 +47,80 @@ public class Queue : MonoBehaviour
         {
             testForChange = "clear";
         }
+
+        // Task Bit
+        if (timerCurrent != 0 && taskActive)
+        {
+            timerCurrent -= Time.deltaTime;
+            imagetimer.fillAmount = timerCurrent/timerMax;
+        }
+
     }
 
     public void TaskButton()
     {
-        if (commander.GetComponent<TurnTimer>().p1Turn == true)
-        {
-            if (taskQueue.Count != 0)
-            {
-                if (taskQueue[taskQueue.Count - 1] == "job")
-                {
-                    taskQueue.Add("reset");
-                    taskQueue.Add("job");
-                }
-                else
-                {
-                    taskQueue.Add("job");
-                }
-            }
-            else
-            {
-                taskQueue.Add("job");
-            }
-        }
+        CheckAndAdd("job");
     }
 
     public void TaskOneButton()
     {
-        if (commander.GetComponent<TurnTimer>().p1Turn == true)
-        {
-            if (taskQueue.Count != 0)
-            {
-                if (taskQueue[taskQueue.Count - 1] == "job1")
-                {
-                    taskQueue.Add("reset");
-                    taskQueue.Add("job1");
-                }
-                else
-                {
-                    taskQueue.Add("job1");
-                }
-            }
-            else
-            {
-                taskQueue.Add("job1");
-            }
-        }
+        CheckAndAdd("job1");
     }
 
     public void TaskTwoButton()
     {
-        if (commander.GetComponent<TurnTimer>().p1Turn == true)
-        {
-            if (taskQueue.Count != 0)
-            {
-                if (taskQueue[taskQueue.Count - 1] == "job2")
-                {
-                    taskQueue.Add("reset");
-                    taskQueue.Add("job2");
-                }
-                else
-                {
-                    taskQueue.Add("job2");
-                }
-            }
-            else
-            {
-                taskQueue.Add("job2");
-            }
-        }
+        CheckAndAdd("job2");
     }
 
     public void TaskThreeButton()
     {
-        if (commander.GetComponent<TurnTimer>().p1Turn == true)
-        {
-            if (taskQueue.Count != 0)
-            {
-                if (taskQueue[taskQueue.Count - 1] == "job3")
-                {
-                    taskQueue.Add("reset");
-                    taskQueue.Add("job3");
-                }
-                else
-                {
-                    taskQueue.Add("job3");
-                }
-            }
-            else
-            {
-                taskQueue.Add("job3");
-            }
-        }
+        CheckAndAdd("job3");
     }
 
     public void TaskFourButton()
     {
-        if (commander.GetComponent<TurnTimer>().p1Turn == true)
+        CheckAndAdd("job4");
+    }
+
+    public void CheckAndAdd(string job)
+    {
+        if (GetComponent<TurnTimer>().IsMyTurn() == true)
         {
             if (taskQueue.Count != 0)
             {
-                if (taskQueue[taskQueue.Count - 1] == "job4")
+                if (taskQueue[taskQueue.Count - 1] == job)
                 {
                     taskQueue.Add("reset");
-                    taskQueue.Add("job4");
+                    taskQueue.Add(job);
                 }
                 else
                 {
-                    taskQueue.Add("job4");
+                    taskQueue.Add(job);
                 }
             }
             else
             {
-                taskQueue.Add("job4");
+                taskQueue.Add(job);
             }
-        }
-        else
-        {
-            
         }
     }
 
-    IEnumerator RunJob(string action, float time)
-    {
-        //yield return new WaitForSeconds(time);
-        //Actions.Invoke(action, 0);
 
-        Debug.Log("job happens");
+    IEnumerator Job()
+    {
+        taskActive = true;
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            taskActive = false;
+            timerCurrent = timerMax;
+        }
+        if (timerCurrent <= 0)
+        {
+            commander.GetComponent<BuildingActions>().HealthUpgrade();
+            taskActive = false;
+            timerCurrent = timerMax;
+        }
+        yield return null;
         taskQueue.RemoveAt(0); // removes the task after the task is finished
     }
     IEnumerator Job1()
@@ -190,16 +146,5 @@ public class Queue : MonoBehaviour
         yield return new WaitForSeconds(5.0f);
         Debug.Log("job4 happens");
         taskQueue.RemoveAt(0); // removes the task after the task is finished
-    }
-}
-
-public class BUildingStuff
-{
-    public int Health;
-
-    public BUildingStuff(int health, float buildtime, int attackdamage, string name)
-    {
-        Health = health;
-
     }
 }

@@ -8,6 +8,8 @@ public class SelfBuildingManager : MonoBehaviour
 {
     // Letting the building know who the commander is
     public GameObject commander;
+    public GameObject unitCamera;
+
     [SerializeField] private int type;
 
     // bools
@@ -58,6 +60,7 @@ public class SelfBuildingManager : MonoBehaviour
     {
         // finds the commander and sets it to its appropriate variable
         commander = GameObject.Find("Commander");
+        unitCamera = GameObject.Find("Main_Camera");
         // bools are false on start
         buildingFinish = false;
         controls = false;
@@ -226,7 +229,7 @@ public class SelfBuildingManager : MonoBehaviour
                     {
                         case 0: //  Town hall
                             townHallControls = true;
-                            Debug.Log(townHallControls);
+                            //Debug.Log(townHallControls);
                             break;
                         case 1: // Barracks
                             barracksControls = true;
@@ -293,6 +296,12 @@ public class SelfBuildingManager : MonoBehaviour
         else
         {
             // selected
+            if (unitCamera.GetComponent<Click>().selectedBuildings.Count == 1)
+            {
+                Debug.Log("I've come to this point");
+                commander.GetComponent<BuildBuildings>().selected = this.gameObject;
+            }
+
             buildingRender.material = blue;
         }
 

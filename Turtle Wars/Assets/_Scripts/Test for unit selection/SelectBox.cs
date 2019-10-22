@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SelectBox : MonoBehaviour
 {
-    [SerializeField]private RectTransform selectSquareImages;
+    public RectTransform selectSquareImages;
 
     Vector3 startPos;
     Vector3 endPos;
@@ -21,9 +21,8 @@ public class SelectBox : MonoBehaviour
         // when left click is held down
         if (Input.GetMouseButtonDown(0))
         {
-            RaycastHit hit;
             // shoots out raycast from camera to mouseposition
-            if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity))
             {
                 startPos = hit.point;
             }

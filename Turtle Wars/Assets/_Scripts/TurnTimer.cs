@@ -6,12 +6,13 @@ using TMPro;
 
 public class TurnTimer : MonoBehaviour
 {
-     private float timerMax = 31.0f;
+    private float timerMax = 31.0f;
     [SerializeField] private float timerCurrent = 31.0f;
-     private int iTimerCurrent;
+    private int iTimerCurrent;
     public bool p1Turn = true;
     public bool p2Turn = false;
-    public TextMeshProUGUI notyourturn;
+    public GameObject notyourturn;
+
 
     public Image imagetimer;
     public TextMeshProUGUI timerText;
@@ -62,13 +63,19 @@ public class TurnTimer : MonoBehaviour
         }
         else
         {
+
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray))
             {
-                Destroy(Instantiate(notyourturn, transform.position, transform.rotation), 1);
-
+                notyourturn.SetActive(true);
+                notyourturn.transform.position = Input.mousePosition;
+                Invoke("DisableNotYourTurn", 0.5f);
             }
             return false;
         }
+    }
+    void DisableNotYourTurn()
+    {
+        notyourturn.SetActive(false);
     }
 }

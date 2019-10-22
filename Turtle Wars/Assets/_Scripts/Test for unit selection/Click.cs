@@ -22,10 +22,13 @@ public class Click : MonoBehaviour
     private Vector3 mousePos1;
     private Vector3 mousePos2;
     public Transform moveThisHere;
+    private Vector3 rayhitInWorld;
+
 
     // UI controller menus
     public GameObject unitControlBuilder;
     public GameObject buildingControlBuilder;
+    
 
     void Awake()
     {
@@ -49,6 +52,7 @@ public class Click : MonoBehaviour
         //if leftclick is click
         if (Input.GetMouseButtonDown(0))
         {
+
             mousePos1 = Camera.main.ScreenToViewportPoint(Input.mousePosition);
 
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayHit,Mathf.Infinity))
@@ -194,7 +198,6 @@ public class Click : MonoBehaviour
                     // else move there
                     else if(rayHit.transform.gameObject.CompareTag("Ground"))
                     {
-                        print("This is true");
                         units.state = Units.State.Idle;
                         units.MoveToTarget(rayHit.point);
                     }
@@ -229,7 +232,6 @@ public class Click : MonoBehaviour
                     if (selectedRect.Contains(Camera.main.WorldToViewportPoint(selectObject.transform.position), true))
                     {
                         selectedUnits.Add(selectObject);
-                        Debug.Log("Adds on line: 234");
                         unitControlBuilder.SetActive(true);
                         selectObject.GetComponent<Units>().currentlySelected = true;
                         selectObject.GetComponent<Units>().IsSelected();
@@ -246,13 +248,14 @@ public class Click : MonoBehaviour
                 remUnits.Add(selectObject);
             }
         }
-
+        
         foreach (SelfBuildingManager selectObject in selectableBuildings)
         {
             if (selectObject != null)
             {
                 if (!selectObject.CompareTag("Enemy"))
                 {
+                    if ()
                     if (selectedRect.Contains(Camera.main.WorldToViewportPoint(selectObject.transform.position), true))
                     {
                         selectedBuildings.Add(selectObject);
@@ -332,5 +335,4 @@ public class Click : MonoBehaviour
         selectedUnits.Clear();
         selectedBuildings.Clear();
     }
-
 }

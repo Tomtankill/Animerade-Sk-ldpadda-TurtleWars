@@ -51,40 +51,28 @@ public class BuildBuildings : MonoBehaviour
 
     public void TownHall()
     {
-        if (commander.GetComponent<TurnTimer>().p1Turn == true)
+        if (GetComponent<TurnTimer>().IsMyTurn() == true)
         {
             NameBuilding(townHallPrefab, townhallCount, "Townhall");
             townhallCount++;
-        }
-        else
-        {
-            Debug.Log("It's not your turn yet");
         }
     }
 
     public void Barracks()
     {
-        if (commander.GetComponent<TurnTimer>().p1Turn == true)
+        if (GetComponent<TurnTimer>().IsMyTurn() == true)
         {
             NameBuilding(barracksPrefab, barracksCount, "Barracks");
             barracksCount++;
-        }
-        else
-        {
-            Debug.Log("It's not your turn yet");
         }
     }
 
     public void Armory()
     {
-        if (commander.GetComponent<TurnTimer>().p1Turn == true)
+        if (GetComponent<TurnTimer>().IsMyTurn() == true)
         {
             NameBuilding(armoryPrefab, armoryCount, "Armory");
             armoryCount++;
-        }
-        else
-        {
-            Debug.Log("It's not your turn yet");
         }
     }
 
@@ -131,20 +119,6 @@ public class BuildBuildings : MonoBehaviour
                 {
                     ghost.transform.position = Vector3.down * 300;
                 }
-            }
-        }
-    }
-
-    public void Upgrades()
-    {
-        if (selected.GetComponent<SelfBuildingManager>().armoryControls == true)
-        {
-
-            healthupgrade = true;
-            for (int i = 0; i < barracksList.Count; i++)
-            {
-                barracksList[i].GetComponent<SelfBuildingManager>().maxHealth += healthUpgradeAmount;
-                barracksList[i].GetComponent<SelfBuildingManager>().currentHealth += healthUpgradeAmount;
             }
         }
     }
