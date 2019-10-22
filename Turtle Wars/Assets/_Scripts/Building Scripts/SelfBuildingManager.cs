@@ -58,6 +58,7 @@ public class SelfBuildingManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         // finds the commander and sets it to its appropriate variable
         commander = GameObject.Find("Commander");
         unitCamera = GameObject.Find("Main_Camera");

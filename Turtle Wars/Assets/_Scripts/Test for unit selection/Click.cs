@@ -7,7 +7,7 @@ public class Click : MonoBehaviour
     // Defines a new list. That list will contain all gameObjects that have a Units script.
     [SerializeField] private List<Units> selectedUnits;
     // Defines a new list. That list will contain all gameObjects that have a SelfBuildingManager script.
-    [SerializeField] private List<SelfBuildingManager> selectedBuildings;
+    [HideInInspector] public List<SelfBuildingManager> selectedBuildings;
 
     // Essentially a master list for all selectable Units.
     [HideInInspector] public List<Units> selectableUnits;
@@ -23,6 +23,10 @@ public class Click : MonoBehaviour
     private Vector3 mousePos2;
     public Transform moveThisHere;
     private Vector3 rayhitInWorld;
+    GameObject closest = null;
+
+    RaycastHit clohit;
+
 
 
     // UI controller menus
@@ -49,9 +53,19 @@ public class Click : MonoBehaviour
         RaycastHit rayHit;
 
 
+
+
         //if leftclick is click
         if (Input.GetMouseButtonDown(0))
         {
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            
+            if (Physics.Raycast(ray, out clohit, Mathf.Infinity))
+            {
+                rayhitInWorld = clohit.point;
+                Debug.DrawLine(Camera.main.ScreenToWorldPoint(Input.mousePosition), rayhitInWorld);
+            }
+
 
             mousePos1 = Camera.main.ScreenToViewportPoint(Input.mousePosition);
 
@@ -251,11 +265,17 @@ public class Click : MonoBehaviour
         
         foreach (SelfBuildingManager selectObject in selectableBuildings)
         {
+
+            float distanceToClosestBuilding = Vector3.Distance(selectObject.transform.position, rayhitInWorld);
             if (selectObject != null)
             {
                 if (!selectObject.CompareTag("Enemy"))
                 {
-                    if ()
+                    if (distanceToClosestBuilding < Vector3.Distance(closest.transform.position, rayhitInWorld))
+                    {
+                        closest = selectObject.gameObject;
+                        print(closest.name);
+                    }
                     if (selectedRect.Contains(Camera.main.WorldToViewportPoint(selectObject.transform.position), true))
                     {
                         selectedBuildings.Add(selectObject);
