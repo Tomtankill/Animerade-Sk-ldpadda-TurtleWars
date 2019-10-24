@@ -271,17 +271,28 @@ public class Click : MonoBehaviour
             {
                 if (!selectObject.CompareTag("Enemy"))
                 {
-                    if (distanceToClosestBuilding < Vector3.Distance(closest.transform.position, rayhitInWorld))
+                    if (closest != null)
+                    {
+                        if (distanceToClosestBuilding < Vector3.Distance(closest.transform.position, rayhitInWorld))
+                        {
+                            closest = selectObject.gameObject;
+                        }
+                    }
+
+                    if (closest == null)
                     {
                         closest = selectObject.gameObject;
-                        print(closest.name);
                     }
+
                     if (selectedRect.Contains(Camera.main.WorldToViewportPoint(selectObject.transform.position), true))
                     {
-                        selectedBuildings.Add(selectObject);
-                        buildingControlBuilder.SetActive(true);
-                        selectObject.GetComponent<SelfBuildingManager>().currentlySelected = true;
-                        selectObject.GetComponent<SelfBuildingManager>().IsSelected();
+                        if (selectObject.gameObject.GetComponent<SelfBuildingManager>().type == closest.GetComponent<SelfBuildingManager>().type)
+                        {
+                            selectedBuildings.Add(selectObject);
+                            buildingControlBuilder.SetActive(true);
+                            selectObject.GetComponent<SelfBuildingManager>().currentlySelected = true;
+                            selectObject.GetComponent<SelfBuildingManager>().IsSelected();
+                        }
                     }
                 }
                 else

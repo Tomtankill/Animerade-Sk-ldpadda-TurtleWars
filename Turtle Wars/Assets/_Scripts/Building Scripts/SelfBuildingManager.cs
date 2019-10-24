@@ -10,7 +10,7 @@ public class SelfBuildingManager : MonoBehaviour
     public GameObject commander;
     public GameObject unitCamera;
 
-    [SerializeField] private int type;
+    public int type;
 
     // bools
     public bool controls;
@@ -87,6 +87,8 @@ public class SelfBuildingManager : MonoBehaviour
         }
 
 
+
+
         switch (type)
         {
             case 0: //Town Hall
@@ -98,15 +100,12 @@ public class SelfBuildingManager : MonoBehaviour
 
                 // Setting Stats
                 maxHealth = 150;
-                if (commander.GetComponent<BuildBuildings>().healthupgrade == true)
-                {
-                    maxHealth += commander.GetComponent<BuildBuildings>().healthUpgradeAmount;
-                }
-
                 currentHealth = 1;
                 reg = 2;
                 dmg = 3;
                 range = 3;
+
+                BuildMe();
 
                 break;
             case 1: // Barracks
@@ -118,12 +117,10 @@ public class SelfBuildingManager : MonoBehaviour
 
                 // Setting Stats
                 maxHealth = 100;
-                if (commander.GetComponent<BuildBuildings>().healthupgrade == true)
-                {
-                    maxHealth += commander.GetComponent<BuildBuildings>().healthUpgradeAmount;
-                }
                 currentHealth = 1;
                 reg = 2;
+
+                BuildMe();
 
                 break;
             case 2: //Armory
@@ -135,12 +132,10 @@ public class SelfBuildingManager : MonoBehaviour
 
                 // Setting Stats
                 maxHealth = 100;
-                if (commander.GetComponent<BuildBuildings>().healthupgrade == true)
-                {
-                    maxHealth += commander.GetComponent<BuildBuildings>().healthUpgradeAmount;
-                }
                 currentHealth = 1;
                 reg = 2;
+
+                BuildMe();
 
                 break;
             case 3: //Tower
@@ -152,14 +147,12 @@ public class SelfBuildingManager : MonoBehaviour
 
                 // Setting Stats
                 maxHealth = 75;
-                if (commander.GetComponent<BuildBuildings>().healthupgrade == true)
-                {
-                    maxHealth += commander.GetComponent<BuildBuildings>().healthUpgradeAmount;
-                }
                 currentHealth = 1;
                 reg = 2;
                 dmg = 3;
                 range = 3;
+
+                BuildMe();
 
                 break;
             default: // Default
@@ -167,17 +160,17 @@ public class SelfBuildingManager : MonoBehaviour
 
                 // Setting Default Stats
                 maxHealth = 10;
-                if (commander.GetComponent<BuildBuildings>().healthupgrade == true)
-                {
-                    maxHealth += commander.GetComponent<BuildBuildings>().healthUpgradeAmount;
-                }
                 currentHealth = 1;
                 reg = 1;
                 dmg = 0;
                 range = 0;
 
+                BuildMe();
+
                 break;
         }
+
+
 
 
         // setting checkpoints
@@ -299,12 +292,19 @@ public class SelfBuildingManager : MonoBehaviour
             // selected
             if (unitCamera.GetComponent<Click>().selectedBuildings.Count == 1)
             {
-                Debug.Log("I've come to this point");
                 commander.GetComponent<BuildBuildings>().selected = this.gameObject;
             }
 
             buildingRender.material = blue;
         }
 
+    }
+
+    public void BuildMe()
+    {
+        if (commander.GetComponent<BuildBuildings>().healthupgrade == true)
+        {
+            maxHealth += commander.GetComponent<BuildBuildings>().healthUpgradeAmount;
+        }
     }
 }

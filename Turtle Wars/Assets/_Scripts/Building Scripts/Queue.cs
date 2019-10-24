@@ -48,13 +48,8 @@ public class Queue : MonoBehaviour
             testForChange = "clear";
         }
 
-        // Task Bit
-        if (timerCurrent != 0 && taskActive)
-        {
-            timerCurrent -= Time.deltaTime;
-            imagetimer.fillAmount = timerCurrent/timerMax;
-        }
-
+        CancelTask();
+        
     }
 
     public void TaskButton()
@@ -106,22 +101,44 @@ public class Queue : MonoBehaviour
     }
 
 
+    public void CancelTask()
+    {
+        // Task Bit
+        if (timerCurrent != 0 && taskActive)
+        {
+            timerCurrent -= Time.deltaTime;
+            imagetimer.fillAmount = timerCurrent / timerMax;
+        }
+
+        if (Input.GetKeyDown(KeyCode.C) && taskActive)
+        {
+            taskActive = false;
+            timerCurrent = timerMax;
+            print("I cancelled the task");
+
+            taskQueue.RemoveAt(0); // removes the task after the task is finished
+        }
+
+        if (timerCurrent <= 0)
+        {
+            taskActive = false;
+            timerCurrent = timerMax;
+
+            // job activates here somehow
+
+            taskQueue.RemoveAt(0); // removes the task after the task is finished
+            print("Job has been completed");
+        }
+
+    }
+
+
     IEnumerator Job()
     {
         taskActive = true;
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            taskActive = false;
-            timerCurrent = timerMax;
-        }
-        if (timerCurrent <= 0)
-        {
-            commander.GetComponent<BuildingActions>().HealthUpgrade();
-            taskActive = false;
-            timerCurrent = timerMax;
-        }
+
         yield return null;
-        taskQueue.RemoveAt(0); // removes the task after the task is finished
+        
     }
     IEnumerator Job1()
     {
