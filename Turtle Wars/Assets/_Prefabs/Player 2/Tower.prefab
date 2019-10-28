@@ -108,11 +108,11 @@ MonoBehaviour:
   barracksControls: 0
   armoryControls: 0
   towerControls: 0
-  red: {fileID: 0}
-  yellow: {fileID: 0}
-  green: {fileID: 0}
-  purple: {fileID: 0}
-  blue: {fileID: 0}
+  red: {fileID: 2100000, guid: 2917bb85f5ad2084596bac12082c8f63, type: 2}
+  yellow: {fileID: 2100000, guid: 174c774f1fdd9b8448c44bed96f15d31, type: 2}
+  green: {fileID: 2100000, guid: d6ff0e9482cc6a142bde6ffc9fbafcea, type: 2}
+  purple: {fileID: 2100000, guid: 2359d77c9ef95ed4087fc1aea2409a27, type: 2}
+  blue: {fileID: 2100000, guid: 267a4162422c0e448aa96634fafa2653, type: 2}
 --- !u!208 &7450719682373140925
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -124,8 +124,8 @@ NavMeshObstacle:
   serializedVersion: 3
   m_Shape: 1
   m_Extents: {x: 0.064, y: 0.12200001, z: 0.065000005}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_MoveThreshold: 0.15
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.001, y: 0.119, z: -0.030000001}
   m_TimeToStationary: 0.5
