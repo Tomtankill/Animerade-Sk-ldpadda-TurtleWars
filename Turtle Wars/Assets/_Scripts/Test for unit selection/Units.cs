@@ -3,6 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// 
+/// Fighting!
+/// 
+/// 1. Find all units
+/// 2. Cycle through them all
+/// 3. find the closest
+/// 4. check if theyre in attack distance
+/// 5. move to attack then
+/// 
+/// n. have the ai call a move function to next to the players base so they carve an attack path to there
+/// 
+/// find building, but stop to attack units on the way
+/// </summary>
+
+
 [RequireComponent(typeof(NavMeshAgent))]
 public class Units : MonoBehaviour
 {
@@ -27,9 +43,25 @@ public class Units : MonoBehaviour
     public float attackTimer;
     private float defultAttackTimmer;
     public bool attacking;
+    public bool gathering;
 
     BuildBuildings commander;
 
+    // who is controlling it
+    public enum WhoControllsThis { Player, AI }
+    public WhoControllsThis whoControllsThis;
+
+    // what type of unit it is
+    public UnitType unitType;
+    public enum UnitType
+    {
+        Worker,
+        Scout,
+        Melee,
+        Ranged
+    }
+
+    // state of the unit
     public State state;
     public enum State
     {
@@ -41,7 +73,28 @@ public class Units : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        // defultAttackTimmer is the same as attackTimer
+
+        switch (whoControllsThis)
+        {
+            case WhoControllsThis.AI:
+                break;
+            case WhoControllsThis.Player:
+                break;
+            default:
+                break;
+        }
+
+        // on creation adds all units with Enemy tag movement function to PriorityAI events
+        if (gameObject.CompareTag("Enemy") && unitType != UnitType.Worker)
+        {
+            PriorityAI.moveFighterUnitsAIEvent += MoveToTargetAI;
+        }
+        // on creation adds all units with name Worker and enemy tag to movement function to PriorityAI event
+        if (gameObject.CompareTag("Enemy") && unitType == UnitType.Worker)
+        {
+            PriorityAI.moveWokerUnitsAIEvent += MoveWorker;
+        }
+
         defultAttackTimmer = attackTimer;
 
         // getcomponent of objects that will be used
@@ -59,9 +112,19 @@ public class Units : MonoBehaviour
         state = State.Idle;
     }
 
+    private void OnDestroy()
+    {
+        if (gameObject.CompareTag("Enemy") && unitType != UnitType.Worker)
+            PriorityAI.moveFighterUnitsAIEvent -= MoveToTargetAI;
+
+        if (gameObject.CompareTag("Enemy") && unitType == UnitType.Worker)
+            PriorityAI.moveWokerUnitsAIEvent -= MoveWorker;
+    }
+
 
     private void Update()
     {
+        
         // switches state
         switch (state)
         {
@@ -88,7 +151,6 @@ public class Units : MonoBehaviour
     // doing all the attack things
     private void HandleAttack()
     {
-
         // if target is null state becomes idle
         if(target == null)
         {
@@ -156,19 +218,71 @@ public class Units : MonoBehaviour
     // sets everything to defult state, makes 
     void Idle()
     {
-        StopAllCoroutines();
+        //StopAllCoroutines();
         target = null;
         attacking = false;
         attackTimer = defultAttackTimmer;
         agent.isStopped = false;
     }
     
+
+    public void MoveWorker(Transform t)
+    {
+        target = t.gameObject;
+
+        // if target is further away then atkRange. Move there
+        if (Vector3.Distance(transform.position, target.transform.position) > atkRange)
+        {
+            agent.isStopped = false;
+            agent.SetDestination(target.transform.position);
+
+        }
+
+        // if in range, atttack
+        else
+        {
+            agent.isStopped = true;
+            agent.SetDestination(transform.position);
+            if (!gathering)
+            {
+                StartCoroutine(Gathering());
+            }
+        }
+    }
+
     // setting movementpostion
-    public void MoveToTarget(Vector3 target)
+    public void MoveToTargetAI(Transform t)
+    {
+        target = t.gameObject;
+
+        // sets the gameobject target and gets the postion with the vector 3
+        if (Vector3.Distance(transform.position, target.transform.position) > atkRange)
+        {
+            agent.isStopped = false;
+            agent.SetDestination(target.transform.position);
+
+        }
+
+        else
+        {
+            Debug.Log("Me hit this");
+            agent.isStopped = true;
+            agent.SetDestination(transform.position);
+            if (!attacking)
+            {
+                StartCoroutine(Attack());
+            }
+        }
+
+    }
+    public void MoveToTarget(Vector3 t)
     {
         // sets the gameobject target and gets the postion with the vector 3
-        newTarget = target;
+
+        newTarget = t;
+        //target = gameObject.transform.position;
         agent.SetDestination(newTarget);
+
     }
 
     // change color if unit is selected
@@ -211,39 +325,54 @@ public class Units : MonoBehaviour
             agent.isStopped = true;
             agent.SetDestination(transform.position);
             if (!attacking)
+            {
                 StartCoroutine(Gathering());
+
+            }
         }
     }
 
     IEnumerator Gathering()
     {
+        //TODO: ADD AI
+        float timeCache = 1;
+        gathering = true;
 
-        float timeCache = attackTimer;
-        attacking = true;
-
-        while (attackTimer > 0)
+        while (timeCache > 0)
         {
-            attackTimer -= Time.deltaTime;
+            timeCache -= Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
 
         if (target == null)
+        {
             StopCoroutine(Gathering());
+        }
 
         if (Vector3.Distance(transform.position, target.transform.position) < atkRange)
         {
-            if(target.gameObject.name.Contains("Resource 1"))
+            if(CompareTag("Enemy"))
             {
-                commander.r1 += 1;
+                FindObjectOfType<PriorityAI>().rScore1++;
+                print("tick");
             }
             else
             {
-                commander.r2++;
+                //player
+                if(target.gameObject.name.Contains("Resource 1"))
+                {
+                    commander.r1 += 1;
+                }
+                else
+                {
+                    commander.r2++;
+                }
             }
+
+
             
         }
 
-        attackTimer = timeCache;
-        attacking = false;
+        gathering = false;
     }
 }
