@@ -16,7 +16,7 @@ public class Click : MonoBehaviour
 
     // Sets the tag that the script is looking for. This needs to be set to the local player on the network.
     // set to Friendly tag for now
-    public string controllingPlayer;
+    //public string controllingPlayer;
 
     // defining positions for mouseclick for boxselection
     private Vector3 mousePos1;
@@ -77,7 +77,7 @@ public class Click : MonoBehaviour
                     // getting the Unit script and rename it to unit to be refrence
                     Units unit = rayHit.collider.GetComponent<Units>();
 
-                    if (rayHit.collider.CompareTag(controllingPlayer))
+                    if (rayHit.collider.CompareTag("Friendly"))
                     {
                         unitControlBuilder.SetActive(true);
                         if (Input.GetKey("left ctrl"))
@@ -88,14 +88,12 @@ public class Click : MonoBehaviour
                                 
                                 selectedUnits.Add(rayHit.collider.GetComponent<Units>());
                                 unit.currentlySelected = true;
-                                unit.IsSelected();
                             }
                             // removes object from list
                             else
                             {
                                 selectedUnits.Remove(rayHit.collider.GetComponent<Units>());
                                 unit.currentlySelected = false;
-                                unit.IsSelected();
                             }
                         }
 
@@ -104,7 +102,6 @@ public class Click : MonoBehaviour
                             ClearSelection();
                             selectedUnits.Add(rayHit.collider.GetComponent<Units>());
                             unit.currentlySelected = true;
-                            unit.IsSelected();
                         }
                     }
                 }
@@ -133,7 +130,7 @@ public class Click : MonoBehaviour
                 {
                     SelfBuildingManager building = rayHit.collider.GetComponent<SelfBuildingManager>();
 
-                    if (rayHit.collider.CompareTag(controllingPlayer))
+                    if (rayHit.collider.CompareTag("Friendly"))
                     {
                         buildingControlBuilder.SetActive(true);
 
@@ -236,6 +233,9 @@ public class Click : MonoBehaviour
         Rect selectedRect = new Rect(mousePos1.x, mousePos1.y, mousePos2.x - mousePos1.x, mousePos2.y - mousePos1.y);
 
         // foreach unit in selectedUnits
+        // units arent selectableUnits
+        // make all units with the playertag be added to selectableUnits
+        // should make it work
         foreach (Units selectObject in selectableUnits)
         {
             if (selectObject != null)
@@ -248,7 +248,6 @@ public class Click : MonoBehaviour
                         selectedUnits.Add(selectObject);
                         unitControlBuilder.SetActive(true);
                         selectObject.GetComponent<Units>().currentlySelected = true;
-                        selectObject.GetComponent<Units>().IsSelected();
                     }
                 }
                 else
@@ -345,7 +344,6 @@ public class Click : MonoBehaviour
                 {
                     obj.GetComponent<Units>().currentlySelected = false;
                     unitControlBuilder.SetActive(false);
-                    obj.GetComponent<Units>().IsSelected();
                 }
             }
         }

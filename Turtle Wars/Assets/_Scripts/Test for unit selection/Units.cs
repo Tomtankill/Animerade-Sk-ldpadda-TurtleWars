@@ -22,10 +22,6 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Units : MonoBehaviour
 {
-    // meshrender and material used
-    private MeshRenderer myRend;
-    public Material red;
-    public Material green;
 
     // sets the x,y,z postion
     public Vector3 newTarget;
@@ -61,6 +57,7 @@ public class Units : MonoBehaviour
         Ranged
     }
 
+    PriorityAI AI;
     // state of the unit
     public State state;
     public enum State
@@ -69,6 +66,7 @@ public class Units : MonoBehaviour
         Gathering,
         Attack
     }
+
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -89,7 +87,7 @@ public class Units : MonoBehaviour
         {
             PriorityAI.moveFighterUnitsAIEvent += MoveToTargetAI;
         }
-        // on creation adds all units with name Worker and enemy tag to movement function to PriorityAI event
+        // on creation adds all units with type Worker and enemy tag to movement function to PriorityAI event
         if (gameObject.CompareTag("Enemy") && unitType == UnitType.Worker)
         {
             PriorityAI.moveWokerUnitsAIEvent += MoveWorker;
@@ -99,16 +97,15 @@ public class Units : MonoBehaviour
 
         // getcomponent of objects that will be used
         agent = GetComponent<NavMeshAgent>();
-        myRend = GetComponent<MeshRenderer>();
         GameObject thePlayer = GameObject.Find("Commander");
         commander = thePlayer.GetComponent<BuildBuildings>();
         
         // adds this gameobject to a list from click
-        Camera.main.gameObject.GetComponent<Click>().selectableUnits.Add(this);
+        //Camera.main.gameObject.GetComponent<Click>().selectableUnits.Add(this);
 
         //attackTimer = currentAttackTimer;
         // may not work
-        Camera.main.gameObject.GetComponent<Click>().selectableUnits.Add(this);
+        //Camera.main.gameObject.GetComponent<Click>().selectableUnits.Add(this);
         state = State.Idle;
     }
 
@@ -154,8 +151,10 @@ public class Units : MonoBehaviour
         // if target is null state becomes idle
         if(target == null)
         {
+            Debug.Log("Target is dead");
             state = State.Idle;
             target = null;
+            AI.state = PriorityAI.State.Eco;
         }
 
         // if target is further away then atkRange. Move into attack range
@@ -203,7 +202,11 @@ public class Units : MonoBehaviour
         }
 
         if (target == null)
+        {
+            state = State.Idle;
             StopCoroutine(Attack());
+        }
+
 
         if (Vector3.Distance(transform.position, target.transform.position) < atkRange)
         {
@@ -213,16 +216,21 @@ public class Units : MonoBehaviour
         attackTimer = timeCache;
         attacking = false;
         StopCoroutine(Attack());
+
     }
 
     // sets everything to defult state, makes 
     void Idle()
     {
-        //StopAllCoroutines();
-        target = null;
-        attacking = false;
-        attackTimer = defultAttackTimmer;
-        agent.isStopped = false;
+        if (gameObject.CompareTag("Friendly"))
+        {
+            StopAllCoroutines();
+            target = null;
+            attacking = false;
+            attackTimer = defultAttackTimmer;
+            agent.isStopped = false;
+        }
+
     }
     
 
@@ -235,7 +243,6 @@ public class Units : MonoBehaviour
         {
             agent.isStopped = false;
             agent.SetDestination(target.transform.position);
-
         }
 
         // if in range, atttack
@@ -245,6 +252,7 @@ public class Units : MonoBehaviour
             agent.SetDestination(transform.position);
             if (!gathering)
             {
+                //Debug.Log("This is " + target);
                 StartCoroutine(Gathering());
             }
         }
@@ -265,7 +273,6 @@ public class Units : MonoBehaviour
 
         else
         {
-            Debug.Log("Me hit this");
             agent.isStopped = true;
             agent.SetDestination(transform.position);
             if (!attacking)
@@ -275,6 +282,7 @@ public class Units : MonoBehaviour
         }
 
     }
+
     public void MoveToTarget(Vector3 t)
     {
         // sets the gameobject target and gets the postion with the vector 3
@@ -286,20 +294,6 @@ public class Units : MonoBehaviour
     }
 
     // change color if unit is selected
-    public void IsSelected()
-    {
-        if (currentlySelected == false)
-        {
-            // not selected
-            myRend.material = red;
-        }
-        else
-        {
-            // selected
-            myRend.material = green;
-        }
-
-    }
 
     // gathering things
     public void GatheringResource()
@@ -308,7 +302,7 @@ public class Units : MonoBehaviour
         if (target == null)
         {
             state = State.Idle;
-            attacking = false;
+            gathering = false;
         }
 
         // if target is further away then atkRange. Move there
@@ -324,10 +318,10 @@ public class Units : MonoBehaviour
         {
             agent.isStopped = true;
             agent.SetDestination(transform.position);
-            if (!attacking)
+            if (!gathering)
             {
                 StartCoroutine(Gathering());
-
+                gathering = true;
             }
         }
     }
@@ -336,6 +330,7 @@ public class Units : MonoBehaviour
     {
         //TODO: ADD AI
         float timeCache = 1;
+        timeCache = attackTimer;
         gathering = true;
 
         while (timeCache > 0)
@@ -354,7 +349,6 @@ public class Units : MonoBehaviour
             if(CompareTag("Enemy"))
             {
                 FindObjectOfType<PriorityAI>().rScore1++;
-                print("tick");
             }
             else
             {
@@ -368,9 +362,6 @@ public class Units : MonoBehaviour
                     commander.r2++;
                 }
             }
-
-
-            
         }
 
         gathering = false;

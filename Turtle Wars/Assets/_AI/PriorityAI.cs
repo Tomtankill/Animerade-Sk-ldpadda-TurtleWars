@@ -16,14 +16,17 @@ public class PriorityAI : MonoBehaviour
 
 
     private TurnTimer turntime;
-
+    private bool barrackBuild;
     public float rScore1;
     public float rScore2;
+    public GameObject myUnits;
+    public Transform myBase;
+
     // resources in the game
     public static List<Transform> r1 = new List<Transform>(), r2 = new List<Transform>();
     // players units and building
     public static List<Transform> playerUnits = new List<Transform>(); 
-    public static List<Transform> playerBuildings = new List<Transform>();
+    public static List<GameObject> AIUnits = new List<GameObject>();
     public float acceptableDistance = 25f;
 
     public State state;
@@ -36,11 +39,12 @@ public class PriorityAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         //turntime = GetComponent<TurnTimer>();
         //r1 = new List<Resource>();
         //r2 = new List<Resource>();
 
-        foreach(Resource r in FindObjectsOfType<Resource>())
+        foreach (Resource r in FindObjectsOfType<Resource>())
         {
             if (r.resourceType == ResourceType.r1)
             {
@@ -56,14 +60,17 @@ public class PriorityAI : MonoBehaviour
             {
                 playerUnits.Add(U.transform);
             }
-
+            else if (U.whoControllsThis == Units.WhoControllsThis.AI)
+            {
+                AIUnits.Add(new GameObject());
+            }
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
 
         // switches state
         switch (state)
@@ -72,7 +79,6 @@ public class PriorityAI : MonoBehaviour
                 Eco();
                 break;
             case State.Attack:
-                print("Attack run");
                 AttackMode();
                 break;
             case State.Defend:
@@ -137,6 +143,7 @@ public class PriorityAI : MonoBehaviour
                 closest = r;
                 distance = d;
             }
+            
         }
         return closest;
     }
@@ -151,16 +158,23 @@ public class PriorityAI : MonoBehaviour
         }
 
         //check if we can build barracks
-        if(rScore1 > 10)
+        if(rScore1 > 10 && barrackBuild == false)
         {
             print("IM READY TO BUILD A BARRACKS! UWU");
-            state = State.Attack;
+
+            barrackBuild = true;
             // add barracks spawnpOINT
         }
+        else if (rScore1 > 10 && barrackBuild == true)
+        {
+            MakeUnits();
+            rScore1 -= 10f;
+        }
 
-        //spawn fighters - 2
-
-        //GO to attack mode
+        if (AIUnits.Count > 7)
+        {
+            state = State.Attack;
+        }
 
     }   
 
@@ -176,5 +190,13 @@ public class PriorityAI : MonoBehaviour
     void DefendMode()
     {
         // find all combat units that are left and run back to base
+    }
+
+    void MakeUnits()
+    {
+        Instantiate(myUnits, myBase.position, myBase.rotation);
+        //Instantiate(myUnits, new Vector3(0, 0, 0), Quaternion.identity);
+        AIUnits.Add(gameObject);
+        Debug.Log("Hey I'm with the crew" + AIUnits.Count);
     }
 }

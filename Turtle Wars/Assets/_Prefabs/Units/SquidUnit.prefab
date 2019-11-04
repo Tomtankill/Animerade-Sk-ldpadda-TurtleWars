@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8360070882860048658}
   - component: {fileID: 3598417841852768011}
   - component: {fileID: 5696352046891556323}
+  - component: {fileID: 9004957426063651929}
   m_Layer: 0
   m_Name: SquidUnit
   m_TagString: Untagged
@@ -42,7 +43,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 6910203619793867308}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.37
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -67,8 +68,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e018ff4b9d2166e49a75a6bd757cef8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  red: {fileID: 2100000, guid: 2917bb85f5ad2084596bac12082c8f63, type: 2}
-  green: {fileID: 2100000, guid: d6ff0e9482cc6a142bde6ffc9fbafcea, type: 2}
   newTarget: {x: 0, y: 0, z: 0}
   target: {fileID: 0}
   currentlySelected: 0
@@ -78,7 +77,24 @@ MonoBehaviour:
   attackDamage: 25
   attackTimer: 2
   attacking: 0
+  gathering: 0
+  whoControllsThis: 0
+  unitType: 0
   state: 0
+--- !u!136 &9004957426063651929
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6910203619793867308}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.32
+  m_Height: 1.76
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!1001 &1372136766231031764
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -149,6 +165,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 8549641525202042636, guid: 699e2286c13da614695ea3a7d86cf18f, type: 3}
     - {fileID: 7902239738667884575, guid: 699e2286c13da614695ea3a7d86cf18f, type: 3}
+    - {fileID: 2663288286368292096, guid: 699e2286c13da614695ea3a7d86cf18f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 699e2286c13da614695ea3a7d86cf18f, type: 3}
 --- !u!4 &6446104939689172910 stripped
 Transform:
