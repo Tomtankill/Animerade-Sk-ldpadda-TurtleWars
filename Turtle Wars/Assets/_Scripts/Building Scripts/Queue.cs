@@ -136,7 +136,7 @@ public class Queue : MonoBehaviour
     IEnumerator Job()
     {
         taskActive = true;
-
+        
         yield return null;
         
     }

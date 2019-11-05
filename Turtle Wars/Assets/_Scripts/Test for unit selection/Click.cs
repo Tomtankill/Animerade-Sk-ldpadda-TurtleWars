@@ -246,6 +246,7 @@ public class Click : MonoBehaviour
                     if (selectedRect.Contains(Camera.main.WorldToViewportPoint(selectObject.transform.position), true))
                     {
                         selectedUnits.Add(selectObject);
+                        print("adds unit to the selected thingo");
                         unitControlBuilder.SetActive(true);
                         selectObject.GetComponent<Units>().currentlySelected = true;
                     }

@@ -14,7 +14,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_Scenes/Resource Testing.unity
     guid: 0ac7ae61bce4b1a41a6c2a24e4b40285
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/Unit_Selection_Test_Level.unity
     guid: 60d6f74744a64264099a94afec1e2f55
+  - enabled: 1
+    path: Assets/_Scenes/Level Prototype.unity
+    guid: c7b0b4e59492ce445a09bbdf215b9298
   m_configObjects: {}

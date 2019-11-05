@@ -77,6 +77,7 @@ public class Units : MonoBehaviour
             case WhoControllsThis.AI:
                 break;
             case WhoControllsThis.Player:
+                Camera.main.transform.GetComponent<Click>().selectableUnits.Add(this);
                 break;
             default:
                 break;

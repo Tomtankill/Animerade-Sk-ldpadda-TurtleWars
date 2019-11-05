@@ -294,6 +294,10 @@ public class SelfBuildingManager : MonoBehaviour
             {
                 commander.GetComponent<BuildBuildings>().selected = this.gameObject;
             }
+            else if (unitCamera.GetComponent<Click>().selectedBuildings.Count != 1)
+            {
+                commander.GetComponent<BuildBuildings>().selected = this.gameObject;
+            }
 
             buildingRender.material = blue;
         }

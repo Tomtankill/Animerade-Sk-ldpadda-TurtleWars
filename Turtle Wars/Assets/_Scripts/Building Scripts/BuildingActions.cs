@@ -25,7 +25,7 @@ public class BuildingActions : BuildBuildings
 
     public void Worker()
     {
-         GameObject go = Instantiate(worker, new Vector3 (spawnpoint.position.x, 5 ,spawnpoint.position.z), Quaternion.identity);
+        GameObject go = Instantiate(worker, new Vector3 (spawnpoint.position.x, 5 ,spawnpoint.position.z), Quaternion.identity);
         Ray ray = new Ray (go.transform.position, Vector3.down); 
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 1000000.0f, terrainLayer))
