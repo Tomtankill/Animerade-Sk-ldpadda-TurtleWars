@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4688376453837729979}
   - component: {fileID: 4688376453837729978}
+  - component: {fileID: 1944522649}
   m_Layer: 0
   m_Name: Commander
   m_TagString: Untagged
@@ -44,18 +45,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   commander: {fileID: 4688376453837729977}
-  healthUpgradeAmount: 200
-  townHallPrefab: {fileID: 7378642872838502491, guid: 7bdbb57a452f61b42a51be12fe9864b7,
+  townHallPrefab: {fileID: 4385007345600561120, guid: 519fe10130e8f694eb0334fa5c6a2708,
     type: 3}
-  barracksPrefab: {fileID: 7263452887273768162, guid: b361687559ab217458432d2247e275fb,
+  barracksPrefab: {fileID: 3532701091974039302, guid: bc17d8cf6d0ef6b418beb8c0ea7f2c3b,
     type: 3}
-  armoryPrefab: {fileID: 3183924504293270306, guid: 9cef3628b0329bb4e90eb27b32643861,
+  armoryPrefab: {fileID: 5841784066940746669, guid: 7fcc4e981d3a3cd44ac3f521ad310131,
     type: 3}
-  towerPrefab: {fileID: 522610800293448684, guid: a8a7032d00672af4587f4acb6bf7f761,
+  towerPrefab: {fileID: 8980256470236333340, guid: cd7d5b6c5a39aa84e9dc892c7f5ca2a8,
     type: 3}
   masterBuildingList: []
   townHallList: []
   barracksList: []
   armoryList: []
   towerList: []
+  selected: {fileID: 0}
   ghost: {fileID: 6915492543473789762, guid: 86dbc12d958c453489deed6ba78a491e, type: 3}
+  healthupgrade: 0
+  healthUpgradeAmount: 200
+  r1: 0
+  r2: 0
+--- !u!114 &1944522649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4688376453837729977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f302c6edd3642f4e805f6e372db981f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerCurrent: 31
+  p1Turn: 1
+  p2Turn: 0
+  notyourturn: {fileID: 0}
+  imagetimer: {fileID: 0}
+  timerText: {fileID: 0}
+  filling: 0

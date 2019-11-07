@@ -46,5 +46,6 @@ MonoBehaviour:
   rScore1: 0
   rScore2: 0
   myUnits: {fileID: 470675016349746054, guid: 42ff8552d0be33c448fb05f91cbd30e8, type: 3}
+  myBase: {fileID: 0}
   acceptableDistance: 25
   state: 0
