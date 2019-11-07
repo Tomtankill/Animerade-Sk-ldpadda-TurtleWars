@@ -13,11 +13,10 @@ GameObject:
   - component: {fileID: 4775728507028723387}
   - component: {fileID: 8104994943471743341}
   - component: {fileID: 8172920436724624329}
-  - component: {fileID: 2113004591978528233}
   - component: {fileID: 6834536330768503166}
   m_Layer: 0
   m_Name: EnemyUnit
-  m_TagString: Player1s
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,8 +29,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 470675016349746054}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.8474262, y: 1, z: -3.8720608}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 2.8474262, y: 4.97, z: -3.8720608}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -118,25 +117,9 @@ MonoBehaviour:
   attackTimer: 4
   attacking: 0
   gathering: 0
-  whoControllsThis: 0
+  whoControllsThis: 1
   unitType: 0
   state: 0
---- !u!54 &2113004591978528233
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 470675016349746054}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!195 &6834536330768503166
 NavMeshAgent:
   m_ObjectHideFlags: 0

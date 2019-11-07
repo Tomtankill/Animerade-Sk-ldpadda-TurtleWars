@@ -253,7 +253,7 @@ public class Units : MonoBehaviour
             agent.SetDestination(transform.position);
             if (!gathering)
             {
-                //Debug.Log("This is " + target);
+                Debug.Log("This is " + target);
                 StartCoroutine(Gathering());
             }
         }
@@ -322,7 +322,7 @@ public class Units : MonoBehaviour
             if (!gathering)
             {
                 StartCoroutine(Gathering());
-                gathering = true;
+                gathering = false;
             }
         }
     }
@@ -333,28 +333,33 @@ public class Units : MonoBehaviour
         float timeCache = 1;
         timeCache = attackTimer;
         gathering = true;
+        print("set time Cache to Attack Timer");
 
         while (timeCache > 0)
         {
             timeCache -= Time.deltaTime;
+            //print("timeCache = " + timeCache);
             yield return new WaitForEndOfFrame();
         }
 
-        if (target == null)
-        {
-            StopCoroutine(Gathering());
-        }
 
         if (Vector3.Distance(transform.position, target.transform.position) < atkRange)
         {
-            if(CompareTag("Enemy"))
+
+            if (target == null)
             {
+                StopCoroutine(Gathering());
+            }
+
+            if (gameObject.CompareTag("Enemy"))
+            {
+                print("Adding resource");
                 FindObjectOfType<PriorityAI>().rScore1++;
             }
             else
             {
                 //player
-                if(target.gameObject.name.Contains("Resource 1"))
+                if (target.gameObject.name.Contains("Resource 1"))
                 {
                     commander.r1 += 1;
                 }

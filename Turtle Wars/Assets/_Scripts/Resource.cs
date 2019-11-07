@@ -14,7 +14,7 @@ public class Resource : MonoBehaviour
         switch (resourceType)
         {
             case ResourceType.r1:
-                //PriorityAI.r1.Add(this);
+                PriorityAI.r1.Add(gameObject.transform);
                 break;
             case ResourceType.r2:
                 //PriorityAI.r2.Add(this);
