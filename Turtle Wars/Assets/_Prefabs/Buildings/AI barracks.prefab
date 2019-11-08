@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4385007345600561120
+--- !u!1 &3532701091974039302
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 757155774662774259}
-  - component: {fileID: 8636483057964431301}
-  - component: {fileID: 2658947861456997180}
-  - component: {fileID: 7209127121782677641}
-  - component: {fileID: 3402939401247614413}
-  - component: {fileID: 2593570965905257917}
+  - component: {fileID: 530849943295472917}
+  - component: {fileID: 8792983100509818659}
+  - component: {fileID: 2970822013694604250}
+  - component: {fileID: 7626836023237744751}
+  - component: {fileID: 386222735131960308}
+  - component: {fileID: 684480368708611451}
   m_Layer: 0
-  m_Name: Townhall
-  m_TagString: Untagged
+  m_Name: AI barracks
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &757155774662774259
+--- !u!4 &530849943295472917
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4385007345600561120}
+  m_GameObject: {fileID: 3532701091974039302}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.2332438, y: 0, z: -15.896056}
-  m_LocalScale: {x: 40, y: 40, z: 40}
-  m_Children: []
+  m_LocalPosition: {x: -4.42, y: 1.5, z: -13.85}
+  m_LocalScale: {x: 50, y: 50, z: 50}
+  m_Children:
+  - {fileID: 8506115811846028548}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8636483057964431301
+--- !u!33 &8792983100509818659
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4385007345600561120}
-  m_Mesh: {fileID: -1364087873485794358, guid: a19cc07cb0f8a9d43988991c3639b9a3, type: 3}
---- !u!23 &2658947861456997180
+  m_GameObject: {fileID: 3532701091974039302}
+  m_Mesh: {fileID: -15797666336669938, guid: 399213f8b48801d4da4b7d2943838ad2, type: 3}
+--- !u!23 &2970822013694604250
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4385007345600561120}
+  m_GameObject: {fileID: 3532701091974039302}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -60,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b6cb406be3dbb04469a5183e7e0b43e0, type: 2}
+  - {fileID: 2100000, guid: 39ee632fc521cdc4c9c5d1b3bcc5d963, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -81,16 +82,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!95 &7209127121782677641
+--- !u!95 &7626836023237744751
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4385007345600561120}
+  m_GameObject: {fileID: 3532701091974039302}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 36bf6e748748e784db390aa9c7655184, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 399213f8b48801d4da4b7d2943838ad2, type: 3}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -100,13 +101,13 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3402939401247614413
+--- !u!114 &386222735131960308
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4385007345600561120}
+  m_GameObject: {fileID: 3532701091974039302}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 79c75c63f8294044fa46e00614140248, type: 3}
@@ -117,7 +118,7 @@ MonoBehaviour:
   type: 0
   controls: 0
   buildingFinish: 0
-  buildingRender: {fileID: 2658947861456997180}
+  buildingRender: {fileID: 0}
   currentlySelected: 0
   currentHealth: 0
   maxHealth: 0
@@ -133,19 +134,49 @@ MonoBehaviour:
   green: {fileID: 2100000, guid: d6ff0e9482cc6a142bde6ffc9fbafcea, type: 2}
   purple: {fileID: 2100000, guid: 2359d77c9ef95ed4087fc1aea2409a27, type: 2}
   blue: {fileID: 2100000, guid: 267a4162422c0e448aa96634fafa2653, type: 2}
---- !u!208 &2593570965905257917
+--- !u!208 &684480368708611451
 NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4385007345600561120}
+  m_GameObject: {fileID: 3532701091974039302}
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.044000003, y: 0.1, z: 0.040000003}
+  m_Extents: {x: 0.044000003, y: 0.030000001, z: 0.045}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.099, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!1 &6034779921597324387
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8506115811846028548}
+  m_Layer: 0
+  m_Name: AI barrack spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8506115811846028548
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6034779921597324387}
+  m_LocalRotation: {x: -0, y: 0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.0169, z: 0.0639}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
+  m_Children: []
+  m_Father: {fileID: 530849943295472917}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

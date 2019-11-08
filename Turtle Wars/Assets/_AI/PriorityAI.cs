@@ -24,7 +24,9 @@ public class PriorityAI : MonoBehaviour
 
     // refrence the AI's units prefab so it can me instantiate it
     public GameObject myUnits;
-    public Transform myBase;
+    public GameObject barracks;
+    public Transform barrackBuildingSpot;
+    public Transform barracksUnitSpawner;
 
     // list of the transform of resources in the map
     public static List<Transform> r1 = new List<Transform>(), r2 = new List<Transform>();
@@ -42,13 +44,15 @@ public class PriorityAI : MonoBehaviour
     {
         Eco,
         Attack,
-        Defend
+        Defend,
+        Idle
     }
 
     void Start()
     {
         // CHECK with Tom how to setup the turntimer so AI dosen't cheat >:c
-        //turntime = GetComponent<TurnTimer>();
+
+        turntime = GameObject.Find("Commander").GetComponent<TurnTimer>();
 
         // finds all gameobjects with the script <Resources> on it, then depending on what type of resource it adds it to that list
         foreach (Resource r in FindObjectsOfType<Resource>())
@@ -77,21 +81,25 @@ public class PriorityAI : MonoBehaviour
 
     void Update()
     {
-        
+        if(turntime.p2Turn == true)
+        {
+            switch (state)
+            {
+                case State.Eco:
+                    Eco();
+                    break;
+                case State.Attack:
+                    AttackMode();
+                    break;
+                case State.Defend:
+                    DefendMode();
+                    break;
+
+            }
+        }
 
         // switches state and runs a function depending on what state it's in
-        switch (state)
-        {
-            case State.Eco:
-                Eco();
-                break;
-            case State.Attack:
-                AttackMode();
-                break;
-            case State.Defend:
-                DefendMode();
-                break;
-        }
+
         // ADDS that AI checks for it's turn 
     }
 
@@ -101,7 +109,7 @@ public class PriorityAI : MonoBehaviour
         Transform closest = null;
         float distance = 99999;
 
-        if(resource.Count == 1)
+        if (resource.Count == 1)
         {
             return resource[0];
         }
@@ -117,7 +125,7 @@ public class PriorityAI : MonoBehaviour
                 distance = d;
             }
         }
-
+        print(closest.name);
         return closest;
     }
 
@@ -142,8 +150,9 @@ public class PriorityAI : MonoBehaviour
                 closest = r;
                 distance = d;
             }
-            
+
         }
+
         return closest;
     }
 
@@ -199,10 +208,25 @@ public class PriorityAI : MonoBehaviour
 
     void MakeUnits()
     {
-        Instantiate(myUnits, myBase.position, myBase.rotation);
-        //Instantiate(myUnits, new Vector3(0, 0, 0), Quaternion.identity);
-        AIUnits.Add(gameObject);
-        // CHANGES this into the Units script
-        Debug.Log("Hey I'm with the crew" + AIUnits.Count);
+        
+        if(barrackBuild == false)
+        {
+            Instantiate(barracks, barrackBuildingSpot.position, barrackBuildingSpot.rotation);
+            barracksUnitSpawner = GameObject.Find("AI barrack spawner").GetComponent<Transform>();
+        }
+        else
+        {
+            Instantiate(myUnits, barracksUnitSpawner.position, barracksUnitSpawner.rotation);
+            //Instantiate(myUnits, new Vector3(0, 0, 0), Quaternion.identity);
+            AIUnits.Add(gameObject);
+            // CHANGES this into the Units script
+            Debug.Log("Hey I'm with the crew" + AIUnits.Count);
+        }
+       
+    }
+
+    void StopEverything()
+    {
+        
     }
 }
