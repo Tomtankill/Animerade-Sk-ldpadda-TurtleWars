@@ -7510,7 +7510,7 @@ PrefabInstance:
         type: 3}
       propertyPath: barracks
       value: 
-      objectReference: {fileID: 3532701091974039302, guid: ed82630c1e7625b46acf1490dcc6ee2a,
+      objectReference: {fileID: 3109782592488009386, guid: b882dc8ddc0a67a47815e8444c056830,
         type: 3}
     - target: {fileID: 4406934793120953293, guid: 5c9b774941f0e304fa24059a2259b24e,
         type: 3}

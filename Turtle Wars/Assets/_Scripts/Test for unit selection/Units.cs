@@ -358,10 +358,11 @@ public class Units : MonoBehaviour
             }
             else
             {
+                Debug.Log("WHYYY");
                 //player
-                if (target.gameObject.name.Contains("Resource 1"))
+                if (target.gameObject.name.Contains("Sea Resource"))
                 {
-                    commander.r1 += 1;
+                    commander.r1++;
                 }
                 else
                 {

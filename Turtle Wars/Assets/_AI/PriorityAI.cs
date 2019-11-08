@@ -16,7 +16,7 @@ public class PriorityAI : MonoBehaviour
 
     // this is refrence the turntimer script (HAVEN'T ADDED SO THE AI CARES ABOUT TURNS)
     private TurnTimer turntime;
-    private bool barrackBuild;
+    public bool barrackBuild;
 
     // this stores the AI's resources
     public float rScore1;
@@ -172,6 +172,8 @@ public class PriorityAI : MonoBehaviour
         {
             print("IM READY TO BUILD A BARRACKS! UWU");
             rScore1 -= 10f;
+            Instantiate(barracks, barrackBuildingSpot.position, barrackBuildingSpot.rotation);
+            barracksUnitSpawner = GameObject.Find("AI barrack spawner").GetComponent<Transform>();
             barrackBuild = true;
             // add barracks spawnpOINT
         }
@@ -208,20 +210,11 @@ public class PriorityAI : MonoBehaviour
 
     void MakeUnits()
     {
-        
-        if(barrackBuild == false)
-        {
-            Instantiate(barracks, barrackBuildingSpot.position, barrackBuildingSpot.rotation);
-            barracksUnitSpawner = GameObject.Find("AI barrack spawner").GetComponent<Transform>();
-        }
-        else
-        {
-            Instantiate(myUnits, barracksUnitSpawner.position, barracksUnitSpawner.rotation);
-            //Instantiate(myUnits, new Vector3(0, 0, 0), Quaternion.identity);
-            AIUnits.Add(gameObject);
-            // CHANGES this into the Units script
-            Debug.Log("Hey I'm with the crew" + AIUnits.Count);
-        }
+
+        Instantiate(myUnits, barracksUnitSpawner.position, barracksUnitSpawner.rotation);
+        AIUnits.Add(gameObject);
+        // CHANGES this into the Units script
+        Debug.Log("Hey I'm with the crew" + AIUnits.Count);
        
     }
 
