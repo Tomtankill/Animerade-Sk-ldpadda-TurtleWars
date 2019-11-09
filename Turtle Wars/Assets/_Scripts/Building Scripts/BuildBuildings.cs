@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class BuildBuildings : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class BuildBuildings : MonoBehaviour
     private new string name;
     bool buildMode;
     public GameObject ghost;
+    
 
     /// <summary>
     /// Upgrades for Armory
@@ -42,6 +44,8 @@ public class BuildBuildings : MonoBehaviour
     // resources
     public float r1 = 0;
     public float r2 = 0;
+    public TextMeshProUGUI Resource1;
+    public TextMeshProUGUI Resource2;
 
     // Start is called before the first frame update
     void Start()
@@ -96,6 +100,11 @@ public class BuildBuildings : MonoBehaviour
     }
     void Update()
     {
+        Resource1 = GetComponent<TextMeshProUGUI>();
+        Resource2 = GetComponent<TextMeshProUGUI>();
+        Resource1.text = r1.ToString();
+        Resource2.text = r2.ToString();
+
         if (buildMode)
         {
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity))
