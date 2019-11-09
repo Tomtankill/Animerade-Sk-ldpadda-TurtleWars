@@ -125,7 +125,7 @@ MonoBehaviour:
   range: 0
   cost: 0
   townHallControls: 0
-  barracksControls: 0
+  barracksControls: 1
   armoryControls: 0
   towerControls: 0
   red: {fileID: 2100000, guid: 2917bb85f5ad2084596bac12082c8f63, type: 2}
