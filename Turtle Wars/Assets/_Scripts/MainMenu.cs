@@ -4,8 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
-    public void PlayGame()
+    public void SwitchScenes(string SceneName)
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); 
+        SceneManager.LoadSceneAsync(SceneName);
+    }
+    public void ExitGame()
+    {
+        Application.Quit();
     }
  }

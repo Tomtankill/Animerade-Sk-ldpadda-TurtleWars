@@ -880,7 +880,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 4688376453525888760}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1126573208}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de1f2fed173afa649b75bccf4edee101, type: 3}
@@ -1042,41 +1042,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4688376453525888760}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1126573210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1126573208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f302c6edd3642f4e805f6e372db981f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timerCurrent: 31
-  p1Turn: 1
-  p2Turn: 0
-  notyourturn: {fileID: 1285621538}
-  imagetimer: {fileID: 1004023684}
-  timerText: {fileID: 1751649824}
-  filling: 0
---- !u!114 &1126573211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1126573208}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90c43d4bbe19005458f3bdfcadb56019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imagetimer: {fileID: 0}
-  timerCurrent: 31
-  taskQueue: []
-  commander: {fileID: 1126573208}
 --- !u!1 &1285621538 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3199971746605382743, guid: 43bef00e57885a746b3124dab6cdc0bb,
@@ -1933,11 +1904,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Commander
       objectReference: {fileID: 0}
-    - target: {fileID: 4688376453837729978, guid: 62b4a9c84a775e54fbd20b4f943185ff,
-        type: 3}
-      propertyPath: commander
-      value: 
-      objectReference: {fileID: 1126573208}
     - target: {fileID: 4688376453837729979, guid: 62b4a9c84a775e54fbd20b4f943185ff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1993,6 +1959,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1944522649, guid: 62b4a9c84a775e54fbd20b4f943185ff, type: 3}
+      propertyPath: notyourturn
+      value: 
+      objectReference: {fileID: 1285621538}
+    - target: {fileID: 1944522649, guid: 62b4a9c84a775e54fbd20b4f943185ff, type: 3}
+      propertyPath: imagetimer
+      value: 
+      objectReference: {fileID: 1004023684}
+    - target: {fileID: 1944522649, guid: 62b4a9c84a775e54fbd20b4f943185ff, type: 3}
+      propertyPath: timerText
+      value: 
+      objectReference: {fileID: 1751649824}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62b4a9c84a775e54fbd20b4f943185ff, type: 3}
 --- !u!1001 &6598604473833471965

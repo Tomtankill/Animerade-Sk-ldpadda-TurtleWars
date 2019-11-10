@@ -10,6 +10,7 @@ TagManager:
   - Resource
   - Player1s
   - Player2s
+  - Water
   layers:
   - Default
   - TransparentFX
