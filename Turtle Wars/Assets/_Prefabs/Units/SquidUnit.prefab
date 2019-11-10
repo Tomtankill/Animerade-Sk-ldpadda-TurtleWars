@@ -74,7 +74,7 @@ MonoBehaviour:
   health: 20
   maxhealth: 20
   atkRange: 10
-  attackDamage: 25
+  attackDamage: 5
   attackTimer: 2
   attacking: 0
   gathering: 0
