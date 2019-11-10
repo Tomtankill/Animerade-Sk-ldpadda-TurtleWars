@@ -100,8 +100,9 @@ public class BuildBuildings : MonoBehaviour
     }
     void Update()
     {
-        Resource1 = GetComponent<TextMeshProUGUI>();
-        Resource2 = GetComponent<TextMeshProUGUI>();
+        // displays resources to the player
+        Resource1 = GameObject.Find("R1_text").GetComponent<TextMeshProUGUI>();
+        Resource1 = GameObject.Find("R2_text").GetComponent<TextMeshProUGUI>();
         Resource1.text = r1.ToString();
         Resource2.text = r2.ToString();
 
