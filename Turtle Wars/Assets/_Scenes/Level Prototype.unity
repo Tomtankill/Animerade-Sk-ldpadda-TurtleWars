@@ -3632,7 +3632,12 @@ PrefabInstance:
     - target: {fileID: 4446978180009360052, guid: 43bef00e57885a746b3124dab6cdc0bb,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 140.1
+      value: -159.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4446978180009360052, guid: 43bef00e57885a746b3124dab6cdc0bb,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -161.7
       objectReference: {fileID: 0}
     - target: {fileID: 8811046292493774778, guid: 43bef00e57885a746b3124dab6cdc0bb,
         type: 3}
@@ -7395,7 +7400,7 @@ PrefabInstance:
       objectReference: {fileID: 929419753}
     - target: {fileID: 1944522649, guid: 62b4a9c84a775e54fbd20b4f943185ff, type: 3}
       propertyPath: timerCurrent
-      value: 5
+      value: 31
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62b4a9c84a775e54fbd20b4f943185ff, type: 3}
