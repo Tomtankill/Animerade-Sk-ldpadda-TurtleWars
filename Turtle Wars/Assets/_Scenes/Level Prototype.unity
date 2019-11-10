@@ -2742,6 +2742,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3655056267001035726, guid: a49232a2cca391741a13f603f10fde81,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.28
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a49232a2cca391741a13f603f10fde81, type: 3}
 --- !u!4 &686795744 stripped
@@ -3624,6 +3629,21 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 634131452}
+    - target: {fileID: 4446978180009360052, guid: 43bef00e57885a746b3124dab6cdc0bb,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 140.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8811046292493774778, guid: 43bef00e57885a746b3124dab6cdc0bb,
+        type: 3}
+      propertyPath: m_Name
+      value: R2_text
+      objectReference: {fileID: 0}
+    - target: {fileID: 6167464135042158605, guid: 43bef00e57885a746b3124dab6cdc0bb,
+        type: 3}
+      propertyPath: m_Name
+      value: R1_text
+      objectReference: {fileID: 0}
     - target: {fileID: 3567545938835955198, guid: 43bef00e57885a746b3124dab6cdc0bb,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -3748,11 +3768,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.pageCount
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4446978180009360052, guid: 43bef00e57885a746b3124dab6cdc0bb,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 140.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43bef00e57885a746b3124dab6cdc0bb, type: 3}
