@@ -52,8 +52,8 @@ public class BuildBuildings : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Resource1 = GetComponent<TextMeshProUGUI>();
-        Resource2 = GetComponent<TextMeshProUGUI>();
+        //Resource1 = GetComponent<TextMeshProUGUI>();
+        //Resource2 = GetComponent<TextMeshProUGUI>();
         ghost = Instantiate(ghost, Vector3.down * 300, Quaternion.identity);
     }
 
@@ -106,7 +106,7 @@ public class BuildBuildings : MonoBehaviour
     {
         // displays resources to the player
         Resource1 = GameObject.Find("R1_text").GetComponent<TextMeshProUGUI>();
-        Resource1 = GameObject.Find("R2_text").GetComponent<TextMeshProUGUI>();
+        Resource2 = GameObject.Find("R2_text").GetComponent<TextMeshProUGUI>();
         Resource1.text = r1.ToString();
         Resource2.text = r2.ToString();
 
