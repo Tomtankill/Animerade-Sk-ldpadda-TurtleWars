@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+
 public class BuildBuildings : MonoBehaviour
 {
     // Variables
@@ -46,10 +47,13 @@ public class BuildBuildings : MonoBehaviour
     public float r2 = 0;
     public TextMeshProUGUI Resource1;
     public TextMeshProUGUI Resource2;
+  
 
     // Start is called before the first frame update
     void Start()
     {
+        Resource1 = GetComponent<TextMeshProUGUI>();
+        Resource2 = GetComponent<TextMeshProUGUI>();
         ghost = Instantiate(ghost, Vector3.down * 300, Quaternion.identity);
     }
 
@@ -100,8 +104,7 @@ public class BuildBuildings : MonoBehaviour
     }
     void Update()
     {
-        Resource1 = GetComponent<TextMeshProUGUI>();
-        Resource2 = GetComponent<TextMeshProUGUI>();
+  
         Resource1.text = r1.ToString();
         Resource2.text = r2.ToString();
 
