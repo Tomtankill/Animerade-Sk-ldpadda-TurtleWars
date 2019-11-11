@@ -156,6 +156,18 @@ public class PriorityAI : MonoBehaviour
         return closest;
     }
 
+    public bool AIset()
+    {
+        if (tag == "Enemy")
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     void Eco()
     {
         //Tell workers to gather the closes resource
@@ -172,9 +184,10 @@ public class PriorityAI : MonoBehaviour
         {
             print("IM READY TO BUILD A BARRACKS! UWU");
             rScore1 -= 10f;
-            Instantiate(barracks, barrackBuildingSpot.position, barrackBuildingSpot.rotation);
+            GameObject go = Instantiate(barracks, barrackBuildingSpot.position, barrackBuildingSpot.rotation);
             barracksUnitSpawner = GameObject.Find("AI barrack spawner").GetComponent<Transform>();
             barrackBuild = true;
+
             // add barracks spawnpOINT
         }
         // if barrack is already build, create units at the barracks posistion

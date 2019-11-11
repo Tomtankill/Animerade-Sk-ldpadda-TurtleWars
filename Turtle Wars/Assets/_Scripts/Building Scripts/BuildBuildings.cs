@@ -22,6 +22,13 @@ public class BuildBuildings : MonoBehaviour
     public List<GameObject> armoryList = new List<GameObject>();
     public List<GameObject> towerList = new List<GameObject>();
 
+    public List<GameObject> masterBuildingListAI = new List<GameObject>();
+    public List<GameObject> townHallListAI = new List<GameObject>();
+    public List<GameObject> barracksListAI = new List<GameObject>();
+    public List<GameObject> armoryListAI = new List<GameObject>();
+    public List<GameObject> towerListAI = new List<GameObject>();
+
+
     Vector3 worldMousePos;
 
     private int townhallCount = 0;
