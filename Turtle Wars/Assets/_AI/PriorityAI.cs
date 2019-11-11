@@ -106,7 +106,7 @@ public class PriorityAI : MonoBehaviour
             }
             else if (U.whoControllsThis == Units.WhoControllsThis.AI)
             {
-                AIUnits.Add(new GameObject());
+                //AIUnits.Add(new GameObject());
             }
         }
 
