@@ -97,6 +97,18 @@ public class PriorityAI : MonoBehaviour
 
             }
         }
+        // CHANGES THIS TO BUILDINGS!!!
+        foreach (Units U in FindObjectsOfType<Units>())
+        {
+            if (U.whoControllsThis == Units.WhoControllsThis.Player)
+            {
+                playerUnits.Add(U.transform);
+            }
+            else if (U.whoControllsThis == Units.WhoControllsThis.AI)
+            {
+                AIUnits.Add(new GameObject());
+            }
+        }
 
         // switches state and runs a function depending on what state it's in
 
@@ -104,7 +116,7 @@ public class PriorityAI : MonoBehaviour
     }
 
     // find the closest resources transform, then return the closest resource
-    Transform GetNearestResource(List<Transform> resource)
+    Transform GetNearestResource(Transform person, List<Transform> resource)
     {
         Transform closest = null;
         float distance = 99999;
@@ -114,15 +126,18 @@ public class PriorityAI : MonoBehaviour
             return resource[0];
         }
 
+
         foreach (Transform r in resource)
         {
-            Transform use = closest == null ? resource[0].transform : closest;
-            float d = Vector3.Distance(use.transform.position, r.transform.position);
 
-            if (d < distance)
+            Transform use = closest == null ? resource[0].transform : closest;
+            float dist = Vector3.Distance(person.position, use.position);
+
+            float next = Vector3.Distance(person.position, r.transform.position);
+            if (next < dist)
             {
                 closest = r;
-                distance = d;
+                distance = dist;
             }
         }
         print(closest.name);
@@ -168,6 +183,33 @@ public class PriorityAI : MonoBehaviour
         }
     }
 
+    // finds the closest player units transform, then return the target
+    Transform GetnearestBuilding(List<Transform> playerbuilding)
+    {
+        Transform closest = null;
+        float distance = 99999;
+
+        if (playerbuilding.Count == 1)
+        {
+            return playerbuilding[0];
+        }
+
+        foreach (Transform r in playerbuilding)
+        {
+            Transform use = closest == null ? playerbuilding[0].transform : closest;
+            float d = Vector3.Distance(use.transform.position, r.transform.position);
+
+            if (d < distance)
+            {
+                closest = r;
+                distance = d;
+            }
+
+        }
+
+        return closest;
+    }
+
     void Eco()
     {
         //Tell workers to gather the closes resource
@@ -176,7 +218,16 @@ public class PriorityAI : MonoBehaviour
         {
             Debug.Log("Finding Resource");
             // refrence the list of resources, but not in the GetNearestResource, is this the best way of doing it?
-            moveWokerUnitsAIEvent(GetNearestResource(r1));
+            foreach(GameObject g in AIUnits)
+            {
+                if (g.GetComponent<Units>())
+                {
+                    if (g.GetComponent<Units>().unitType == Units.UnitType.Worker)
+                    {
+                        g.GetComponent<Units>().MoveWorker(GetNearestResource(g.transform, r1));
+                    }
+                }
+            }
         }
 
         //check if AI can build barracks
@@ -213,6 +264,12 @@ public class PriorityAI : MonoBehaviour
         {
             // CHANGES this to the player units when Tom is done
             moveFighterUnitsAIEvent(GetNearestEnemy(playerUnits));
+
+            // if there is no more units attack buildings
+            if(playerUnits.Count == 0)
+            {
+                moveFighterUnitsAIEvent(GetnearestBuilding(playerUnits));
+            }
         }
     }
 

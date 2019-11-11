@@ -75,6 +75,7 @@ public class Units : MonoBehaviour
         switch (whoControllsThis)
         {
             case WhoControllsThis.AI:
+                PriorityAI.AIUnits.Add(gameObject);
                 break;
             case WhoControllsThis.Player:
                 Camera.main.transform.GetComponent<Click>().selectableUnits.Add(this);
@@ -322,7 +323,6 @@ public class Units : MonoBehaviour
             if (!gathering)
             {
                 StartCoroutine(Gathering());
-                gathering = false;
             }
         }
     }
@@ -345,7 +345,6 @@ public class Units : MonoBehaviour
 
         if (Vector3.Distance(transform.position, target.transform.position) < atkRange)
         {
-
             if (target == null)
             {
                 StopCoroutine(Gathering());
@@ -358,7 +357,6 @@ public class Units : MonoBehaviour
             }
             else
             {
-                Debug.Log("WHYYY");
                 //player
                 if (target.gameObject.name.Contains("Sea Resource"))
                 {
@@ -369,6 +367,8 @@ public class Units : MonoBehaviour
                     commander.r2++;
                 }
             }
+            // takes one resource from the resource node
+            target.GetComponent<Resource>().amountOfResource -= 1;
         }
 
         gathering = false;
