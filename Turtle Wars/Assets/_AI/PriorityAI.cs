@@ -30,6 +30,7 @@ public class PriorityAI : MonoBehaviour
 
     // list of the transform of resources in the map
     public static List<Transform> r1 = new List<Transform>(), r2 = new List<Transform>();
+    public static List<Transform> playerBuildings = new List<Transform>();
 
     // players units and building
     public static List<Transform> playerUnits = new List<Transform>(); 
@@ -75,6 +76,14 @@ public class PriorityAI : MonoBehaviour
             else if (U.whoControllsThis == Units.WhoControllsThis.AI)
             {
                 AIUnits.Add(new GameObject());
+            }
+        }
+
+        foreach (SelfBuildingManager P in FindObjectsOfType<SelfBuildingManager>())
+        {
+            if (P.AI == false)
+            {
+                playerBuildings.Add(P.transform);
             }
         }
     }
@@ -171,42 +180,32 @@ public class PriorityAI : MonoBehaviour
         return closest;
     }
 
-    public bool AIset()
-    {
-        if (tag == "Enemy")
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     // finds the closest player units transform, then return the target
-    Transform GetnearestBuilding(List<Transform> playerbuilding)
+    Transform GetnearestBuilding(Transform person, List<Transform> playerbuilding)
     {
         Transform closest = null;
         float distance = 99999;
 
-        if (playerbuilding.Count == 1)
+        if (playerBuildings.Count == 1)
         {
-            return playerbuilding[0];
+            return playerBuildings[0];
         }
 
-        foreach (Transform r in playerbuilding)
-        {
-            Transform use = closest == null ? playerbuilding[0].transform : closest;
-            float d = Vector3.Distance(use.transform.position, r.transform.position);
 
-            if (d < distance)
+        foreach (Transform r in playerBuildings)
+        {
+
+            Transform use = closest == null ? playerBuildings[0].transform : closest;
+            float dist = Vector3.Distance(person.position, use.position);
+
+            float next = Vector3.Distance(person.position, r.transform.position);
+            if (next < dist)
             {
                 closest = r;
-                distance = d;
+                distance = dist;
             }
-
         }
-
+        print(closest.name);
         return closest;
     }
 
@@ -259,16 +258,22 @@ public class PriorityAI : MonoBehaviour
     // if target ain't null get the closest player units
     void AttackMode()
     {
-
         if (moveFighterUnitsAIEvent != null)
         {
             // CHANGES this to the player units when Tom is done
             moveFighterUnitsAIEvent(GetNearestEnemy(playerUnits));
-
-            // if there is no more units attack buildings
-            if(playerUnits.Count == 0)
+        }
+        else
+        {
+            foreach (GameObject g in AIUnits)
             {
-                moveFighterUnitsAIEvent(GetnearestBuilding(playerUnits));
+                if (g.GetComponent<Units>())
+                {
+                    if (g.GetComponent<Units>().unitType != Units.UnitType.Worker)
+                    {
+                        g.GetComponent<Units>().MoveToTargetAI(GetnearestBuilding(g.transform, playerBuildings));
+                    }
+                }
             }
         }
     }
@@ -282,14 +287,8 @@ public class PriorityAI : MonoBehaviour
     {
 
         Instantiate(myUnits, barracksUnitSpawner.position, barracksUnitSpawner.rotation);
-        AIUnits.Add(gameObject);
         // CHANGES this into the Units script
         Debug.Log("Hey I'm with the crew" + AIUnits.Count);
        
-    }
-
-    void StopEverything()
-    {
-        
     }
 }

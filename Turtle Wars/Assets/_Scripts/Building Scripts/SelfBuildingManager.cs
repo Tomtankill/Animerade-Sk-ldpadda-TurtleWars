@@ -59,7 +59,7 @@ public class SelfBuildingManager : MonoBehaviour
     private void Awake()
     {
         AIcommander = GameObject.Find("MasterAI");
-        if (AIcommander.GetComponent<PriorityAI>().AIset() == true)
+        if (tag == "Enemy")
         {
             AI = true;
         }

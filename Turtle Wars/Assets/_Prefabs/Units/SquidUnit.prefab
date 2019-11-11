@@ -78,8 +78,8 @@ MonoBehaviour:
   attackTimer: 2
   attacking: 0
   gathering: 0
-  whoControllsThis: 0
-  unitType: 0
+  whoControllsThis: 1
+  unitType: 3
   state: 0
 --- !u!136 &9004957426063651929
 CapsuleCollider:
