@@ -4811,7 +4811,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1070507482}
   - component: {fileID: 1070507484}
-  - component: {fileID: 1070507483}
   m_Layer: 0
   m_Name: Minimap Camera
   m_TagString: Untagged
@@ -4833,14 +4832,6 @@ Transform:
   m_Father: {fileID: 794573405}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!81 &1070507483
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1070507481}
-  m_Enabled: 1
 --- !u!20 &1070507484
 Camera:
   m_ObjectHideFlags: 0
@@ -8435,7 +8426,7 @@ PrefabInstance:
     - target: {fileID: 1414345060716571663, guid: 4948ef28a2f37384fab192a590f201c8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1414345060716571663, guid: 4948ef28a2f37384fab192a590f201c8,
         type: 3}
@@ -8577,7 +8568,7 @@ Transform:
   - {fileID: 439815944}
   - {fileID: 1897763937}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7833000940961429167
 GameObject:
@@ -8663,7 +8654,7 @@ Terrain:
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
   m_HeightmapMaximumLOD: 0
-  m_ShadowCastingMode: 2
+  m_ShadowCastingMode: 0
   m_DrawHeightmap: 1
   m_DrawInstanced: 0
   m_DrawTreesAndFoliage: 1
