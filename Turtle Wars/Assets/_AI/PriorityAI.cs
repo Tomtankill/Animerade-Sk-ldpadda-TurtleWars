@@ -30,11 +30,11 @@ public class PriorityAI : MonoBehaviour
 
     // list of the transform of resources in the map
     public static List<Transform> r1 = new List<Transform>(), r2 = new List<Transform>();
-    public static List<Transform> playerBuildings = new List<Transform>();
 
     // players units and building
     public static List<Transform> playerUnits = new List<Transform>(); 
     public static List<GameObject> AIUnits = new List<GameObject>();
+    public static List<Transform> playerBuildings = new List<Transform>();
 
     // this is the acceptableDistance that a unit can find a enemy/resource
     public float acceptableDistance = 25f;
@@ -78,7 +78,7 @@ public class PriorityAI : MonoBehaviour
                 AIUnits.Add(new GameObject());
             }
         }
-
+        // finds all the object with selfbuildingmanger on them, then sort out the one that ain't the AI's and adds they transform to the list playerBuildings
         foreach (SelfBuildingManager P in FindObjectsOfType<SelfBuildingManager>())
         {
             if (P.AI == false)
@@ -90,6 +90,7 @@ public class PriorityAI : MonoBehaviour
 
     void Update()
     {
+        // if it's AI turn, do the thing
         if(turntime.p2Turn == true)
         {
             switch (state)
@@ -180,7 +181,7 @@ public class PriorityAI : MonoBehaviour
         return closest;
     }
 
-    // finds the closest player units transform, then return the target
+    // finds the closest player building transform, then return the target
     Transform GetnearestBuilding(Transform person, List<Transform> playerbuilding)
     {
         Transform closest = null;
@@ -258,6 +259,7 @@ public class PriorityAI : MonoBehaviour
     // if target ain't null get the closest player units
     void AttackMode()
     {
+        // if moveFighterUnitsAIEvent is not empty get the closest units that the player controlls
         if (moveFighterUnitsAIEvent != null)
         {
             // CHANGES this to the player units when Tom is done
@@ -276,6 +278,11 @@ public class PriorityAI : MonoBehaviour
                 }
             }
         }
+        // if units amount is low go back into eco state
+        if(AIUnits.Count < 4)
+        {
+            state = State.Eco;
+        }
     }
 
     void DefendMode()
@@ -283,9 +290,9 @@ public class PriorityAI : MonoBehaviour
         // find all combat units that are left and run back to base
     }
 
+    // creates units that the AI controlls
     void MakeUnits()
     {
-
         Instantiate(myUnits, barracksUnitSpawner.position, barracksUnitSpawner.rotation);
         // CHANGES this into the Units script
         Debug.Log("Hey I'm with the crew" + AIUnits.Count);
