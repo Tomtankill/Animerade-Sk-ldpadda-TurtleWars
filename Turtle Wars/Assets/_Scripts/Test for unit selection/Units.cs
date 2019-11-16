@@ -26,6 +26,7 @@ public class Units : MonoBehaviour
     // sets the x,y,z postion
     public Vector3 newTarget;
     public GameObject target;
+    //public GameObject oldTarget;
     private NavMeshAgent agent;
     
     // checks if the unit is selected
@@ -103,11 +104,11 @@ public class Units : MonoBehaviour
         commander = thePlayer.GetComponent<BuildBuildings>();
         
         // adds this gameobject to a list from click
-        //Camera.main.gameObject.GetComponent<Click>().selectableUnits.Add(this);
+        Camera.main.gameObject.GetComponent<Click>().selectableUnits.Add(this);
 
         //attackTimer = currentAttackTimer;
         // may not work
-        //Camera.main.gameObject.GetComponent<Click>().selectableUnits.Add(this);
+        Camera.main.gameObject.GetComponent<Click>().selectableUnits.Add(this);
         state = State.Idle;
     }
 
@@ -118,8 +119,19 @@ public class Units : MonoBehaviour
 
         if (gameObject.CompareTag("Enemy") && unitType == UnitType.Worker)
             PriorityAI.moveWokerUnitsAIEvent -= MoveWorker;
-    }
 
+        switch (whoControllsThis)
+        {
+            case WhoControllsThis.AI:
+                PriorityAI.AIUnits.Remove(gameObject);
+                break;
+            case WhoControllsThis.Player:
+                Camera.main.transform.GetComponent<Click>().selectableUnits.Remove(this);
+                break;
+            default:
+                break;
+        }
+    }
 
     private void Update()
     {
@@ -144,8 +156,49 @@ public class Units : MonoBehaviour
             Destroy(gameObject);
         }
 
+
     }
 
+    //bool Thing(out GameObject closestUnit)
+    //{
+    //    closestUnit = null;
+    //    float lowestDis = Mathf.Infinity;
+    //    foreach (GameObject g in PriorityAI.AIUnits)
+    //    {
+    //        float d = Vector3.Distance(transform.position, g.transform.position);
+    //        if (g != this.gameObject)
+    //        {
+    //            if (d < 25f)
+    //            {
+    //                if (closestUnit == null)
+    //                {
+    //                    closestUnit = g;
+    //                    lowestDis = d;
+    //                }
+    //                else if (d < lowestDis)
+    //                {
+    //                    lowestDis = d;
+    //                    closestUnit = g;
+    //                }
+    //            }
+    //        }
+
+    //    }
+    //    if (PriorityAI.AIUnits != null)
+    //    {
+           
+    //    }
+     
+    //    if (closestUnit == null)
+    //    {
+    //        return false;
+    //    }
+    //    else
+    //    {
+    //        //oldTarget = target;
+    //        return true;
+    //    }
+    //}
 
     // doing all the attack things
     private void HandleAttack()
@@ -168,10 +221,12 @@ public class Units : MonoBehaviour
         // if in range, atttack
         else
         {
+            // this don't run idk whyyy
             agent.isStopped = true;
             agent.SetDestination(transform.position);
             if(!attacking)
             StartCoroutine(Attack());
+            print("idk fam");
         }
     }
 
@@ -183,7 +238,6 @@ public class Units : MonoBehaviour
         {
             target.GetComponent<Units>().health -= attackDamage;
         }
-        
         // building get hit
         else
         {
@@ -194,6 +248,7 @@ public class Units : MonoBehaviour
     // attack coratin
     IEnumerator Attack()
     {
+        print("I'm a cunt, yes");
         float timeCache = attackTimer;
         attacking = true;
 
@@ -233,6 +288,12 @@ public class Units : MonoBehaviour
             agent.isStopped = false;
         }
 
+        //if (Thing(out target))
+        //{
+        //    print("This only run this amount of time");
+        //    state = State.Attack;
+        //    HandleAttack();
+        //}
     }
     
 
@@ -270,7 +331,6 @@ public class Units : MonoBehaviour
         {
             agent.isStopped = false;
             agent.SetDestination(target.transform.position);
-
         }
 
         else
@@ -282,17 +342,12 @@ public class Units : MonoBehaviour
                 StartCoroutine(Attack());
             }
         }
-
     }
 
     public void MoveToTarget(Vector3 t)
     {
-        // sets the gameobject target and gets the postion with the vector 3
-
         newTarget = t;
-        //target = gameObject.transform.position;
         agent.SetDestination(newTarget);
-
     }
 
     // change color if unit is selected
