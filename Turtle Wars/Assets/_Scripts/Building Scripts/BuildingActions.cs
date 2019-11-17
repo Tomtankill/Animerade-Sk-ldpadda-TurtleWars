@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BuildingActions : BuildBuildings
 {
-
+    
     public GameObject worker;
     public Transform spawnpoint;
     public LayerMask terrainLayer;

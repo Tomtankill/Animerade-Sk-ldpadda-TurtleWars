@@ -9,9 +9,10 @@ public class SelfBuildingManager : MonoBehaviour
     // Letting the building know who the commander is
     public GameObject commander;
     public GameObject unitCamera;
+    public GameObject AIcommander;
 
     public int type;
-
+    public bool AI;
     // bools
     public bool controls;
     [SerializeField]private bool buildingFinish;
@@ -55,6 +56,19 @@ public class SelfBuildingManager : MonoBehaviour
     public Material purple;
     public Material blue;
 
+    private void Awake()
+    {
+        AIcommander = GameObject.Find("MasterAI");
+        if (tag == "Enemy")
+        {
+            AI = true;
+        }
+        else
+        {
+            AI = false;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -93,10 +107,16 @@ public class SelfBuildingManager : MonoBehaviour
         {
             case 0: //Town Hall
                 // Adding new object to list
-                commander.GetComponent<BuildBuildings>().townHallList.Add(gameObject);
-                //Debug.Log("Added self to townHallList");
-                commander.GetComponent<BuildBuildings>().masterBuildingList.Add(gameObject);
-                //Debug.Log("Added self to masterBuildingList");
+                if (AI)
+                {
+                    commander.GetComponent<BuildBuildings>().townHallListAI.Add(gameObject);
+                    commander.GetComponent<BuildBuildings>().masterBuildingListAI.Add(gameObject);
+                }
+                else
+                {
+                    commander.GetComponent<BuildBuildings>().townHallList.Add(gameObject);
+                    commander.GetComponent<BuildBuildings>().masterBuildingList.Add(gameObject);
+                }
 
                 // Setting Stats
                 maxHealth = 150;
@@ -109,11 +129,16 @@ public class SelfBuildingManager : MonoBehaviour
 
                 break;
             case 1: // Barracks
-                // Adding new object to list
-                commander.GetComponent<BuildBuildings>().barracksList.Add(gameObject);
-                //Debug.Log("Added self to townHallList");
-                commander.GetComponent<BuildBuildings>().masterBuildingList.Add(gameObject);
-                //Debug.Log("Added self to masterBuildingList");
+                if (AI)
+                {
+                    commander.GetComponent<BuildBuildings>().barracksListAI.Add(gameObject);
+                    commander.GetComponent<BuildBuildings>().masterBuildingListAI.Add(gameObject);
+                }
+                else
+                {
+                    commander.GetComponent<BuildBuildings>().barracksList.Add(gameObject);
+                    commander.GetComponent<BuildBuildings>().masterBuildingList.Add(gameObject);
+                }
 
                 // Setting Stats
                 maxHealth = 100;
@@ -124,11 +149,16 @@ public class SelfBuildingManager : MonoBehaviour
 
                 break;
             case 2: //Armory
-                // Adding new object to list
-                commander.GetComponent<BuildBuildings>().armoryList.Add(gameObject);
-                //Debug.Log("Added self to townHallList");
-                commander.GetComponent<BuildBuildings>().masterBuildingList.Add(gameObject);
-                //Debug.Log("Added self to masterBuildingList");
+                if (AI)
+                {
+                    commander.GetComponent<BuildBuildings>().armoryListAI.Add(gameObject);
+                    commander.GetComponent<BuildBuildings>().masterBuildingListAI.Add(gameObject);
+                }
+                else
+                {
+                    commander.GetComponent<BuildBuildings>().armoryList.Add(gameObject);
+                    commander.GetComponent<BuildBuildings>().masterBuildingList.Add(gameObject);
+                }
 
                 // Setting Stats
                 maxHealth = 100;
@@ -139,12 +169,16 @@ public class SelfBuildingManager : MonoBehaviour
 
                 break;
             case 3: //Tower
-                // Adding new object to list
-                commander.GetComponent<BuildBuildings>().towerList.Add(gameObject);
-                //Debug.Log("Added self to townHallList");
-                commander.GetComponent<BuildBuildings>().masterBuildingList.Add(gameObject);
-                //Debug.Log("Added self to masterBuildingList");
-
+                if (AI)
+                {
+                    commander.GetComponent<BuildBuildings>().towerListAI.Add(gameObject);
+                    commander.GetComponent<BuildBuildings>().masterBuildingListAI.Add(gameObject);
+                }
+                else
+                {
+                    commander.GetComponent<BuildBuildings>().towerList.Add(gameObject);
+                    commander.GetComponent<BuildBuildings>().masterBuildingList.Add(gameObject);
+                }
                 // Setting Stats
                 maxHealth = 75;
                 currentHealth = 1;
