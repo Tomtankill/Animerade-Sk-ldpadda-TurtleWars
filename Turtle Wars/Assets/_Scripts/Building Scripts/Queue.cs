@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class Queue : MonoBehaviour
 {
     // things for the tasks
-    public Image imagetimer;
-    private float timerMax = 31.0f;
-    [SerializeField] private float timerCurrent = 31.0f;
+    private float timerMax;
+    private float tasktime;
+    [SerializeField] private float timerCurrent = 5.0f;
     private bool taskActive = false;
 
 
@@ -39,7 +40,7 @@ public class Queue : MonoBehaviour
                 }
                 else
                 {
-                    StartCoroutine(taskQueue[0]);
+                    taskActive = true;
                 }
             }
         }
@@ -49,32 +50,48 @@ public class Queue : MonoBehaviour
         }
 
         CancelTask();
+
+        if (taskActive == true)
+        {
+            DoTask();
+        }
         
+    }
+
+    private void DoTask()
+    {
+        timerCurrent -= Time.deltaTime;
+        if (timerCurrent == 0)
+        {
+            taskActive = false;
+            timerCurrent = timerMax;
+            StartCoroutine(taskQueue[0]);
+        }
     }
 
     public void TaskButton()
     {
-        CheckAndAdd("job");
+        CheckAndAdd("Job");
     }
 
     public void TaskOneButton()
     {
-        CheckAndAdd("job1");
+        CheckAndAdd("Job1");
     }
 
     public void TaskTwoButton()
     {
-        CheckAndAdd("job2");
+        CheckAndAdd("Job2");
     }
 
     public void TaskThreeButton()
     {
-        CheckAndAdd("job3");
+        CheckAndAdd("Job3");
     }
 
     public void TaskFourButton()
     {
-        CheckAndAdd("job4");
+        CheckAndAdd("Job4");
     }
 
     public void CheckAndAdd(string job)
@@ -103,12 +120,6 @@ public class Queue : MonoBehaviour
 
     public void CancelTask()
     {
-        // Task Bit
-        if (timerCurrent != 0 && taskActive)
-        {
-            timerCurrent -= Time.deltaTime;
-            imagetimer.fillAmount = timerCurrent / timerMax;
-        }
 
         if (Input.GetKeyDown(KeyCode.C) && taskActive)
         {
@@ -116,27 +127,15 @@ public class Queue : MonoBehaviour
             timerCurrent = timerMax;
             print("I cancelled the task");
 
-            taskQueue.RemoveAt(0); // removes the task after the task is finished
+            taskQueue.RemoveAt(0); // removes the task
         }
-
-        if (timerCurrent <= 0)
-        {
-            taskActive = false;
-            timerCurrent = timerMax;
-
-            // job activates here somehow
-
-            taskQueue.RemoveAt(0); // removes the task after the task is finished
-            print("Job has been completed");
-        }
-
     }
 
 
     IEnumerator Job()
     {
-        taskActive = true;
-        
+        print("done job");
+        taskQueue.RemoveAt(0);
         yield return null;
         
     }
