@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4688376453837729979}
   - component: {fileID: 4688376453837729978}
   - component: {fileID: 1944522649}
-  - component: {fileID: 1126573211}
   m_Layer: 0
   m_Name: Commander
   m_TagString: Untagged
@@ -59,12 +58,19 @@ MonoBehaviour:
   barracksList: []
   armoryList: []
   towerList: []
+  masterBuildingListAI: []
+  townHallListAI: []
+  barracksListAI: []
+  armoryListAI: []
+  towerListAI: []
   selected: {fileID: 0}
   ghost: {fileID: 6915492543473789762, guid: 86dbc12d958c453489deed6ba78a491e, type: 3}
   healthupgrade: 0
   healthUpgradeAmount: 200
   r1: 0
   r2: 0
+  Resource1: {fileID: 0}
+  Resource2: {fileID: 0}
 --- !u!114 &1944522649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,19 +90,3 @@ MonoBehaviour:
   imagetimer: {fileID: 0}
   timerText: {fileID: 0}
   filling: 0
---- !u!114 &1126573211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4688376453837729977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90c43d4bbe19005458f3bdfcadb56019, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  imagetimer: {fileID: 0}
-  timerCurrent: 31
-  taskQueue: []
-  commander: {fileID: 4688376453837729977}

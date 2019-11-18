@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingActions : BuildBuildings
+public class BuildingActions : MonoBehaviour
 {
     
     public GameObject worker;
@@ -12,11 +12,12 @@ public class BuildingActions : BuildBuildings
     public GameObject flyingFish;
     public Transform spawnpoint;
     public LayerMask terrainLayer;
+    private GameObject commander;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        commander = GameObject.Find("commander");
     }
 
     // Update is called once per frame
@@ -82,36 +83,18 @@ public class BuildingActions : BuildBuildings
 
 
     // Town Hall Upgrades
-    public void HealthUpgrade()
-    {
-        if (selected.GetComponent<SelfBuildingManager>().townHallControls == true)
-        {
-            healthupgrade = true;
-            for (int i = 0; i < masterBuildingList.Count; i++)
-            {
-                masterBuildingList[i].GetComponent<SelfBuildingManager>().maxHealth += healthUpgradeAmount;
-                masterBuildingList[i].GetComponent<SelfBuildingManager>().currentHealth += healthUpgradeAmount;
-            }
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    //public void HealthUpgrade()
+    //{
+    //    
+    //    if (commander.GetComponent<BuildBuildings>().selected.GetComponent<SelfBuildingManager>().townHallControls == true)
+    //    {
+    //        healthupgrade = true;
+    //        for (int i = 0; i < masterBuildingList.Count; i++)
+    //        {
+    //            masterBuildingList[i].GetComponent<SelfBuildingManager>().maxHealth += healthUpgradeAmount;
+    //            masterBuildingList[i].GetComponent<SelfBuildingManager>().currentHealth += healthUpgradeAmount;
+    //        }
+    //    }
+    //}
 
 }

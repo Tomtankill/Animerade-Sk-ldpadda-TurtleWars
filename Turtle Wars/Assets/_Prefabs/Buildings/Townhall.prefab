@@ -185,6 +185,7 @@ GameObject:
   - component: {fileID: 7209127121782677641}
   - component: {fileID: 3402939401247614413}
   - component: {fileID: 2593570965905257917}
+  - component: {fileID: 5046898374910807060}
   m_Layer: 0
   m_Name: Townhall
   m_TagString: Untagged
@@ -286,7 +287,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   commander: {fileID: 0}
   unitCamera: {fileID: 0}
+  AIcommander: {fileID: 0}
   type: 0
+  AI: 0
   controls: 0
   buildingFinish: 0
   buildingRender: {fileID: 2658947861456997180}
@@ -321,3 +324,18 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.099, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &5046898374910807060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4385007345600561120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90c43d4bbe19005458f3bdfcadb56019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerCurrent: 5
+  taskQueue: []
+  commander: {fileID: 0}

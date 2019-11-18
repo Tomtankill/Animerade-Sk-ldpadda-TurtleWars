@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3680844723144284790}
   - component: {fileID: 2266055736628333144}
   - component: {fileID: 1391970053046748375}
+  - component: {fileID: -5512614526371845756}
   m_Layer: 0
   m_Name: AIbarracks
   m_TagString: Enemy
@@ -95,7 +96,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   commander: {fileID: 0}
   unitCamera: {fileID: 0}
+  AIcommander: {fileID: 0}
   type: 0
+  AI: 0
   controls: 0
   buildingFinish: 0
   buildingRender: {fileID: 0}
@@ -130,6 +133,21 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.03, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &-5512614526371845756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3109782592488009386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90c43d4bbe19005458f3bdfcadb56019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerCurrent: 5
+  taskQueue: []
+  commander: {fileID: 0}
 --- !u!1 &4474452699323596826
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,11 @@ public class Queue : MonoBehaviour
     private float tasktime;
     [SerializeField] private float timerCurrent = 5.0f;
     private bool taskActive = false;
+    private float jobTime;
+    private float jobTime1;
+    private float jobTime2;
+    private float jobTime3;
+    private float jobTime4;
 
 
     // things for the Queue
@@ -19,9 +24,10 @@ public class Queue : MonoBehaviour
     private string testForChange;
     public GameObject commander;
 
+
     void Start()
     {
-
+        commander = GameObject.Find("commander");
     }
     void Update()
     {
@@ -41,6 +47,28 @@ public class Queue : MonoBehaviour
                 else
                 {
                     taskActive = true;
+                    switch (taskQueue[0])
+                    {
+                        case "Job":
+                            tasktime = jobTime;
+                            break;
+                        case "Job1":
+                            tasktime = jobTime1;
+                            break;
+                        case "Job2":
+                            tasktime = jobTime2;
+                            break;
+                        case "Job3":
+                            tasktime = jobTime3;
+                            break;
+                        case "Job4":
+                            tasktime = jobTime4;
+                            break;
+                        default:
+                            tasktime = 999;
+                            Debug.LogError("Couldn't set time for job");
+                            break;
+                    }
                 }
             }
         }
@@ -69,29 +97,34 @@ public class Queue : MonoBehaviour
         }
     }
 
-    public void TaskButton()
+    public void TaskButton(float taskTime)
     {
         CheckAndAdd("Job");
+        jobTime = taskTime;
     }
 
-    public void TaskOneButton()
+    public void TaskOneButton(float taskTime)
     {
         CheckAndAdd("Job1");
+        jobTime1 = taskTime;
     }
 
-    public void TaskTwoButton()
+    public void TaskTwoButton(float taskTime)
     {
         CheckAndAdd("Job2");
+        jobTime2 = taskTime;
     }
 
-    public void TaskThreeButton()
+    public void TaskThreeButton(float taskTime)
     {
         CheckAndAdd("Job3");
+        jobTime3 = taskTime;
     }
 
-    public void TaskFourButton()
+    public void TaskFourButton(float taskTime)
     {
         CheckAndAdd("Job4");
+        jobTime4 = taskTime;
     }
 
     public void CheckAndAdd(string job)
@@ -134,6 +167,7 @@ public class Queue : MonoBehaviour
 
     IEnumerator Job()
     {
+        commander.GetComponent<BuildingActions>().FlyingFish();
         print("done job");
         taskQueue.RemoveAt(0);
         yield return null;
@@ -141,26 +175,29 @@ public class Queue : MonoBehaviour
     }
     IEnumerator Job1()
     {
-        yield return new WaitForSeconds(5.0f);
+        commander.GetComponent<BuildingActions>().Crab();
         Debug.Log("job1 happens");
         taskQueue.RemoveAt(0); // removes the task after the task is finished
+        yield return null;
     }
     IEnumerator Job2()
     {
-        yield return new WaitForSeconds(5.0f);
+        commander.GetComponent<BuildingActions>().Squid();
         Debug.Log("job2 happens");
         taskQueue.RemoveAt(0); // removes the task after the task is finished
+        yield return null;
     }
     IEnumerator Job3()
     {
-        yield return new WaitForSeconds(5.0f);
+        commander.GetComponent<BuildingActions>().Swordfish();
         Debug.Log("job3 happens");
         taskQueue.RemoveAt(0); // removes the task after the task is finished
+        yield return null;
     }
     IEnumerator Job4()
     {
-        yield return new WaitForSeconds(5.0f);
         Debug.Log("job4 happens");
         taskQueue.RemoveAt(0); // removes the task after the task is finished
+        yield return null;
     }
 }

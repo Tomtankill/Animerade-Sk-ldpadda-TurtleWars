@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 7249829627576005056}
   - component: {fileID: 7183644997185362297}
   - component: {fileID: 2743305391284061174}
+  - component: {fileID: 2714212118266347561}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -266,7 +267,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   commander: {fileID: 0}
   unitCamera: {fileID: 0}
+  AIcommander: {fileID: 0}
   type: 0
+  AI: 0
   controls: 0
   buildingFinish: 0
   buildingRender: {fileID: 0}
@@ -301,3 +304,18 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.001, y: 0.119, z: -0.030000001}
   m_TimeToStationary: 0.5
+--- !u!114 &2714212118266347561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8980256470236333340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90c43d4bbe19005458f3bdfcadb56019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerCurrent: 5
+  taskQueue: []
+  commander: {fileID: 0}

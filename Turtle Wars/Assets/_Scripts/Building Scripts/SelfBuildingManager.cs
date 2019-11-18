@@ -10,7 +10,7 @@ public class SelfBuildingManager : MonoBehaviour
     public GameObject commander;
     public GameObject unitCamera;
     public GameObject AIcommander;
-
+    public GameObject barracksBuilder;
     public int type;
     public bool AI;
     // bools
@@ -75,7 +75,9 @@ public class SelfBuildingManager : MonoBehaviour
         
         // finds the commander and sets it to its appropriate variable
         commander = GameObject.Find("Commander");
-        unitCamera = GameObject.Find("Main_Camera");
+        unitCamera = GameObject.Find("Main Camera");
+        barracksBuilder = GameObject.Find("Building Control Barracks");
+        //barracksBuilder.SetActive(false);
         // bools are false on start
         buildingFinish = false;
         controls = false;
@@ -320,6 +322,11 @@ public class SelfBuildingManager : MonoBehaviour
         {
             // not selected
             buildingRender.material = purple;
+
+            if (type == 1)
+            {
+                barracksBuilder.SetActive(false);
+            }
         }
         else
         {
@@ -331,6 +338,11 @@ public class SelfBuildingManager : MonoBehaviour
             else if (unitCamera.GetComponent<Click>().selectedBuildings.Count != 1)
             {
                 commander.GetComponent<BuildBuildings>().selected = this.gameObject;
+            }
+
+            if (type == 1 && barracksControls == true)
+            {
+                barracksBuilder.SetActive(true);
             }
 
             buildingRender.material = blue;
