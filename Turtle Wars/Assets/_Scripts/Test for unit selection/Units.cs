@@ -159,46 +159,45 @@ public class Units : MonoBehaviour
 
     }
 
-    //bool Thing(out GameObject closestUnit)
-    //{
-    //    closestUnit = null;
-    //    float lowestDis = Mathf.Infinity;
-    //    foreach (GameObject g in PriorityAI.AIUnits)
-    //    {
-    //        float d = Vector3.Distance(transform.position, g.transform.position);
-    //        if (g != this.gameObject)
-    //        {
-    //            if (d < 25f)
-    //            {
-    //                if (closestUnit == null)
-    //                {
-    //                    closestUnit = g;
-    //                    lowestDis = d;
-    //                }
-    //                else if (d < lowestDis)
-    //                {
-    //                    lowestDis = d;
-    //                    closestUnit = g;
-    //                }
-    //            }
-    //        }
+    bool FindSomethingToAttack(out GameObject closestUnit)
+    {
+        closestUnit = null;
+        float lowestDis = Mathf.Infinity;
+        foreach (GameObject g in PriorityAI.AIUnits)
+        {
+            if (g.tag != gameObject.tag)
+            {
+                float d = Vector3.Distance(transform.position, g.transform.position);
+                if (g != this.gameObject)
+                {
+                    if (d < 25f)
+                    {
+                        if (closestUnit == null)
+                        {
+                            closestUnit = g;
+                            lowestDis = d;
+                        }
+                        else if (d < lowestDis)
+                        {
+                            lowestDis = d;
+                            closestUnit = g;
+                        }
+                    }
+                }
 
-    //    }
-    //    if (PriorityAI.AIUnits != null)
-    //    {
-           
-    //    }
-     
-    //    if (closestUnit == null)
-    //    {
-    //        return false;
-    //    }
-    //    else
-    //    {
-    //        //oldTarget = target;
-    //        return true;
-    //    }
-    //}
+            }
+        }
+
+        if (closestUnit == null)
+        {
+            return false;
+        }
+        else
+        {
+            //oldTarget = target;
+            return true;
+        }
+    }
 
     // doing all the attack things
     private void HandleAttack()
@@ -290,12 +289,13 @@ public class Units : MonoBehaviour
             agent.isStopped = false;
         }
 
-        //if (Thing(out target))
-        //{
-        //    print("This only run this amount of time");
-        //    state = State.Attack;
-        //    HandleAttack();
-        //}
+        //attack if something comes close
+        if (FindSomethingToAttack(out target))
+        {
+            print("This only run this amount of time");
+            state = State.Attack;
+            HandleAttack();
+        }
     }
     
 
