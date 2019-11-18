@@ -212,8 +212,10 @@ public class Units : MonoBehaviour
             AI.state = PriorityAI.State.Eco;
         }
 
+        float dis = Vector3.Distance(transform.position, target.transform.position) - agent.radius - target.GetComponent<NavMeshAgent>().radius;
+
         // if target is further away then atkRange. Move into attack range
-        if (Vector3.Distance(transform.position, target.transform.position) > atkRange)
+        if (dis > atkRange)
         {
             agent.isStopped = false;
             agent.SetDestination(target.transform.position);
@@ -231,17 +233,17 @@ public class Units : MonoBehaviour
     }
 
     // take dmg
-    public void TakeDamage(float dmg)
+    public void DealDmg(float dmg)
     {
         // units get hit
         if (target.GetComponent<SelfBuildingManager>() == null)
         {
-            target.GetComponent<Units>().health -= attackDamage;
+            target.GetComponent<Units>().health -= dmg;
         }
         // building get hit
         else
         {
-            target.GetComponent<SelfBuildingManager>().currentHealth -= attackDamage;
+            target.GetComponent<SelfBuildingManager>().currentHealth -= dmg;
         }
     }
 
@@ -264,10 +266,10 @@ public class Units : MonoBehaviour
             StopCoroutine(Attack());
         }
 
-
-        if (Vector3.Distance(transform.position, target.transform.position) < atkRange)
+        float dis = Vector3.Distance(transform.position, target.transform.position) - agent.radius - target.GetComponent<NavMeshAgent>().radius;
+        if (dis < atkRange)
         {
-            TakeDamage(attackDamage);
+            DealDmg(attackDamage);
         }
 
         attackTimer = timeCache;
