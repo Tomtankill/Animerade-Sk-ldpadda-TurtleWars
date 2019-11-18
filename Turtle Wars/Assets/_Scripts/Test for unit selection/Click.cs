@@ -191,6 +191,7 @@ public class Click : MonoBehaviour
             // if we do raycast
             if ((Physics.Raycast(rayHiting, out rayHit, Mathf.Infinity)))
             {
+            Debug.DrawRay(rayHiting.origin, rayHiting.direction, Color.red);
                 // go cycle through all selected units
                 foreach (Units units in selectedUnits)
                 {
@@ -201,14 +202,16 @@ public class Click : MonoBehaviour
                         units.target = rayHit.transform.gameObject;
                     }
                     // else if ray hits is resource and gameobject. sets unit to gathering state
-                    else if (rayHit.transform.gameObject.CompareTag("Resource") && units.name.Contains("Worker"))
+                    else if (rayHit.transform.gameObject.CompareTag("Resource") && units.GetComponent<Units>().unitType == Units.UnitType.Worker)
                     {
+                        print("THis works fuck you Linus");
                         units.state = Units.State.Gathering;
                         units.target = rayHit.transform.gameObject;
                     }
                     // else move there
                     else if(rayHit.transform.gameObject.CompareTag("Ground"))
                     {
+                        print("Fuck you Jacob I was right");
                         units.state = Units.State.Idle;
                         units.MoveToTarget(rayHit.point);
                     }
