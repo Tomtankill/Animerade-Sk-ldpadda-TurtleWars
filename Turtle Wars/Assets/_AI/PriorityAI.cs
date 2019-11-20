@@ -107,6 +107,11 @@ public class PriorityAI : MonoBehaviour
 
             }
         }
+        // force the AI to keep doing the eco thing
+        else
+        {
+            Eco();
+        }
         // CHANGES THIS TO BUILDINGS!!!
         foreach (Units U in FindObjectsOfType<Units>())
         {

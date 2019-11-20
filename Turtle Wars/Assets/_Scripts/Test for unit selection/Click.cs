@@ -204,7 +204,6 @@ public class Click : MonoBehaviour
                     // else if ray hits is resource and gameobject. sets unit to gathering state
                     else if (rayHit.transform.gameObject.CompareTag("Resource") && units.GetComponent<Units>().unitType == Units.UnitType.Worker)
                     {
-                        print("THis works fuck you Linus");
                         units.state = Units.State.Gathering;
                         units.target = rayHit.transform.gameObject;
                     }

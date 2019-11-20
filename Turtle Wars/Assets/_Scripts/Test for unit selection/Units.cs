@@ -3,22 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-/// <summary>
-/// 
-/// Fighting!
-/// 
-/// 1. Find all units
-/// 2. Cycle through them all
-/// 3. find the closest
-/// 4. check if theyre in attack distance
-/// 5. move to attack then
-/// 
-/// n. have the ai call a move function to next to the players base so they carve an attack path to there
-/// 
-/// find building, but stop to attack units on the way
-/// </summary>
-
-
 [RequireComponent(typeof(NavMeshAgent))]
 public class Units : MonoBehaviour
 {
@@ -386,7 +370,6 @@ public class Units : MonoBehaviour
 
     IEnumerator Gathering()
     {
-        //TODO: ADD AI
         float timeCache = 1;
         timeCache = attackTimer;
         gathering = true;
@@ -398,7 +381,6 @@ public class Units : MonoBehaviour
             //print("timeCache = " + timeCache);
             yield return new WaitForEndOfFrame();
         }
-
 
         if (Vector3.Distance(transform.position, target.transform.position) < atkRange)
         {
@@ -426,8 +408,9 @@ public class Units : MonoBehaviour
             }
             // takes one resource from the resource node
             target.GetComponent<Resource>().amountOfResource -= 1;
+            print("HEUFHeufheu");
         }
-
+        print("This does print");
         gathering = false;
     }
 }
