@@ -18,6 +18,8 @@ public class Queue : MonoBehaviour
     private float jobTime3;
     private float jobTime4;
 
+    public Vector3 pos;
+
 
     // things for the Queue
     [SerializeField] private List<string> taskQueue = new List<string>();
@@ -27,7 +29,8 @@ public class Queue : MonoBehaviour
 
     void Start()
     {
-        commander = GameObject.Find("commander");
+        pos = gameObject.transform.position;
+        commander = GameObject.Find("Commander");
     }
     void Update()
     {
@@ -167,7 +170,7 @@ public class Queue : MonoBehaviour
 
     IEnumerator Job()
     {
-        commander.GetComponent<BuildingActions>().FlyingFish();
+        commander.GetComponent<BuildingActions>().FlyingFish(pos);
         print("done job");
         taskQueue.RemoveAt(0);
         yield return null;

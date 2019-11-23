@@ -1854,6 +1854,24 @@ PrefabInstance:
       propertyPath: timerText
       value: 
       objectReference: {fileID: 1751649824}
+    - target: {fileID: 2870609454490026668, guid: 62b4a9c84a775e54fbd20b4f943185ff,
+        type: 3}
+      propertyPath: squid
+      value: 
+      objectReference: {fileID: 6910203619793867308, guid: 0d609e2f31735d54a8ad80c73f9c9f3f,
+        type: 3}
+    - target: {fileID: 2870609454490026668, guid: 62b4a9c84a775e54fbd20b4f943185ff,
+        type: 3}
+      propertyPath: swordfish
+      value: 
+      objectReference: {fileID: 2225286111585061137, guid: 35868bf6eaf57b4478a2856671e977c7,
+        type: 3}
+    - target: {fileID: 2870609454490026668, guid: 62b4a9c84a775e54fbd20b4f943185ff,
+        type: 3}
+      propertyPath: crab
+      value: 
+      objectReference: {fileID: 1557228203777472471, guid: 9395b722fa292df49aec6e1a0d6eae5c,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62b4a9c84a775e54fbd20b4f943185ff, type: 3}
 --- !u!1001 &6598604473833471965
