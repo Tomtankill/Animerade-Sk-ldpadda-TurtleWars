@@ -22,7 +22,7 @@ TagManager:
   - 
   - ClickableObjects
   - Ground
-  - _fogOfWarColor
+  - Units
   - Minimap
   - 
   - 
