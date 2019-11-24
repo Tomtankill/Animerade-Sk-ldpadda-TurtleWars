@@ -78,6 +78,7 @@ public class SelfBuildingManager : MonoBehaviour
         unitCamera = GameObject.Find("Main Camera");
         barracksBuilder = GameObject.Find("Building Control Barracks");
         //barracksBuilder.SetActive(false);
+
         // bools are false on start
         buildingFinish = false;
         controls = false;

@@ -5,7 +5,7 @@ using UnityEngine;
 public class BuildingActions : MonoBehaviour
 {
     
-    public GameObject worker;
+    //public GameObject worker;
     public GameObject crab;
     public GameObject swordfish;
     public GameObject squid;
@@ -28,55 +28,57 @@ public class BuildingActions : MonoBehaviour
 
     // Building Actions
 
-    public void Worker()
-    {
-        GameObject go = Instantiate(worker, new Vector3 (spawnpoint.position.x, 5 ,spawnpoint.position.z), Quaternion.identity);
-        Ray ray = new Ray (go.transform.position, Vector3.down); 
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 1000000.0f, terrainLayer))
-        {
-            go.transform.position = hit.point + new Vector3(0,1,0);
-        }
-    }
+    //public void Worker()
+    //{
+    //    GameObject go = Instantiate(worker, new Vector3 (spawnpoint.position.x, 5 ,spawnpoint.position.z), Quaternion.identity);
+    //    Ray ray = new Ray (go.transform.position, Vector3.down);
+    //    if (Physics.Raycast(ray, out RaycastHit hit, 1000000.0f, terrainLayer))
+    //    {
+    //        go.transform.position = hit.point + new Vector3(0, 1, 0);
+    //    }
+    //}
 
-    public void Crab()
+    public void Crab(Vector3 pos)
     {
+        spawnpoint.position = pos;
         GameObject go = Instantiate(crab, new Vector3 (spawnpoint.position.x, 5 ,spawnpoint.position.z), Quaternion.identity);
         Ray ray = new Ray (go.transform.position, Vector3.down);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 1000000.0f, terrainLayer))
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000000.0f, terrainLayer))
         {
             go.transform.position = hit.point + new Vector3(0, 1, 0);
         }
     }
-    public void Swordfish()
+    public void Swordfish(Vector3 pos)
     {
+        spawnpoint.position = pos;
         GameObject go = Instantiate(swordfish, new Vector3 (spawnpoint.position.x, 5 ,spawnpoint.position.z), Quaternion.identity);
         Ray ray = new Ray (go.transform.position, Vector3.down);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 1000000.0f, terrainLayer))
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000000.0f, terrainLayer))
         {
             go.transform.position = hit.point + new Vector3(0, 1, 0);
         }
     }
-    public void Squid()
+    public void Squid(Vector3 pos)
     {
+        spawnpoint.position = pos;
         GameObject go = Instantiate(squid, new Vector3 (spawnpoint.position.x, 5 ,spawnpoint.position.z), Quaternion.identity);
         Ray ray = new Ray (go.transform.position, Vector3.down);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 1000000.0f, terrainLayer))
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000000.0f, terrainLayer))
         {
             go.transform.position = hit.point + new Vector3(0, 1, 0);
         }
     }
-    public void FlyingFish()
+    public void FlyingFish(Vector3 pos)
     {
+        print("flying fish has been called");
+        spawnpoint.position = pos;
         GameObject go = Instantiate(flyingFish, new Vector3 (spawnpoint.position.x, 5 ,spawnpoint.position.z), Quaternion.identity);
+        print("flying fish exists");
         Ray ray = new Ray (go.transform.position, Vector3.down);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 1000000.0f, terrainLayer))
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000000.0f, terrainLayer))
         {
             go.transform.position = hit.point + new Vector3(0, 1, 0);
+            print("flyingfish is at" + hit.point);
         }
     }
 

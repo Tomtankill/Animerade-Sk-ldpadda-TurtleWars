@@ -10,8 +10,8 @@ public class CameraPan : MonoBehaviour
     public float scrollSpeed;
     // Defines the distance from the edge of the screen the cursor has to be
     private float panDetect;
-    // Ensures that the 2 cameras don't lock the player into the one spot
-    private bool transition = true;
+    // Ensures that the 4 cameras heights don't lock the player into the one spot
+    private int transition;
     // Sets initial click point
     private Vector3 dragOrigin;
     // Sets the relative on how far the map moves vs cursor movement
@@ -21,11 +21,14 @@ public class CameraPan : MonoBehaviour
     private bool moveDisable = false;
     // Sets bool that disables dragCamera whilst moveCamera is active
     private bool dragDisable = false;
+    // Sets Bool that disables jump transitions
+    private bool jump = true;
 
     // Start is called before the first frame update
     void Start()
     {
         panDetect = Screen.width * 0.02f;
+        transition = 1;
     }
 
     // Update is called once per frame
@@ -53,32 +56,95 @@ public class CameraPan : MonoBehaviour
 
         zoomY += (-Input.GetAxis("Mouse ScrollWheel") * scrollSpeed);
 
-        if (zoomY >= 600 && transition == true) { // number here has to be bigger than the number given in second if
-            zoomY = 1300; // number here must be bigger than the second conditional if
-            transition = false;
+        if (zoomY < 40)
+        {
+            zoomY = 40;
         }
-        
-        if (zoomY <= 900 && transition == false) { // number here has to be smaller than the number given above
-            zoomY = 500; // number here must be smaller than the first conditional if
-            transition = true;
+        else if (zoomY > 994)
+        {
+            zoomY = 994;
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow) || xPos > 0 && xPos < panDetect)
+
+        if (jump == true)
         {
-            moveX -= panSpeed;
+
+            if (zoomY >= 130 && transition == 1)
+            {
+                zoomY = 250;
+                transition = 2;
+            }
+
+            else if (zoomY >= 300 && transition == 2)
+            {
+                zoomY = 450;
+                transition = 3;
+            }
+
+            else if (zoomY >= 500 && transition == 3)
+            {
+                zoomY = 750;
+                transition = 4;
+            }
+
+            else if (zoomY >= 800 && transition == 4)
+            { 
+                zoomY = 994;
+                transition = 5;
+            }
+            ////////////////////////////////////////////////////////////////////////////////////////
+            else if (zoomY <= 950 && transition == 5)
+            {
+                zoomY = 750;
+                transition = 4;
+            }
+
+            else if (zoomY <= 700 && transition == 4)
+            {
+                zoomY = 450;
+                transition = 3;
+            }
+
+            else if (zoomY <= 400 && transition == 3)
+            {
+                zoomY = 250;
+                transition = 2;
+            }
+
+            else if (zoomY <= 200 && transition == 2)
+            {
+                zoomY = 80;
+                transition = 1;
+            }
         }
-        else if (Input.GetKey(KeyCode.RightArrow) || xPos < Screen.width && xPos > Screen.width - panDetect)
+        if (Input.GetKey(KeyCode.LeftArrow) || xPos > 0 && xPos < panDetect) // MoveLeft
         {
-            moveX += panSpeed;
+            if (moveX > -30)
+            {
+                moveX -= panSpeed;
+            }
+        }
+        else if (Input.GetKey(KeyCode.RightArrow) || xPos < Screen.width && xPos > Screen.width - panDetect) // MoveRight
+        {
+            if (moveX < 1030)
+            {
+                moveX += panSpeed;
+            }
         }
 
-        if (Input.GetKey(KeyCode.UpArrow) || yPos < Screen.height && yPos > Screen.height - panDetect)
+        if (Input.GetKey(KeyCode.UpArrow) || yPos < Screen.height && yPos > Screen.height - panDetect) // MoveUp
         {
-            moveZ += panSpeed;
+            if (moveZ < 1020)
+            {
+                moveZ += panSpeed;
+            }
         }
-        else if (Input.GetKey(KeyCode.DownArrow) || yPos > 0 && yPos < panDetect)
+        else if (Input.GetKey(KeyCode.DownArrow) || yPos > 0 && yPos < panDetect) // MoveDown
         {
-            moveZ -= panSpeed;
+            if (moveZ > -20)
+            {
+                moveZ -= panSpeed;
+            }
         }
 
         if (Input.GetKey(KeyCode.DownArrow) || (Input.GetKey(KeyCode.UpArrow)) || (Input.GetKey(KeyCode.RightArrow)) || (Input.GetKey(KeyCode.LeftArrow)) || xPos > 0 && xPos < panDetect || xPos < Screen.width && xPos > Screen.width - panDetect || yPos < Screen.height && yPos > Screen.height - panDetect || yPos > 0 && yPos < panDetect){
