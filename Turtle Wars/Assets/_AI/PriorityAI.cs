@@ -155,7 +155,6 @@ public class PriorityAI : MonoBehaviour
                 distance = dist;
             }
         }
-        print(closest.name);
         return closest;
     }
 

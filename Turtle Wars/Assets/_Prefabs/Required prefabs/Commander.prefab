@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4688376453837729978}
   - component: {fileID: 1944522649}
   - component: {fileID: 2870609454490026668}
+  - component: {fileID: 2573225932050754235}
   m_Layer: 0
   m_Name: Commander
   m_TagString: Untagged
@@ -103,12 +104,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f02115dd9da38a47affc85706d1a71d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worker: {fileID: 0}
-  crab: {fileID: 0}
-  swordfish: {fileID: 0}
-  squid: {fileID: 0}
+  crab: {fileID: 6402525108790188204, guid: 34ec713ea438fef438b0d5325378a974, type: 3}
+  swordfish: {fileID: 2225286111585061137, guid: 35868bf6eaf57b4478a2856671e977c7,
+    type: 3}
+  squid: {fileID: 8945482072348328553, guid: 699e2286c13da614695ea3a7d86cf18f, type: 3}
   flyingFish: {fileID: 0}
   spawnpoint: {fileID: 0}
   terrainLayer:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &2573225932050754235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4688376453837729977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f15dec19a43687741826425b12c8964d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -127,6 +127,10 @@ public class Units : MonoBehaviour
             print(selectedGreenBox);
             selectedGreenBox.SetActive(true);
         }
+        else if (currentlySelected == false)
+        {
+            selectedGreenBox.SetActive(false);
+        }
 
         // switches state
         switch (state)
@@ -381,7 +385,6 @@ public class Units : MonoBehaviour
         float timeCache = 1;
         timeCache = attackTimer;
         gathering = true;
-        print("set time Cache to Attack Timer");
 
         while (timeCache > 0)
         {
