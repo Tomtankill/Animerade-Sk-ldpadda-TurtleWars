@@ -12,7 +12,8 @@ public class Units : MonoBehaviour
     public GameObject target;
     //public GameObject oldTarget;
     private NavMeshAgent agent;
-    
+
+    private GameObject selectedGreenBox;
     // checks if the unit is selected
     [HideInInspector] public bool currentlySelected = false;
 
@@ -56,6 +57,7 @@ public class Units : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
+
 
         switch (whoControllsThis)
         {
@@ -119,7 +121,13 @@ public class Units : MonoBehaviour
 
     private void Update()
     {
-        
+        if (currentlySelected == true)
+        {
+            selectedGreenBox = gameObject.transform.GetChild(1).gameObject;
+            print(selectedGreenBox);
+            selectedGreenBox.SetActive(true);
+        }
+
         // switches state
         switch (state)
         {
