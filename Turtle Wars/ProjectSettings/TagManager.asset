@@ -11,6 +11,7 @@ TagManager:
   - Player1s
   - Player2s
   - Water
+  - Clutter
   layers:
   - Default
   - TransparentFX
