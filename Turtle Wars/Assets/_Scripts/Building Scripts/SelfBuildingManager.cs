@@ -57,7 +57,7 @@ public class SelfBuildingManager : Definitions
     public Material purple;
     public Material blue;
 
-    private void Awake()
+    private new void Awake()
     {
         AIcommander = GameObject.Find("MasterAI");
         if (tag == "Enemy")
