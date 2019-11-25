@@ -57,7 +57,7 @@ public class Units : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-
+        selectedGreenBox = gameObject.transform.GetChild(1).gameObject;
 
         switch (whoControllsThis)
         {
@@ -121,13 +121,17 @@ public class Units : MonoBehaviour
 
     private void Update()
     {
-        if (currentlySelected == true)
+
+
+        
+        // actives selectedGreenBox if a unit is currently selected
+        if (currentlySelected == true && gameObject.CompareTag("Friendly"))
         {
-            selectedGreenBox = gameObject.transform.GetChild(1).gameObject;
-            print(selectedGreenBox);
+
             selectedGreenBox.SetActive(true);
+
         }
-        else if (currentlySelected == false)
+        else if (currentlySelected == false && gameObject.CompareTag("Friendly"))
         {
             selectedGreenBox.SetActive(false);
         }
@@ -218,12 +222,10 @@ public class Units : MonoBehaviour
         // if in range, atttack
         else
         {
-            // this don't run idk whyyy
             agent.isStopped = true;
             agent.SetDestination(transform.position);
             if(!attacking)
             StartCoroutine(Attack());
-            print("idk fam");
         }
     }
 
@@ -245,7 +247,6 @@ public class Units : MonoBehaviour
     // attack coratin
     IEnumerator Attack()
     {
-        print("I'm a cunt, yes");
         float timeCache = attackTimer;
         attacking = true;
 
