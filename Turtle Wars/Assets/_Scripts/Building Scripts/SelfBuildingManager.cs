@@ -4,13 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 
-public class SelfBuildingManager : MonoBehaviour
+public class SelfBuildingManager : Definitions
 {
     // Letting the building know who the commander is
-    public GameObject commander;
-    public GameObject unitCamera;
     public GameObject AIcommander;
-    public GameObject barracksBuilder;
+
     public int type;
     public bool AI;
     // bools
@@ -22,6 +20,9 @@ public class SelfBuildingManager : MonoBehaviour
 
     // Is the building selected?
     [HideInInspector] public bool currentlySelected = false;
+
+
+    
 
 
     // This is where we will set the stats for all of our buildings.
@@ -67,17 +68,16 @@ public class SelfBuildingManager : MonoBehaviour
         {
             AI = false;
         }
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
         // finds the commander and sets it to its appropriate variable
-        commander = GameObject.Find("Commander");
-        unitCamera = GameObject.Find("Main Camera");
-        barracksBuilder = GameObject.Find("Building Control Barracks");
-        //barracksBuilder.SetActive(false);
+
+        barracksBuilder.SetActive(false);
+        townhallBuilder.SetActive(false);
 
         // bools are false on start
         buildingFinish = false;
@@ -327,7 +327,13 @@ public class SelfBuildingManager : MonoBehaviour
             if (type == 1)
             {
                 barracksBuilder.SetActive(false);
+                squid.onClick.RemoveListener(QueueTask);
+                swordFish.onClick.RemoveListener(QueueTask1);
+                flyingFish.onClick.RemoveListener(QueueTask2);
             }
+
+
+
         }
         else
         {
@@ -344,12 +350,47 @@ public class SelfBuildingManager : MonoBehaviour
             if (type == 1 && barracksControls == true)
             {
                 barracksBuilder.SetActive(true);
+
+                squid.onClick.AddListener(QueueTask);
+                swordFish.onClick.AddListener(QueueTask1);
+                flyingFish.onClick.AddListener(QueueTask2);
+
             }
 
             buildingRender.material = blue;
         }
 
     }
+
+    public void QueueTask()
+    {
+        print("Squid Button");
+        gameObject.GetComponent<Queue>().TaskButton(5);
+    }
+    public void QueueTask1()
+    {
+        print("Swordfish Button");
+        gameObject.GetComponent<Queue>().TaskOneButton(5);
+    }
+    public void QueueTask2()
+    {
+        print("Flyingfish Button");
+        gameObject.GetComponent<Queue>().TaskTwoButton(5);
+    }
+    public void QueueTask3()
+    {
+        gameObject.GetComponent<Queue>().TaskThreeButton(5);
+    }
+    public void QueueTask4()
+    {
+        gameObject.GetComponent<Queue>().TaskFourButton(5);
+    }
+
+
+    //swordFish;
+    //flyingFish
+    //crab;
+
 
     public void BuildMe()
     {

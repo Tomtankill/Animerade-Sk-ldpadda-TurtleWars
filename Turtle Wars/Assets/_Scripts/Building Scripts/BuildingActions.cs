@@ -70,15 +70,12 @@ public class BuildingActions : MonoBehaviour
     }
     public void FlyingFish(Vector3 pos)
     {
-        print("flying fish has been called");
         spawnpoint.position = pos;
         GameObject go = Instantiate(flyingFish, new Vector3 (spawnpoint.position.x, 5 ,spawnpoint.position.z), Quaternion.identity);
-        print("flying fish exists");
         Ray ray = new Ray (go.transform.position, Vector3.down);
         if (Physics.Raycast(ray, out RaycastHit hit, 1000000.0f, terrainLayer))
         {
             go.transform.position = hit.point + new Vector3(0, 1, 0);
-            print("flyingfish is at" + hit.point);
         }
     }
 
