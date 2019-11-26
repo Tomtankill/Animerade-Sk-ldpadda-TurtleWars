@@ -28,7 +28,8 @@ public class Units : MonoBehaviour
     public bool gathering;
 
     BuildBuildings commander;
-
+    // Audio Sound Effect
+    private AudioSource Sound;
     // who is controlling it
     public enum WhoControllsThis { Player, AI }
     public WhoControllsThis whoControllsThis;
@@ -58,7 +59,7 @@ public class Units : MonoBehaviour
     protected virtual void Start()
     {
         selectedGreenBox = gameObject.transform.GetChild(1).gameObject;
-
+        Sound = GetComponent<AudioSource>();
         switch (whoControllsThis)
         {
             case WhoControllsThis.AI:
@@ -129,7 +130,7 @@ public class Units : MonoBehaviour
         {
 
             selectedGreenBox.SetActive(true);
-
+            
         }
         else if (currentlySelected == false && gameObject.CompareTag("Friendly"))
         {
@@ -345,6 +346,7 @@ public class Units : MonoBehaviour
 
     public void MoveToTarget(Vector3 t)
     {
+        Sound.Play();
         newTarget = t;
         agent.SetDestination(newTarget);
     }

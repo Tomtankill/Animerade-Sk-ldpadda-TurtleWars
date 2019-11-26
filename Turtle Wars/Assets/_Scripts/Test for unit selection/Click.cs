@@ -26,6 +26,8 @@ public class Click : MonoBehaviour
     GameObject closest = null;
 
     RaycastHit clohit;
+    // Audio Sound Effect
+    private AudioSource Sound;
 
     // UI controller menus
     public GameObject unitControlBuilder;
@@ -34,13 +36,14 @@ public class Click : MonoBehaviour
 
     void Awake()
     {
-
+        //
+        Sound = GetComponent<AudioSource>();
+        //
         selectedUnits = new List<Units>();
         selectableUnits = new List<Units>();
         //
         selectableBuildings = new List<SelfBuildingManager>();
         selectedBuildings = new List<SelfBuildingManager>();
-
     }
     // Update is called once per frame
 
@@ -57,7 +60,9 @@ public class Click : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            
+            Sound.Play();
+
+
             if (Physics.Raycast(ray, out clohit, Mathf.Infinity))
             {
                 rayhitInWorld = clohit.point;

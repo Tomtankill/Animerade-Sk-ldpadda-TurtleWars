@@ -45,7 +45,8 @@ public class BuildBuildings : MonoBehaviour
     private int cost;
     bool buildMode;
     public GameObject ghost;
-    
+    // Audio Sound Effect
+    private AudioSource Sound;
 
     /// <summary>
     /// Upgrades for Armory
@@ -63,6 +64,8 @@ public class BuildBuildings : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Sound Effect
+        Sound = GetComponent<AudioSource>();
         //Resource1 = GetComponent<TextMeshProUGUI>();
         //Resource2 = GetComponent<TextMeshProUGUI>();
         ghost = Instantiate(ghost, Vector3.down * 300, Quaternion.identity);
@@ -91,7 +94,7 @@ public class BuildBuildings : MonoBehaviour
         if (GetComponent<TurnTimer>().IsMyTurn() == true)
         {
             NameBuilding(armoryPrefab, armoryCount, "Armory", 15, 5);
-            armoryCount++;
+            armoryCount++;         
         }
     }
 
@@ -100,7 +103,7 @@ public class BuildBuildings : MonoBehaviour
         if (GetComponent<TurnTimer>().IsMyTurn() == true)
         {
             NameBuilding(towerPrefab, towerCount, "Tower", 5, 1);
-            towerCount++;
+            towerCount++;         
         }
     }
 
@@ -134,6 +137,7 @@ public class BuildBuildings : MonoBehaviour
 
                     if (Input.GetMouseButtonDown(0))
                     {
+                        Sound.Play();
                         if (r1 >= cost)
                         {
                             if (r2 >= cost2)
