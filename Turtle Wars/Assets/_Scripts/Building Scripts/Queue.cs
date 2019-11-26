@@ -186,26 +186,26 @@ public class Queue : MonoBehaviour
 
     IEnumerator Job()
     {
-        commander.GetComponent<BuildingActions>().FlyingFish(pos);
+        commander.GetComponent<BuildingActions>().Squid(pos);
         taskQueue.RemoveAt(0);
         yield return null;
         
     }
     IEnumerator Job1()
     {
-        commander.GetComponent<BuildingActions>().Crab(pos);
+        commander.GetComponent<BuildingActions>().Swordfish(pos);
         taskQueue.RemoveAt(0); // removes the task after the task is finished
         yield return null;
     }
     IEnumerator Job2()
     {
-        commander.GetComponent<BuildingActions>().Squid(pos);
+        commander.GetComponent<BuildingActions>().FlyingFish(pos);
         taskQueue.RemoveAt(0); // removes the task after the task is finished
         yield return null;
     }
     IEnumerator Job3()
     {
-        commander.GetComponent<BuildingActions>().Swordfish(pos);
+        commander.GetComponent<BuildingActions>().Crab(pos);
         taskQueue.RemoveAt(0); // removes the task after the task is finished
         yield return null;
     }

@@ -690,7 +690,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 6402525108790188204}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 2.33
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -988,6 +988,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6402525108790188200}
     m_Modifications:
+    - target: {fileID: 1864072212804344630, guid: f2e57d652a9ffc9448ae61c45c5813ca,
+        type: 3}
+      propertyPath: m_Name
+      value: Selected_unit
+      objectReference: {fileID: 0}
+    - target: {fileID: 1864072212804344630, guid: f2e57d652a9ffc9448ae61c45c5813ca,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1864072212804344634, guid: f2e57d652a9ffc9448ae61c45c5813ca,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1041,16 +1051,6 @@ PrefabInstance:
     - target: {fileID: 1864072212804344634, guid: f2e57d652a9ffc9448ae61c45c5813ca,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1864072212804344630, guid: f2e57d652a9ffc9448ae61c45c5813ca,
-        type: 3}
-      propertyPath: m_Name
-      value: Selected_unit
-      objectReference: {fileID: 0}
-    - target: {fileID: 1864072212804344630, guid: f2e57d652a9ffc9448ae61c45c5813ca,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

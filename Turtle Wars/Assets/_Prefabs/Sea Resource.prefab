@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2545546817045660568}
   - component: {fileID: 6170054000862906319}
   - component: {fileID: 4626813043512494169}
+  - component: {fileID: 3861732651692559815}
   m_Layer: 0
   m_Name: Sea Resource
   m_TagString: Resource
@@ -108,6 +109,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.17526221, y: 0.1759465, z: 0.20956302}
   m_Center: {x: -0.000928469, y: 0.08682655, z: 0.032302897}
+--- !u!208 &3861732651692559815
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4282729024669628228}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.08800001, y: 0.08800001, z: 0.105000004}
+  m_MoveThreshold: 0.06
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.001, y: 0.087000005, z: 0.032}
+  m_TimeToStationary: 0.5
 --- !u!1 &6337850719381340805
 GameObject:
   m_ObjectHideFlags: 0

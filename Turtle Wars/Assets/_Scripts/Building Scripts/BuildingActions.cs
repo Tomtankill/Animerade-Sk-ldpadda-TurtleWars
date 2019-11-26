@@ -81,19 +81,19 @@ public class BuildingActions : MonoBehaviour
 
 
 
-    // Town Hall Upgrades
-    //public void HealthUpgrade()
-    //{
-    //    
-    //    if (commander.GetComponent<BuildBuildings>().selected.GetComponent<SelfBuildingManager>().townHallControls == true)
-    //    {
-    //        healthupgrade = true;
-    //        for (int i = 0; i < masterBuildingList.Count; i++)
-    //        {
-    //            masterBuildingList[i].GetComponent<SelfBuildingManager>().maxHealth += healthUpgradeAmount;
-    //            masterBuildingList[i].GetComponent<SelfBuildingManager>().currentHealth += healthUpgradeAmount;
-    //        }
-    //    }
-    //}
+     //Town Hall Upgrades
+    public void HealthUpgrade()
+    {
+        
+        if (commander.GetComponent<BuildBuildings>().selected.GetComponent<SelfBuildingManager>().townHallControls == true)
+        {
+            commander.GetComponent<BuildBuildings>().healthupgrade = true;
+            for (int i = 0; i < commander.GetComponent<BuildBuildings>().masterBuildingList.Count; i++)
+            {
+                commander.GetComponent<BuildBuildings>().masterBuildingList[i].GetComponent<SelfBuildingManager>().maxHealth += commander.GetComponent<BuildBuildings>().healthUpgradeAmount;
+                commander.GetComponent<BuildBuildings>().masterBuildingList[i].GetComponent<SelfBuildingManager>().currentHealth += commander.GetComponent<BuildBuildings>().healthUpgradeAmount;
+            }
+        }
+    }
 
 }

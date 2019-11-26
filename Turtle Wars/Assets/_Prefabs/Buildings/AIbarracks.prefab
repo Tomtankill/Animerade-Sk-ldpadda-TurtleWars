@@ -94,8 +94,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79c75c63f8294044fa46e00614140248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commander: {fileID: 0}
-  unitCamera: {fileID: 0}
   AIcommander: {fileID: 0}
   type: 0
   AI: 0
@@ -129,7 +127,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.044000003, y: 0.030000001, z: 0.045}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.03, z: 0}
   m_TimeToStationary: 0.5
@@ -145,7 +143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90c43d4bbe19005458f3bdfcadb56019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerCurrent: 5
+  tasktime: 5
+  pos: {x: 0, y: 0, z: 0}
   taskQueue: []
   commander: {fileID: 0}
 --- !u!1 &4474452699323596826

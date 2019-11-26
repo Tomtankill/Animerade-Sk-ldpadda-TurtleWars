@@ -288,21 +288,53 @@ public class SelfBuildingManager : Definitions
         switch (type)
         {
             case 0:
-                commander.GetComponent<BuildBuildings>().townHallList.Remove(gameObject);
-                commander.GetComponent<BuildBuildings>().masterBuildingList.Remove(gameObject);
+                if (AI)
+                {
+                    commander.GetComponent<BuildBuildings>().townHallListAI.Remove(gameObject);
+                    commander.GetComponent<BuildBuildings>().masterBuildingListAI.Remove(gameObject);
+                }
+                else
+                {
+                    commander.GetComponent<BuildBuildings>().townHallList.Remove(gameObject);
+                    commander.GetComponent<BuildBuildings>().masterBuildingList.Remove(gameObject);
+                }
 
                 break;
             case 1:
-                commander.GetComponent<BuildBuildings>().barracksList.Remove(gameObject);
-                commander.GetComponent<BuildBuildings>().masterBuildingList.Remove(gameObject);
+                if (AI)
+                {
+                    commander.GetComponent<BuildBuildings>().barracksListAI.Remove(gameObject);
+                    commander.GetComponent<BuildBuildings>().masterBuildingListAI.Remove(gameObject);
+                }
+                else
+                {
+                    commander.GetComponent<BuildBuildings>().barracksList.Remove(gameObject);
+                    commander.GetComponent<BuildBuildings>().masterBuildingList.Remove(gameObject);
+                }
                 break;
             case 2:
-                commander.GetComponent<BuildBuildings>().armoryList.Remove(gameObject);
-                commander.GetComponent<BuildBuildings>().masterBuildingList.Remove(gameObject);
+                if (AI)
+                {
+                    commander.GetComponent<BuildBuildings>().armoryListAI.Remove(gameObject);
+                    commander.GetComponent<BuildBuildings>().masterBuildingListAI.Remove(gameObject);
+                }
+                else
+                {
+                    commander.GetComponent<BuildBuildings>().armoryList.Remove(gameObject);
+                    commander.GetComponent<BuildBuildings>().masterBuildingList.Remove(gameObject);
+                }
                 break;
             case 3:
-                commander.GetComponent<BuildBuildings>().towerList.Remove(gameObject);
-                commander.GetComponent<BuildBuildings>().masterBuildingList.Remove(gameObject);
+                if (AI)
+                {
+                    commander.GetComponent<BuildBuildings>().towerList.Remove(gameObject);
+                    commander.GetComponent<BuildBuildings>().masterBuildingList.Remove(gameObject);
+                }
+                else
+                {
+                    commander.GetComponent<BuildBuildings>().towerListAI.Remove(gameObject);
+                    commander.GetComponent<BuildBuildings>().masterBuildingListAI.Remove(gameObject);
+                }
                 break;
             default:
                 Debug.LogError("Couldn't find object type");
@@ -311,9 +343,12 @@ public class SelfBuildingManager : Definitions
 
         Destroy(gameObject);
 
-        if (commander.GetComponent<BuildBuildings>().masterBuildingList.Count == 0)
+        if (commander.GetComponent<BuildBuildings>().masterBuildingListAI.Count == 0)
         {
             commander.GetComponent<BuildBuildings>().PlayerWins();
+        } else if (commander.GetComponent<BuildBuildings>().masterBuildingList.Count == 0)
+        {
+            commander.GetComponent<BuildBuildings>().AIWins();
         }
     }
 
