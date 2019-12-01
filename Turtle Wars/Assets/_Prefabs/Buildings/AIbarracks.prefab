@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2266055736628333144}
   - component: {fileID: 1391970053046748375}
   - component: {fileID: -5512614526371845756}
+  - component: {fileID: 7774773708578419652}
   m_Layer: 0
   m_Name: AIbarracks
   m_TagString: Enemy
@@ -147,6 +148,19 @@ MonoBehaviour:
   pos: {x: 0, y: 0, z: 0}
   taskQueue: []
   commander: {fileID: 0}
+--- !u!65 &7774773708578419652
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3109782592488009386}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.08800556, y: 0.060591705, z: 0.08997847}
+  m_Center: {x: 0.0008984953, y: 0.030163568, z: 0.0002812948}
 --- !u!1 &4474452699323596826
 GameObject:
   m_ObjectHideFlags: 0

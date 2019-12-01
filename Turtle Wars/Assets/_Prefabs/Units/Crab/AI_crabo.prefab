@@ -600,7 +600,7 @@ MonoBehaviour:
   currentlySelected: 0
   health: 5
   maxhealth: 5
-  atkRange: 3
+  atkRange: 5
   attackDamage: 1
   attackTimer: 2
   attacking: 0

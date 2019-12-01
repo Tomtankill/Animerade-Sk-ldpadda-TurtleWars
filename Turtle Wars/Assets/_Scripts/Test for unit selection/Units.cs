@@ -21,6 +21,7 @@ public class Units : MonoBehaviour
     public float health;
     public float maxhealth;
     public float atkRange;
+    private float atkRangeDubbled;
     public float attackDamage;
     public float attackTimer;
     private float defultAttackTimmer;
@@ -58,6 +59,7 @@ public class Units : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        atkRangeDubbled = 16f;
         selectedGreenBox = gameObject.transform.GetChild(1).gameObject;
         Sound = GetComponent<AudioSource>();
         switch (whoControllsThis)
@@ -123,8 +125,6 @@ public class Units : MonoBehaviour
     private void Update()
     {
 
-
-        
         // actives selectedGreenBox if a unit is currently selected
         if (currentlySelected == true && gameObject.CompareTag("Friendly"))
         {
@@ -156,7 +156,6 @@ public class Units : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
 
     }
 
@@ -212,21 +211,80 @@ public class Units : MonoBehaviour
             AI.state = PriorityAI.State.Eco;
         }
 
-        float dis = Vector3.Distance(transform.position, target.transform.position) - agent.radius - target.GetComponent<NavMeshAgent>().radius;
-
-        // if target is further away then atkRange. Move into attack range
-        if (dis > atkRange)
+        // if target is a unit
+        if (target.GetComponent<Units>())
         {
-            agent.isStopped = false;
-            agent.SetDestination(target.transform.position);
+            if (gameObject.name.Contains("Squid"))
+            {
+                print("This is a squid yes");
+                if ((Vector3.Distance(transform.position, target.transform.position) > atkRange))
+                {
+                    agent.isStopped = false;
+                    agent.SetDestination(target.transform.position);
+                }
+                else
+                {
+                    agent.isStopped = true;
+                    agent.SetDestination(transform.position);
+                    if (!attacking)
+                        StartCoroutine(Attack());
+                }
+            }
+            else
+            {
+                print("This is a unit");
+                float dis = Vector3.Distance(transform.position, target.transform.position) - agent.radius - target.GetComponent<NavMeshAgent>().radius;
+                //float f = (target.GetComponent<NavMeshAgent>() ? target.GetComponent<NavMeshAgent>().radius : 0.1f);
+                if (dis > atkRange)
+                {
+                    agent.isStopped = false;
+                    agent.SetDestination(target.transform.position);
+                }
+                else
+                {
+                    agent.isStopped = true;
+                    agent.SetDestination(transform.position);
+                    if (!attacking)
+                        StartCoroutine(Attack());
+                }
+            }
         }
-        // if in range, atttack
-        else
+
+        // if target is building
+        else if (target.GetComponent<SelfBuildingManager>())
         {
-            agent.isStopped = true;
-            agent.SetDestination(transform.position);
-            if(!attacking)
-            StartCoroutine(Attack());
+            // wack way to fix squids attack towards buildings (may fix later)
+            if (gameObject.name.Contains("Squid"))
+            {
+                if ((Vector3.Distance(transform.position, target.transform.position) > atkRangeDubbled))
+                {
+                    agent.isStopped = false;
+                    agent.SetDestination(target.transform.position);
+                }
+                else
+                {
+                    agent.isStopped = true;
+                    agent.SetDestination(transform.position);
+                    if (!attacking)
+                        StartCoroutine(Attack());
+                }
+            }
+
+            else
+            {
+                if ((Vector3.Distance(transform.position, target.transform.position) > atkRange))
+                {
+                    agent.isStopped = false;
+                    agent.SetDestination(target.transform.position);
+                }
+                else
+                {
+                    agent.isStopped = true;
+                    agent.SetDestination(transform.position);
+                    if (!attacking)
+                        StartCoroutine(Attack());
+                }
+            }
         }
     }
 
@@ -242,6 +300,7 @@ public class Units : MonoBehaviour
         else
         {
             target.GetComponent<SelfBuildingManager>().currentHealth -= dmg;
+            print("ÅÅÅÅ");
         }
     }
 
@@ -263,16 +322,26 @@ public class Units : MonoBehaviour
             StopCoroutine(Attack());
         }
 
-        float dis = Vector3.Distance(transform.position, target.transform.position) - agent.radius - target.GetComponent<NavMeshAgent>().radius;
-        if (dis < atkRange)
+        if (target.GetComponent<Units>())
         {
+            float f = target.GetComponent<NavMeshAgent>() ? target.GetComponent<NavMeshAgent>().radius : 0.5f;
+            if (f < atkRange)
+            {
+                print("target should have taken dmg");
+                DealDmg(attackDamage);
+            }
+        }
+        // if it's a building
+        else
+        {
+            print("target should have taken dmg");
             DealDmg(attackDamage);
         }
 
         attackTimer = timeCache;
         attacking = false;
+        print("Staaaap");
         StopCoroutine(Attack());
-
     }
 
     // sets everything to defult state, makes 
@@ -422,7 +491,6 @@ public class Units : MonoBehaviour
             }
             // takes one resource from the resource node
             target.GetComponent<Resource>().amountOfResource -= 1;
-            print("HEUFHeufheu");
         }
         print("This does print");
         gathering = false;
