@@ -1033,7 +1033,7 @@ Animator:
   m_GameObject: {fileID: 8143229391642154506}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 552ba84ff059ddc4f89168fa39c5bf4a, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3a4e73c8912b4e647a1d7d925ccfcdb4, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1086,6 +1086,7 @@ MonoBehaviour:
   attackTimer: 2
   attacking: 0
   gathering: 0
+  anim: {fileID: 0}
   whoControllsThis: 0
   unitType: 3
   state: 0

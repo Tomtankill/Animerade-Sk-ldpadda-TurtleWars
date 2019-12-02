@@ -307,6 +307,7 @@ public class Units : MonoBehaviour
     // take dmg
     public void DealDmg(float dmg)
     {
+
         // units get hit
         if (target.GetComponent<SelfBuildingManager>() == null)
         {
@@ -324,6 +325,7 @@ public class Units : MonoBehaviour
     {
         float timeCache = attackTimer;
         attacking = true;
+        anim.SetBool("Attack", true);
 
         while (attackTimer > 0)
         {
@@ -356,6 +358,7 @@ public class Units : MonoBehaviour
 
         attackTimer = timeCache;
         attacking = false;
+        anim.SetBool("Attack", false);
         StopCoroutine(Attack());
     }
 
