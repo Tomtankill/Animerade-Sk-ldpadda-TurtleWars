@@ -31,6 +31,8 @@ public class Units : MonoBehaviour
     BuildBuildings commander;
     // Audio Sound Effect
     private AudioSource Sound;
+    // Animation controllor
+    public Animator anim;
     // who is controlling it
     public enum WhoControllsThis { Player, AI }
     public WhoControllsThis whoControllsThis;
@@ -52,13 +54,14 @@ public class Units : MonoBehaviour
     {
         Idle,
         Gathering,
-        Attack
+        Attack,
     }
 
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        anim = GetComponent<Animator>();
         atkRangeDubbled = 16f;
         selectedGreenBox = gameObject.transform.GetChild(1).gameObject;
         Sound = GetComponent<AudioSource>();
@@ -154,9 +157,24 @@ public class Units : MonoBehaviour
         // destroy gameobject if health reach 0
         if (health <= 0)
         {
+            if (gameObject.name.Contains("Squid"))
+            {
+                anim.SetBool("Death", true);
+            }
             Destroy(gameObject);
         }
 
+        if (gameObject.name.Contains("Squid"))
+        {
+            if (agent.remainingDistance < 0.5f)
+            {
+                anim.SetBool("Walking", false);
+            }
+            else
+            {
+                anim.SetBool("Walking", true);
+            }
+        }
     }
 
     bool FindSomethingToAttack(out GameObject closestUnit)
@@ -194,7 +212,6 @@ public class Units : MonoBehaviour
         }
         else
         {
-            //oldTarget = target;
             return true;
         }
     }
@@ -216,7 +233,6 @@ public class Units : MonoBehaviour
         {
             if (gameObject.name.Contains("Squid"))
             {
-                print("This is a squid yes");
                 if ((Vector3.Distance(transform.position, target.transform.position) > atkRange))
                 {
                     agent.isStopped = false;
@@ -300,7 +316,6 @@ public class Units : MonoBehaviour
         else
         {
             target.GetComponent<SelfBuildingManager>().currentHealth -= dmg;
-            print("ÅÅÅÅ");
         }
     }
 
@@ -327,6 +342,7 @@ public class Units : MonoBehaviour
             float f = target.GetComponent<NavMeshAgent>() ? target.GetComponent<NavMeshAgent>().radius : 0.5f;
             if (f < atkRange)
             {
+
                 print("target should have taken dmg");
                 DealDmg(attackDamage);
             }
@@ -340,13 +356,13 @@ public class Units : MonoBehaviour
 
         attackTimer = timeCache;
         attacking = false;
-        print("Staaaap");
         StopCoroutine(Attack());
     }
 
     // sets everything to defult state, makes 
     void Idle()
     {
+
         if (gameObject.CompareTag("Friendly"))
         {
             StopAllCoroutines();
@@ -354,7 +370,12 @@ public class Units : MonoBehaviour
             attacking = false;
             attackTimer = defultAttackTimmer;
             agent.isStopped = false;
+            if (gameObject.name.Contains("Squid"))
+            {
+
+            }
         }
+
 
         //attack if something comes close
         if (FindSomethingToAttack(out target))
@@ -369,12 +390,16 @@ public class Units : MonoBehaviour
     public void MoveWorker(Transform t)
     {
         target = t.gameObject;
-
         // if target is further away then atkRange. Move there
         if (Vector3.Distance(transform.position, target.transform.position) > atkRange)
         {
             agent.isStopped = false;
             agent.SetDestination(target.transform.position);
+            if (gameObject.name.Contains("Squid"))
+            {
+                anim.SetBool("Walking", true);
+            }
+
         }
 
         // if in range, atttack
@@ -394,7 +419,6 @@ public class Units : MonoBehaviour
     public void MoveToTargetAI(Transform t)
     {
         target = t.gameObject;
-
         // sets the gameobject target and gets the postion with the vector 3
         if (Vector3.Distance(transform.position, target.transform.position) > atkRange)
         {
@@ -416,11 +440,18 @@ public class Units : MonoBehaviour
     public void MoveToTarget(Vector3 t)
     {
         Sound.Play();
+
         newTarget = t;
         agent.SetDestination(newTarget);
-    }
+        if (gameObject.name.Contains("Squid"))
+        {
+            if (gameObject.name.Contains("Squid"))
+            {
+                anim.SetBool("Walking", true);
+            }
 
-    // change color if unit is selected
+        }
+    }
 
     // gathering things
     public void GatheringResource()

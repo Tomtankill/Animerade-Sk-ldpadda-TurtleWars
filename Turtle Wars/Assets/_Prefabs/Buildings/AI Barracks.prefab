@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -5512614526371845756}
   - component: {fileID: 7774773708578419652}
   m_Layer: 0
-  m_Name: AIbarracks
+  m_Name: AI Barracks
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -243,7 +243,6 @@ public class PriorityAI : MonoBehaviour
             barracksUnitSpawner = GameObject.Find("AI barrack spawner").GetComponent<Transform>();
             barrackBuild = true;
 
-            // add barracks spawnpOINT
         }
         // if barrack is already build, create units at the barracks posistion
         else if (rScore1 > 10 && barrackBuild == true)

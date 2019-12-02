@@ -20,7 +20,7 @@ public class Resource : MonoBehaviour
                 PriorityAI.r1.Add(gameObject.transform);
                 break;
             case ResourceType.r2:
-                //PriorityAI.r2.Add(this);
+                PriorityAI.r2.Add(gameObject.transform);
                 break;
             default:
                 break;
