@@ -73,11 +73,14 @@ public class DialogueText : MonoBehaviour
         } else {
             textDisplay.text = "";
             sentencewait = sentencestart;
+            runthrough++;
+            UpdateSentences(runthrough);
         }
     }
 
-    public void updateSentences(int timesThrough)
+    public void UpdateSentences(int timesThrough)
     {
+        index = 0;
         switch (timesThrough)
         {
             case 1:
@@ -95,6 +98,7 @@ public class DialogueText : MonoBehaviour
             default:
                 break;
         }
+        Dialoguestart();
     }
 
     ///https://www.youtube.com/watch?v=f-oSXg6_AMQ

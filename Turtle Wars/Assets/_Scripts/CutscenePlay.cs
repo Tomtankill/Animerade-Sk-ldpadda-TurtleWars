@@ -7,12 +7,12 @@ public class CutscenePlay : MonoBehaviour
 {
     public GameObject timelineDisable;
     public GameObject timelineEnable;
-    private bool hashappened;
+    public bool hashappened;
 
     // Start is called before the first frame update
     void Start()
     {
-        hashappened = true;
+        hashappened = false;
     }
 
     // Update is called once per frame
@@ -23,8 +23,14 @@ public class CutscenePlay : MonoBehaviour
             print("i'm trying");
             timelineEnable.SetActive(true);
             hashappened = false;
+            timelineDisable.SetActive(false);
             //timelineDisable.SetActive(false);
         }
 
+    }
+
+    public void MoveOn()
+    {
+        hashappened = true;
     }
 }
