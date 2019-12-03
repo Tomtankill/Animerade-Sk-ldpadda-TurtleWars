@@ -4322,8 +4322,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -162.40002, y: -159.82993}
-  m_SizeDelta: {x: 320, y: 320}
+  m_AnchoredPosition: {x: -136.8, y: -141.66}
+  m_SizeDelta: {x: 257.64, y: 259.47}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &355568598259276642
 CanvasRenderer:
@@ -4959,17 +4959,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3309692077513726395}
-  m_LocalRotation: {x: -0, y: -0, z: 0.92387956, w: 0.38268343}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5946597, y: 1.5946597, z: 1.594659}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_Children: []
   m_Father: {fileID: 4446978180009360052}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 135}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0.39990234, y: 159.82996}
-  m_SizeDelta: {x: 288, y: 286}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -130.2, y: -129.1}
+  m_SizeDelta: {x: 216, y: 216}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7953536653303403396
 CanvasRenderer:
@@ -4999,7 +4999,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Texture: {fileID: 2800000, guid: 218854586770e264dbe732a0ac7b9869, type: 3}
+  m_Texture: {fileID: 2800000, guid: a3a1327221c4cea469cf29ad78abaf06, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
