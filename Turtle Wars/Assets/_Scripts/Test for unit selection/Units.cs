@@ -157,14 +157,14 @@ public class Units : MonoBehaviour
         // destroy gameobject if health reach 0
         if (health <= 0)
         {
-            if (gameObject.name.Contains("Squid"))
+            if (gameObject.name.Contains("Squid") || gameObject.name.Contains("Sword fish"))
             {
                 anim.SetBool("Death", true);
             }
             Destroy(gameObject);
         }
 
-        if (gameObject.name.Contains("Squid"))
+        if (gameObject.name.Contains("Squid") || gameObject.name.Contains("Sword fish"))
         {
             if (agent.remainingDistance < 0.5f)
             {
@@ -325,7 +325,12 @@ public class Units : MonoBehaviour
     {
         float timeCache = attackTimer;
         attacking = true;
-        anim.SetBool("Attack", true);
+
+        if (gameObject.name.Contains("Squid") || gameObject.name.Contains("Sword fish"))
+        {
+            anim.SetBool("Attack", true);
+
+        }
 
         while (attackTimer > 0)
         {
@@ -358,7 +363,10 @@ public class Units : MonoBehaviour
 
         attackTimer = timeCache;
         attacking = false;
-        anim.SetBool("Attack", false);
+        if (gameObject.name.Contains("Squid") || gameObject.name.Contains("Sword fish"))
+        {
+            anim.SetBool("Attack", false);
+        }
         StopCoroutine(Attack());
     }
 
@@ -398,7 +406,7 @@ public class Units : MonoBehaviour
         {
             agent.isStopped = false;
             agent.SetDestination(target.transform.position);
-            if (gameObject.name.Contains("Squid"))
+            if (gameObject.name.Contains("Squid") || gameObject.name.Contains("Sword fish"))
             {
                 anim.SetBool("Walking", true);
             }
@@ -448,7 +456,7 @@ public class Units : MonoBehaviour
         agent.SetDestination(newTarget);
         if (gameObject.name.Contains("Squid"))
         {
-            if (gameObject.name.Contains("Squid"))
+            if (gameObject.name.Contains("Squid") || gameObject.name.Contains("Sword fish"))
             {
                 anim.SetBool("Walking", true);
             }

@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 4337383342798545903}
   m_Layer: 0
   m_Name: Swordfish_AI
-  m_TagString: Friendly
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,6 +172,7 @@ MonoBehaviour:
   attackTimer: 2
   attacking: 0
   gathering: 0
+  anim: {fileID: 0}
   whoControllsThis: 1
   unitType: 2
   state: 0
@@ -410,7 +411,7 @@ Animator:
   m_GameObject: {fileID: 3195827830914711718}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 2934391b8306d3444b27476faf8130b9, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 813d3e4f86a0e6844a156c1e718cbec2, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
