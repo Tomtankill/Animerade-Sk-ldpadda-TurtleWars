@@ -42,7 +42,6 @@ public class BuildBuildings : MonoBehaviour
     public GameObject selected;
     private GameObject building;
     private new string name;
-    private int cost;
     bool buildMode;
     public GameObject ghost;
     // Audio Sound Effect
@@ -56,9 +55,10 @@ public class BuildBuildings : MonoBehaviour
     // resources
     public float r1 = 0;
     public float r2 = 0;
+    private int cost;
+    private float cost2;
     public TextMeshProUGUI Resource1;
     public TextMeshProUGUI Resource2;
-    private float cost2;
 
 
     // Start is called before the first frame update
@@ -69,6 +69,8 @@ public class BuildBuildings : MonoBehaviour
         //Resource1 = GetComponent<TextMeshProUGUI>();
         //Resource2 = GetComponent<TextMeshProUGUI>();
         ghost = Instantiate(ghost, Vector3.down * 300, Quaternion.identity);
+        Resource1 = GameObject.Find("R1_text").GetComponent<TextMeshProUGUI>();
+        Resource2 = GameObject.Find("R2_text").GetComponent<TextMeshProUGUI>();
     }
 
     public void TownHall()
@@ -121,8 +123,6 @@ public class BuildBuildings : MonoBehaviour
     void Update()
     {
         // displays resources to the player
-        Resource1 = GameObject.Find("R1_text").GetComponent<TextMeshProUGUI>();
-        Resource2 = GameObject.Find("R2_text").GetComponent<TextMeshProUGUI>();
         Resource1.text = r1.ToString();
         Resource2.text = r2.ToString();
 

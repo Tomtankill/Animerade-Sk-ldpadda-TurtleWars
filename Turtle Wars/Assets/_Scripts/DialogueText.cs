@@ -69,7 +69,7 @@ public class DialogueText : MonoBehaviour
 
     private void ShotTransition() {
         switch (countClicks) {
-            case 1:
+            case 7:
                 shot1.SetActive(true);
                 shot2.SetActive(false);
                 shot3.SetActive(false);
@@ -82,9 +82,9 @@ public class DialogueText : MonoBehaviour
                 shot10.SetActive(false);
                 shot11.SetActive(false);
                 break;
-            case 7:
+            case 15:
                 shot1.SetActive(false);
-                shot2.SetActive(false);
+                shot2.SetActive(true);
                 shot3.SetActive(false);
                 shot4.SetActive(false);
                 shot5.SetActive(false);
@@ -95,10 +95,10 @@ public class DialogueText : MonoBehaviour
                 shot10.SetActive(false);
                 shot11.SetActive(false);
                 break;
-            case 13:
+            case 19:
                 shot1.SetActive(false);
                 shot2.SetActive(false);
-                shot3.SetActive(false);
+                shot3.SetActive(true);
                 shot4.SetActive(false);
                 shot5.SetActive(false);
                 shot6.SetActive(false);

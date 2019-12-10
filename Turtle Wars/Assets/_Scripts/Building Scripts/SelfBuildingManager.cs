@@ -36,7 +36,6 @@ public class SelfBuildingManager : Definitions
     // range values
     public float range;
     // cost
-    public float cost;
 
 
     // Building Specific Control Enable
@@ -56,6 +55,8 @@ public class SelfBuildingManager : Definitions
     public Material green;
     public Material purple;
     public Material blue;
+    private float cost;
+    private float cost2;
 
     private new void Awake()
     {
@@ -399,26 +400,74 @@ public class SelfBuildingManager : Definitions
 
     public void QueueTask()
     {
+        cost = 10;
+        cost2 = 0;
         print("Squid Button");
-        gameObject.GetComponent<Queue>().TaskButton(5);
+        if (commander.GetComponent<BuildBuildings>().r1 >= cost)
+        {
+            if (commander.GetComponent<BuildBuildings>().r2 >= cost2)
+            {
+                commander.GetComponent<BuildBuildings>().r1 -= cost;
+                commander.GetComponent<BuildBuildings>().r2 -= cost2;
+                gameObject.GetComponent<Queue>().TaskButton(5);
+            }
+        }
     }
     public void QueueTask1()
     {
-        print("Swordfish Button");
-        gameObject.GetComponent<Queue>().TaskOneButton(5);
+        cost = 10;
+        cost2 = 0;
+        if (commander.GetComponent<BuildBuildings>().r1 >= cost)
+        {
+            if (commander.GetComponent<BuildBuildings>().r2 >= cost2)
+            {
+                commander.GetComponent<BuildBuildings>().r1 -= cost;
+                commander.GetComponent<BuildBuildings>().r2 -= cost2;
+                gameObject.GetComponent<Queue>().TaskOneButton(5);
+            }
+        }
     }
     public void QueueTask2()
     {
-        print("Flyingfish Button");
-        gameObject.GetComponent<Queue>().TaskTwoButton(5);
+        cost = 10;
+        cost2 = 0;
+        if (commander.GetComponent<BuildBuildings>().r1 >= cost)
+        {
+            if (commander.GetComponent<BuildBuildings>().r2 >= cost2)
+            {
+                commander.GetComponent<BuildBuildings>().r1 -= cost;
+                commander.GetComponent<BuildBuildings>().r2 -= cost2;
+                gameObject.GetComponent<Queue>().TaskTwoButton(5);
+            }
+        }
     }
     public void QueueTask3()
     {
-        gameObject.GetComponent<Queue>().TaskThreeButton(5);
+        cost = 10;
+        cost2 = 0;
+        if (commander.GetComponent<BuildBuildings>().r1 >= cost)
+        {
+            if (commander.GetComponent<BuildBuildings>().r2 >= cost2)
+            {
+                commander.GetComponent<BuildBuildings>().r1 -= cost;
+                commander.GetComponent<BuildBuildings>().r2 -= cost2;
+                gameObject.GetComponent<Queue>().TaskThreeButton(5);
+            }
+        }
     }
     public void QueueTask4()
     {
-        gameObject.GetComponent<Queue>().TaskFourButton(5);
+        cost = 10;
+        cost2 = 0;
+        if (commander.GetComponent<BuildBuildings>().r1 >= cost)
+        {
+            if (commander.GetComponent<BuildBuildings>().r2 >= cost2)
+            {
+                commander.GetComponent<BuildBuildings>().r1 -= cost;
+                commander.GetComponent<BuildBuildings>().r2 -= cost2;
+                gameObject.GetComponent<Queue>().TaskFourButton(5);
+            }
+        }
     }
 
 
